@@ -1,0 +1,8 @@
+/usr/bin/circuit-cli		--	gen_context(system_u:object_r:circuit_exec_t,s0)
+/usr/sbin/circuitd		--	gen_context(system_u:object_r:circuit_exec_t,s0)
+/usr/lib(64)?/circuit/circuitd		--	gen_context(system_u:object_r:circuit_exec_t,s0)
+
+/etc/circuit(/.*)?		gen_context(system_u:object_r:circuit_conf_t,s0)
+/var/lib/circuit(/.*)?		gen_context(system_u:object_r:circuit_var_lib_t,s0)
+
+(/var)?/run/circuitd(/.*)?   gen_context(system_u:object_r:circuit_var_run_t,s0)

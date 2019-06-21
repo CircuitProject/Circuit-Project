@@ -201,9 +201,9 @@ class RawTransactionsTest(BitcoinTestFramework):
 
         try:
             self.nodes[2].fundrawtransaction(rawtx, {'changeAddress': 'foobar'})
-            raise AssertionError("Accepted invalid pivx address")
+            raise AssertionError("Accepted invalid circuit address")
         except JSONRPCException as e:
-            assert("changeAddress must be a valid pivx address" in e.error['message'])
+            assert("changeAddress must be a valid circuit address" in e.error['message'])
 
 
         ############################################################

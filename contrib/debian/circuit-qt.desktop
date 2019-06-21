@@ -1,0 +1,13 @@
+[Desktop Entry]
+Version=1.0
+Name=CIRCUIT Core
+Comment=CIRCUIT P2P Cryptocurrency
+Comment[fr]=CIRCUIT, monnaie virtuelle cryptographique pair à pair
+Comment[tr]=CIRCUIT, eşten eşe kriptografik sanal para birimi
+Exec=circuit-qt %u
+Terminal=false
+Type=Application
+Icon=circuit128
+MimeType=x-scheme-handler/circuit;
+Categories=Office;Finance;
+StartupWMClass=Circuit-qt

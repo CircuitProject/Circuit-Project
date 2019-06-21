@@ -1,11 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2019 The CIRCUIT developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef PIVX_SERIALIZE_H
-#define PIVX_SERIALIZE_H
+#ifndef CIRCUIT_SERIALIZE_H
+#define CIRCUIT_SERIALIZE_H
 
 #include <algorithm>
 #include <assert.h>
@@ -936,4 +936,4 @@ public:
     }
 };
 
-#endif // PIVX_SERIALIZE_H
+#endif // CIRCUIT_SERIALIZE_H

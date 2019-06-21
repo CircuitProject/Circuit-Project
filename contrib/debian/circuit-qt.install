@@ -1,0 +1,6 @@
+usr/local/bin/circuit-qt usr/bin
+share/pixmaps/circuit32.xpm usr/share/pixmaps
+share/pixmaps/circuit16.xpm usr/share/pixmaps
+share/pixmaps/circuit128.png usr/share/pixmaps
+debian/circuit-qt.desktop usr/share/applications
+debian/circuit-qt.protocol usr/share/kde4/services/

@@ -1,0 +1,3 @@
+usr/local/bin/circuitd usr/bin
+usr/local/bin/circuit-cli usr/bin
+debian/examples/circuit.conf etc/circuit

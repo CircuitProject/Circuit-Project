@@ -1,0 +1,2 @@
+contrib/circuitd.bash-completion	circuitd
+contrib/circuit-cli.bash-completion circuit-cli

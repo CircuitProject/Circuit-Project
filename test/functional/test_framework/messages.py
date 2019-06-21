@@ -461,7 +461,7 @@ class CBlockHeader():
         self.calc_sha256()
         return self.sha256
 
-    # PIV Uniqueness
+    # CRCT Uniqueness
     def get_uniqueness(self, prevout):
         r = b""
         r += struct.pack("<I", prevout.n)
