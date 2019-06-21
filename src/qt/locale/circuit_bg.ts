@@ -4982,7 +4982,7 @@ Please be patient...</source>
         <translation>Всички права запазени (c) 2014-%i Dash Core разработчици</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The CIRCUIT Core Developers</source>
+        <source>Copyright (C) 2015-%i The PIVX Core Developers</source>
         <translation>Всички права запазени (c) 2015-%i CIRCUIT Core разработчици</translation>
     </message>
     <message>

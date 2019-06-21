@@ -3660,7 +3660,7 @@ https://www.transifex.com/circuit-project/circuit-project-translations</translat
         <translation>Todos os direitos reservados (C) 2014-%i aos Desenvolvedores do Dash Core</translation>
     </message>
     <message>
-        <source>Copyright (C) 2015-%i The CIRCUIT Core Developers</source>
+        <source>Copyright (C) 2015-%i The PIVX Core Developers</source>
         <translation>Todos os direitos reservados (C) 2015-%i aos Desenvolvedores do CIRCUIT Core</translation>
     </message>
     <message>
