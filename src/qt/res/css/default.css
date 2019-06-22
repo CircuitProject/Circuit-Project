@@ -951,6 +951,7 @@ border:1px solid #000; /* Color Hex Black */
 QLabel#labelOverviewHeaderLeft {
 font-weight:bold;
 font-size:20px;
+padding-left:5px;
 background-color:#ffffff; /* Color Hex Off White */
 }
 
