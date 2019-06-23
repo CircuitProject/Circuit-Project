@@ -302,9 +302,9 @@ static const CRPCCommand vRPCCommands[] =
 
         /* Block chain and UTXO */
         {"blockchain", "findserial", &findserial, true, false, false},
-        {"blockchain", "getaccumulatorvalues", &getaccumulatorvalues, true, false, false},
-        {"blockchain", "getaccumulatorwitness", &getaccumulatorwitness, true, false, false},
-        {"blockchain", "getblockindexstats", &getblockindexstats, true, false, false},
+//        {"blockchain", "getaccumulatorvalues", &getaccumulatorvalues, true, false, false},
+//        {"blockchain", "getaccumulatorwitness", &getaccumulatorwitness, true, false, false},
+//        {"blockchain", "getblockindexstats", &getblockindexstats, true, false, false},
         {"blockchain", "getmintsinblocks", &getmintsinblocks, true, false, false},
         {"blockchain", "getserials", &getserials, true, false, false},
         {"blockchain", "getblockchaininfo", &getblockchaininfo, true, false, false},
@@ -446,6 +446,7 @@ static const CRPCCommand vRPCCommands[] =
         {"wallet", "walletpassphrasechange", &walletpassphrasechange, true, false, true},
         {"wallet", "walletpassphrase", &walletpassphrase, true, false, true},
 
+/*
         {"zerocoin", "createrawzerocoinstake", &createrawzerocoinstake, false, false, true},
         {"zerocoin", "createrawzerocoinpublicspend", &createrawzerocoinpublicspend, false, false, true},
         {"zerocoin", "getzerocoinbalance", &getzerocoinbalance, false, false, true},
@@ -470,6 +471,7 @@ static const CRPCCommand vRPCCommands[] =
         {"zerocoin", "dzcrctstate", &dzcrctstate, false, false, true},
         {"zerocoin", "clearspendcache", &clearspendcache, false, false, true}
 
+*/
 #endif // ENABLE_WALLET
 };
 

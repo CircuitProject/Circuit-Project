@@ -58,6 +58,15 @@ public:
         qint64 amount = index.data(TransactionTableModel::AmountRole).toLongLong();
         bool confirmed = index.data(TransactionTableModel::ConfirmedRole).toBool();
 
+        int nStatus = index.data(TransactionTableModel::StatusRole).toInt();
+        bool fConflicted = false;
+        if (nStatus == TransactionStatus::Conflicted || nStatus == TransactionStatus::NotAccepted) {
+            fConflicted = true; // Most probably orphaned, but could have other reasons as well
+        }
+        bool fImmature = false;
+        if (nStatus == TransactionStatus::Immature) {
+            fImmature = true;
+        }
         QVariant value = index.data(Qt::ForegroundRole);
         QColor foreground = COLOR_BLACK;
         if (value.canConvert<QBrush>()) {
@@ -75,8 +84,15 @@ public:
             iconWatchonly.paint(painter, watchonlyRect);
         }
 
-        if (amount < 0)
+        if(fConflicted) { // No need to check anything else for conflicted transactions
+            foreground = COLOR_CONFLICTED;
+        } else if (!confirmed || fImmature) {
+            foreground = COLOR_UNCONFIRMED;
+        } else if (amount < 0) {
             foreground = COLOR_NEGATIVE;
+         } else {
+            foreground = COLOR_BLACK;
+        }
 
         painter->setPen(foreground);
         QString amountText = BitcoinUnits::formatWithUnit(unit, amount, true, BitcoinUnits::separatorAlways);
@@ -241,8 +257,8 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
 
     // Adjust bubble-help according to AutoMint settings
     QString automintHelp = tr("Current percentage of zCRCT.\nIf AutoMint is enabled this percentage will settle around the configured AutoMint percentage (default = 10%).\n");
-    bool fEnableZeromint = GetBoolArg("-enablezeromint", true);
-    int nZeromintPercentage = GetArg("-zeromintpercentage", 10);
+    bool fEnableZeromint = GetBoolArg("-enablezeromint", false);
+    int nZeromintPercentage = GetArg("-zeromintpercentage", 1);
     if (fEnableZeromint) {
         automintHelp += tr("AutoMint is currently enabled and set to ") + QString::number(nZeromintPercentage) + "%.\n";
         automintHelp += tr("To disable AutoMint add 'enablezeromint=0' in circuit.conf.");
@@ -290,18 +306,21 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->labelWatchLocked->setVisible(showWatchOnlyCRCTLocked && showWatchOnly);
 
     // zCRCT
-    bool showzCRCTAvailable = settingShowAllBalances || zerocoinBalance != matureZerocoinBalance;
-    bool showzCRCTUnconfirmed = settingShowAllBalances || unconfirmedZerocoinBalance != 0;
-    bool showzCRCTImmature = settingShowAllBalances || immatureZerocoinBalance != 0;
+    bool showzCRCTAvailable = false;//settingShowAllBalances || zerocoinBalance != matureZerocoinBalance;
+    bool showzCRCTUnconfirmed = false;//settingShowAllBalances || unconfirmedZerocoinBalance != 0;
+    bool showzCRCTImmature = false;//settingShowAllBalances || immatureZerocoinBalance != 0;
     ui->labelzBalanceMature->setVisible(showzCRCTAvailable);
     ui->labelzBalanceMatureText->setVisible(showzCRCTAvailable);
     ui->labelzBalanceUnconfirmed->setVisible(showzCRCTUnconfirmed);
     ui->labelzBalanceUnconfirmedText->setVisible(showzCRCTUnconfirmed);
     ui->labelzBalanceImmature->setVisible(showzCRCTImmature);
     ui->labelzBalanceImmatureText->setVisible(showzCRCTImmature);
+    ui->label_5z_3->setVisible(false);
+    ui->labelzBalanceText->setVisible(false);
+    ui->labelzBalance->setVisible(false);
 
     // Percent split
-    bool showPercentages = ! (zerocoinBalance == 0 && nTotalBalance == 0);
+    bool showPercentages = false;// ! (zerocoinBalance == 0 && nTotalBalance == 0);
     ui->labelCRCTPercent->setVisible(showPercentages);
     ui->labelzCRCTPercent->setVisible(showPercentages);
 

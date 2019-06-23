@@ -7,6 +7,7 @@
 #include "addrman.h"
 #include "chainparams.h"
 #include "masternode-budget.h"
+#include "masternode-devbudget.h"
 #include "masternode-sync.h"
 #include "masternodeman.h"
 #include "obfuscation.h"
@@ -251,6 +252,11 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
         }
     }
 
+    if (!devbudget.IsTransactionValid(txNew, nBlockHeight)) {
+        LogPrint("masternode","Invalid dev budget payment detected %s\n", txNew.ToString().c_str());
+        return false;
+    }
+
     // If we end here the transaction was either TrxValidationStatus::InValid and Budget enforcement is disabled, or
     // a double budget payment (status = TrxValidationStatus::DoublePayment) was detected, or no/not enough masternode
     // votes (status = TrxValidationStatus::VoteThreshold) for a finalized budget were found
@@ -297,9 +303,10 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
     bool hasPayment = true;
     CScript payee;
+    const int nTargetHeight = pindexPrev->nHeight + 1;
 
     //spork
-    if (!masternodePayments.GetBlockPayee(pindexPrev->nHeight + 1, payee)) {
+    if (!masternodePayments.GetBlockPayee(nTargetHeight, payee)) {
         //no masternode detected
         CMasternode* winningNode = mnodeman.GetCurrentMasterNode(1);
         if (winningNode) {
@@ -310,8 +317,9 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         }
     }
 
-    CAmount blockValue = GetBlockValue(pindexPrev->nHeight);
-    CAmount masternodePayment = GetMasternodePayment(pindexPrev->nHeight, blockValue, 0, fZCRCTStake);
+    CAmount blockValue = GetBlockValue(nTargetHeight);
+    CAmount masternodePayment = GetMasternodePayment(nTargetHeight, blockValue, fZCRCTStake);
+    CAmount devPayment = GetDevelopersPayment(nTargetHeight, blockValue, fZCRCTStake);
 
     if (hasPayment) {
         if (fProofOfStake) {
@@ -327,7 +335,11 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
 
             //subtract mn payment from the stake reward
             if (!txNew.vout[1].IsZerocoinMint())
-                txNew.vout[i - 1].nValue -= masternodePayment;
+                txNew.vout[i - 1].nValue -= (masternodePayment + devPayment);
+            
+            // dev payment
+            CBitcoinAddress devbaddress = CBitcoinAddress(Params().GetDevFundAddress());
+            txNew.vout.push_back(CTxOut(devPayment, GetScriptForDestination(devbaddress.Get())));
         } else {
             txNew.vout.resize(2);
             txNew.vout[1].scriptPubKey = payee;
@@ -339,7 +351,12 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         ExtractDestination(payee, address1);
         CBitcoinAddress address2(address1);
 
-        LogPrint("masternode","Masternode payment of %s to %s\n", FormatMoney(masternodePayment).c_str(), address2.ToString().c_str());
+        LogPrint("masternode","%s: Masternode payment of %s to %s nHeigh:%d\n", __func__, FormatMoney(masternodePayment).c_str(), address2.ToString().c_str(), nTargetHeight);
+    }
+    else {
+        if (!fProofOfStake) {
+            txNew.vout[0].nValue = blockValue;
+        }
     }
 }
 
@@ -527,24 +544,12 @@ bool CMasternodeBlockPayees::IsTransactionValid(const CTransaction& txNew)
     LOCK(cs_vecPayments);
 
     int nMaxSignatures = 0;
-    int nMasternode_Drift_Count = 0;
 
     std::string strPayeesPossible = "";
 
     CAmount nReward = GetBlockValue(nBlockHeight);
 
-    if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT)) {
-        // Get a stable number of masternodes by ignoring newly activated (< 8000 sec old) masternodes
-        nMasternode_Drift_Count = mnodeman.stable_size() + Params().MasternodeCountDrift();
-    }
-    else {
-        //account for the fact that all peers do not see the same masternode count. A allowance of being off our masternode count is given
-        //we only need to look at an increased masternode count because as count increases, the reward decreases. This code only checks
-        //for mnPayment >= required, so it only makes sense to check the max node count allowed.
-        nMasternode_Drift_Count = mnodeman.size() + Params().MasternodeCountDrift();
-    }
-
-    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, nMasternode_Drift_Count, txNew.HasZerocoinSpendInputs());
+    CAmount requiredMasternodePayment = GetMasternodePayment(nBlockHeight, nReward, txNew.HasZerocoinSpendInputs());
 
     //require at least 6 signatures
     for (CMasternodePayee& payee : vecPayments)

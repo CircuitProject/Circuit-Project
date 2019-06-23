@@ -198,26 +198,12 @@ bool InitializeAccumulators(const int nHeight, int& nHeightCheckpoint, Accumulat
     if (nHeight < Params().Zerocoin_StartHeight())
         return error("%s: height is below zerocoin activated", __func__);
 
-    //On a specific block, a recalculation of the accumulators will be forced
-    if (nHeight == Params().Zerocoin_Block_RecalculateAccumulators() && Params().NetworkID() != CBaseChainParams::REGTEST) {
-        mapAccumulators.Reset();
-        if (!mapAccumulators.Load(chainActive[Params().Zerocoin_Block_LastGoodCheckpoint()]->nAccumulatorCheckpoint))
-            return error("%s: failed to reset to previous checkpoint when recalculating accumulators", __func__);
-
-        // Erase the checkpoints from the period of time that bad mints were being made
-        if (!EraseCheckpoints(Params().Zerocoin_Block_LastGoodCheckpoint() + 1, nHeight))
-            return error("%s : failed to erase Checkpoints while recalculating checkpoints", __func__);
-
-        nHeightCheckpoint = Params().Zerocoin_Block_LastGoodCheckpoint();
-        return true;
-    }
-
     if (nHeight >= Params().Zerocoin_Block_V2_Start()) {
         //after v2_start, accumulators need to use v2 params
         mapAccumulators.Reset(Params().Zerocoin_Params(false));
 
         // 20 after v2 start is when the new checkpoints will be in the block, so don't need to load hard checkpoints
-        if (nHeight <= Params().Zerocoin_Block_V2_Start() + 20 && Params().NetworkID() != CBaseChainParams::REGTEST) {
+        if (nHeight <= (Params().Zerocoin_Block_V2_Start() + 20) && Params().NetworkID() != CBaseChainParams::REGTEST) {
             //Load hard coded checkpointed value
             AccumulatorCheckpoints::Checkpoint checkpoint = AccumulatorCheckpoints::GetClosestCheckpoint(nHeight,
                                                                                                          nHeightCheckpoint);
@@ -261,11 +247,12 @@ bool CalculateAccumulatorCheckpoint(int nHeight, uint256& nCheckpoint, Accumulat
     if (!InitializeAccumulators(nHeight, nHeightCheckpoint, mapAccumulators))
         return error("%s: failed to initialize accumulators", __func__);
 
-    //Whether this should filter out invalid/fraudulent outpoints
-    bool fFilterInvalid = nHeight >= Params().Zerocoin_Block_RecalculateAccumulators();
-
-    //Accumulate all coins over the last ten blocks that havent been accumulated (height - 20 through height - 11)
     int nTotalMintsFound = 0;
+    //Accumulate all coins over the last ten blocks that havent been accumulated (height - 20 through height - 11)
+    if (nHeightCheckpoint < 20) {
+        nCheckpoint = chainActive[nHeight - 1]->nAccumulatorCheckpoint;
+        return true;
+    }
     CBlockIndex *pindex = chainActive[nHeightCheckpoint - 20];
 
     while (pindex->nHeight < nHeight - 10) {
@@ -285,7 +272,7 @@ bool CalculateAccumulatorCheckpoint(int nHeight, uint256& nCheckpoint, Accumulat
             return error("%s: failed to read block from disk", __func__);
 
         std::list<PublicCoin> listPubcoins;
-        if (!BlockToPubcoinList(block, listPubcoins, fFilterInvalid))
+        if (!BlockToPubcoinList(block, listPubcoins, true))
             return error("%s: failed to get zerocoin mintlist from block %d", __func__, pindex->nHeight);
 
         nTotalMintsFound += listPubcoins.size();
@@ -311,7 +298,7 @@ bool CalculateAccumulatorCheckpoint(int nHeight, uint256& nCheckpoint, Accumulat
 
 bool InvalidCheckpointRange(int nHeight)
 {
-    return nHeight > Params().Zerocoin_Block_LastGoodCheckpoint() && nHeight < Params().Zerocoin_Block_RecalculateAccumulators();
+    return true;
 }
 
 bool ValidateAccumulatorCheckpoint(const CBlock& block, CBlockIndex* pindex, AccumulatorMap& mapAccumulators)
@@ -504,7 +491,7 @@ int SearchMintHeightOf(CBigNum value){
 
 void AccumulateRange(CoinWitnessData* coinWitness, int nHeightEnd)
 {
-    bool fDoubleCounted = false;
+//    bool fDoubleCounted = false;
     int64_t nTimeStart = GetTimeMicros();
     int nHeightStart = std::max(coinWitness->nHeightAccStart, coinWitness->nHeightAccEnd + 1);
     CBlockIndex* pindex = chainActive[nHeightStart];
@@ -515,11 +502,11 @@ void AccumulateRange(CoinWitnessData* coinWitness, int nHeightEnd)
         coinWitness->nHeightAccEnd = pindex->nHeight;
 
         // 10 blocks were accumulated twice when zCRCT v2 was activated
-        if (pindex->nHeight == Params().Zerocoin_Block_Double_Accumulated() + 10 && !fDoubleCounted) {
-            pindex = chainActive[Params().Zerocoin_Block_Double_Accumulated()];
-            fDoubleCounted = true;
-            continue;
-        }
+//        if (pindex->nHeight == Params().Zerocoin_Block_Double_Accumulated() + 10 && !fDoubleCounted) {
+//            pindex = chainActive[Params().Zerocoin_Block_Double_Accumulated()];
+//            fDoubleCounted = true;
+//            continue;
+//        }
 
         pindex = chainActive.Next(pindex);
     }
@@ -613,14 +600,14 @@ bool calculateAccumulatedBlocksFor(
         list<CBigNum>& ret,
         string& strError
 ){
-    bool fDoubleCounted = false;
+//    bool fDoubleCounted = false;
     int nMintsAdded = 0;
     while (pindex) {
 
         if (pindex->nHeight >= nHeightStop) {
             //If this height is within the invalid range (when fraudulent coins were being minted), then continue past this range
-            if(InvalidCheckpointRange(pindex->nHeight))
-                continue;
+//            if(InvalidCheckpointRange(pindex->nHeight))
+ //               continue;
 
             bnAccValue = 0;
             uint256 nCheckpointSpend = chainActive[pindex->nHeight + 10]->nAccumulatorCheckpoint;
@@ -635,11 +622,11 @@ bool calculateAccumulatedBlocksFor(
         nMintsAdded += AddBlockMintsToAccumulator(den, filter, pindex, &witnessAccumulator, true, ret);
 
         // 10 blocks were accumulated twice when zCRCT v2 was activated
-        if (pindex->nHeight == 1050010 && !fDoubleCounted) {
-            pindex = chainActive[1050000];
-            fDoubleCounted = true;
-            continue;
-        }
+//        if (pindex->nHeight == 1050010 && !fDoubleCounted) {
+//            pindex = chainActive[1050000];
+//            fDoubleCounted = true;
+//            continue;
+//        }
 
         pindex = chainActive.Next(pindex);
     }
@@ -670,14 +657,14 @@ bool calculateAccumulatedBlocksFor(
 ){
 
     int amountOfScannedBlocks = 0;
-    bool fDoubleCounted = false;
+//    bool fDoubleCounted = false;
     int nMintsAdded = 0;
     while (pindex) {
 
         if (pindex->nHeight >= nHeightStop) {
             //If this height is within the invalid range (when fraudulent coins were being minted), then continue past this range
-            if(InvalidCheckpointRange(pindex->nHeight))
-                continue;
+//            if(InvalidCheckpointRange(pindex->nHeight))
+ //               continue;
 
             bnAccValue = 0;
             uint256 nCheckpointSpend = chainActive[pindex->nHeight + 10]->nAccumulatorCheckpoint;
@@ -693,11 +680,11 @@ bool calculateAccumulatedBlocksFor(
         nMintsAdded += AddBlockMintsToAccumulator(coin, nHeightMintAdded, pindex, &witnessAccumulator, true);
 
         // 10 blocks were accumulated twice when zCRCT v2 was activated
-        if (pindex->nHeight == 1050010 && !fDoubleCounted) {
-            pindex = chainActive[1050000];
-            fDoubleCounted = true;
-            continue;
-        }
+//        if (pindex->nHeight == 1050010 && !fDoubleCounted) {
+//            pindex = chainActive[1050000];
+ //           fDoubleCounted = true;
+ //           continue;
+ //       }
 
         amountOfScannedBlocks++;
         pindex = chainActive.Next(pindex);

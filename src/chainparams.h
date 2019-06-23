@@ -90,6 +90,7 @@ public:
     const std::vector<CAddress>& FixedSeeds() const { return vFixedSeeds; }
     virtual const Checkpoints::CCheckpointData& Checkpoints() const = 0;
     int PoolMaxTransactions() const { return nPoolMaxTransactions; }
+    CAmount StakeInputMinimal() const { return nStakeInputMinimal; }
     /** Return the number of blocks in a budget cycle */
     int GetBudgetCycleBlocks() const { return nBudgetCycleBlocks; }
     int64_t GetProposalEstablishmentTime() const { return nProposalEstablishmentTime; }
@@ -135,6 +136,11 @@ public:
 
     int Zerocoin_Block_Double_Accumulated() const { return nBlockDoubleAccumulated; }
     CAmount InvalidAmountFiltered() const { return nInvalidAmountFiltered; };
+    
+    /** Masternode colleteral value */
+    int MasternodeCollateral() const { return  nMasternodeCollateral; }
+    /** Address of developers fund */
+    std::string GetDevFundAddress() const { return  strDevFundAddress; }
 
     int Zerocoin_Block_Public_Spend_Enabled() const { return nPublicZCSpends; }
 
@@ -205,6 +211,10 @@ protected:
     int nBlockZerocoinV2;
     int nBlockDoubleAccumulated;
     int nPublicZCSpends;
+
+    int nMasternodeCollateral;
+    std::string strDevFundAddress;
+    CAmount nStakeInputMinimal;
 
     // fake serial attack
     int nFakeSerialBlockheightEnd = 0;

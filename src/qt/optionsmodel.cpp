@@ -82,15 +82,15 @@ void OptionsModel::Init()
     fCoinControlFeatures = settings.value("fCoinControlFeatures", false).toBool();
 
     if (!settings.contains("fZeromintEnable"))
-        settings.setValue("fZeromintEnable", true);
+        settings.setValue("fZeromintEnable", false);
     fEnableZeromint = settings.value("fZeromintEnable").toBool();
 
     if (!settings.contains("fEnableAutoConvert"))
-        settings.setValue("fEnableAutoConvert", true);
+        settings.setValue("fEnableAutoConvert", false);
     fEnableAutoConvert = settings.value("fEnableAutoConvert").toBool();
 
     if (!settings.contains("nZeromintPercentage"))
-        settings.setValue("nZeromintPercentage", 10);
+        settings.setValue("nZeromintPercentage", 0);
     nZeromintPercentage = settings.value("nZeromintPercentage").toLongLong();
 
     if (!settings.contains("nPreferredDenom"))
@@ -127,7 +127,7 @@ void OptionsModel::Init()
         addOverriddenOption("-spendzeroconfchange");
 #endif
     if (!settings.contains("nStakeSplitThreshold"))
-        settings.setValue("nStakeSplitThreshold", 1);
+        settings.setValue("nStakeSplitThreshold", 2000);
 
 
     // Network

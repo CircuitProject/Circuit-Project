@@ -264,7 +264,8 @@ bool GetKernelStakeModifier(uint256 hashBlockFrom, uint64_t& nStakeModifier, int
     while (nStakeModifierTime < pindexFrom->GetBlockTime() + nStakeModifierSelectionInterval) {
         if (!pindexNext) {
             // Should never happen
-            return error("Null pindexNext\n");
+            LogPrint("staking", " %s :Null pindexNext\n",  __func__);
+            return false;
         }
 
         pindex = pindexNext;
@@ -305,9 +306,10 @@ bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockF
         if (nTimeTx < nTimeBlockFrom)
             return error("CheckStakeKernelHash() : nTime violation");
 
-        if ((nTimeBlockFrom + nStakeMinAge > nTimeTx)) // Min age requirement
-            return error("CheckStakeKernelHash() : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d",
-                         nTimeBlockFrom, nStakeMinAge, nTimeTx);
+        if ((nTimeBlockFrom + nStakeMinAge > nTimeTx)) { // Min age requirement
+        LogPrint("staking", " %s : min age violation - nTimeBlockFrom=%d nStakeMinAge=%d nTimeTx=%d\n", __func__, nTimeBlockFrom, nStakeMinAge, nTimeTx);
+        return false;
+        }
 
     }
 
@@ -317,8 +319,10 @@ bool Stake(CStakeInput* stakeInput, unsigned int nBits, unsigned int nTimeBlockF
 
     //grab stake modifier
     uint64_t nStakeModifier = 0;
-    if (!stakeInput->GetModifier(nStakeModifier))
-        return error("failed to get kernel stake modifier");
+    if (!stakeInput->GetModifier(nStakeModifier)) {
+         LogPrint("staking", " %s :failed to get kernel stake modifier\n",  __func__);
+         return false;
+    }
 
     bool fSuccess = false;
     unsigned int nTryTime = 0;
@@ -431,7 +435,7 @@ bool CheckProofOfStake(const CBlock block, uint256& hashProofOfStake, std::uniqu
 
     unsigned int nBlockFromTime = blockfrom.nTime;
     unsigned int nTxTime = block.nTime;
-    if (!txin.IsZerocoinSpend() && nPreviousBlockHeight >= Params().Zerocoin_Block_Public_Spend_Enabled() - 1) { //Equivalent for zCRCT is checked above in ContextualCheckZerocoinStake()
+    if (!txin.IsZerocoinSpend()) { //Equivalent for zCRCT is checked above in ContextualCheckZerocoinStake()
         if (nTxTime < nBlockFromTime) // Transaction timestamp nTxTime
             return error("CheckStakeKernelHash() : nTime violation - nBlockFromTime=%d nTimeTx=%d", nBlockFromTime, nTxTime);
         if (nBlockFromTime + nStakeMinAge > nTxTime) // Min age requirement

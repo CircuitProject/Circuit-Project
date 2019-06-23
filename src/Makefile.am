@@ -124,6 +124,7 @@ BITCOIN_CORE_H = \
   masternode.h \
   masternode-payments.h \
   masternode-budget.h \
+  masternode-devbudget.h \
   masternode-sync.h \
   masternodeman.h \
   masternodeconfig.h \
@@ -263,6 +264,7 @@ libbitcoin_wallet_a_SOURCES = \
   swifttx.cpp \
   masternode.cpp \
   masternode-budget.cpp \
+  masternode-devbudget.cpp \
   masternode-payments.cpp \
   masternode-sync.cpp \
   masternodeconfig.cpp \

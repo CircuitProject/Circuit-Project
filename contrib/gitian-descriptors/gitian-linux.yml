@@ -1,5 +1,5 @@
 ---
-name: "circuit-linux-3.3"
+name: "circuit-linux-1.0"
 enable_cache: true
 distro: "ubuntu"
 suites:
