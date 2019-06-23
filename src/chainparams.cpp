@@ -129,7 +129,7 @@ public:
         nMaxMoneyOut = 3000000000 * COIN;
 
         nMasternodeCollateral = 500000;
-        strDevFundAddress = "SSDx9L7MAmg8yUfqMPTiRPjKJVnMyYz6mG";
+        strDevFundAddress = "CTUYVasoxSDZTPW4AqQMCLVeePijEeGB36";
         nStakeInputMinimal = 1500 * COIN;
         /** Height or Time Based Activations **/
         nLastPOWBlock = 300;
@@ -196,12 +196,12 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        fMiningRequiresPeers = true;
+        fMiningRequiresPeers = false;
         fAllowMinDifficultyBlocks = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
-        fSkipProofOfWorkCheck = false;
+        fSkipProofOfWorkCheck = true;
         fTestnetToBeDeprecatedFieldRPC = false;
         fHeadersFirstSyncingActive = false;
 
