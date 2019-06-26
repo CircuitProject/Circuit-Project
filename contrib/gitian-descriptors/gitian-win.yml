@@ -1,5 +1,5 @@
 ---
-name: "circuit-win-3.3"
+name: "circuit-win-1.0"
 enable_cache: true
 distro: "ubuntu"
 suites:

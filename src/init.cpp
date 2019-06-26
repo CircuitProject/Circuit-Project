@@ -613,6 +613,8 @@ std::string LicenseInfo()
            "\n" +
            FormatParagraph(strprintf(_("Copyright (C) 2015-%i The PIVX Core Developers"), COPYRIGHT_YEAR)) + "\n" +
            "\n" +
+           FormatParagraph(strprintf(_("Copyright (C) 2019-%i The CIRCUIT Developers"), COPYRIGHT_YEAR)) + "\n" +
+           "\n" +
            FormatParagraph(_("This is experimental software.")) + "\n" +
            "\n" +
            FormatParagraph(_("Distributed under the MIT software license, see the accompanying file COPYING or <http://www.opensource.org/licenses/mit-license.php>.")) + "\n" +
@@ -1505,52 +1507,18 @@ bool AppInit2()
                 }
 
                 // Wrapped serials inflation check
-                bool reindexDueWrappedSerials = false;
-                bool reindexZerocoin = false;
-                int chainHeight = chainActive.Height();
-                if(Params().NetworkID() == CBaseChainParams::MAIN && chainHeight > Params().Zerocoin_Block_EndFakeSerial()) {
-
-                    // Supply needs to be exactly GetSupplyBeforeFakeSerial + GetWrapppedSerialInflationAmount
-                    CBlockIndex* pblockindex = chainActive[Params().Zerocoin_Block_EndFakeSerial() + 1];
-                    CAmount zcrctSupplyCheckpoint = Params().GetSupplyBeforeFakeSerial() + GetWrapppedSerialInflationAmount();
-
-                    if (pblockindex->GetZerocoinSupply() < zcrctSupplyCheckpoint) {
-                        // Trigger reindex due wrapping serials
-                        LogPrintf("Current GetZerocoinSupply: %d vs %d\n", pblockindex->GetZerocoinSupply()/COIN , zcrctSupplyCheckpoint/COIN);
-                        reindexDueWrappedSerials = true;
-                    } else if (pblockindex->GetZerocoinSupply() > zcrctSupplyCheckpoint) {
-                        // Trigger global zCRCT reindex
-                        reindexZerocoin = true;
-                        LogPrintf("Current GetZerocoinSupply: %d vs %d\n", pblockindex->GetZerocoinSupply()/COIN , zcrctSupplyCheckpoint/COIN);
-                    }
-
-                }
-
-                // Reindex only for wrapped serials inflation.
-                if (reindexDueWrappedSerials)
-                    AddWrappedSerialsInflation();
-
-                // Recalculate money supply for blocks that are impacted by accounting issue after zerocoin activation
-                if (GetBoolArg("-reindexmoneysupply", false) || reindexZerocoin) {
-                    if (chainHeight > Params().Zerocoin_StartHeight()) {
+                if (GetBoolArg("-reindexmoneysupply", false)) {
+                    if (chainActive.Height() > Params().Zerocoin_StartHeight()) {
                         RecalculateZCRCTMinted();
                         RecalculateZCRCTSpent();
                     }
                     // Recalculate from the zerocoin activation or from scratch.
-                    RecalculateCRCTSupply(reindexZerocoin ? Params().Zerocoin_StartHeight() : 1);
-                }
-
-                // Check Recalculation result
-                if(Params().NetworkID() == CBaseChainParams::MAIN && chainHeight > Params().Zerocoin_Block_EndFakeSerial()) {
-                    CBlockIndex* pblockindex = chainActive[Params().Zerocoin_Block_EndFakeSerial() + 1];
-                    CAmount zcrctSupplyCheckpoint = Params().GetSupplyBeforeFakeSerial() + GetWrapppedSerialInflationAmount();
-                    if (pblockindex->GetZerocoinSupply() != zcrctSupplyCheckpoint)
-                        return InitError(strprintf("ZerocoinSupply Recalculation failed: %d vs %d", pblockindex->GetZerocoinSupply()/COIN , zcrctSupplyCheckpoint/COIN));
+                    RecalculateCRCTSupply(1);
                 }
 
                 // Force recalculation of accumulators.
                 if (GetBoolArg("-reindexaccumulators", false)) {
-                    if (chainHeight > Params().Zerocoin_Block_V2_Start()) {
+                    if (chainActive.Height() > Params().Zerocoin_Block_V2_Start()) {
                         CBlockIndex *pindex = chainActive[Params().Zerocoin_Block_V2_Start()];
                         while (pindex->nHeight < chainActive.Height()) {
                             if (!count(listAccCheckpointsNoDB.begin(), listAccCheckpointsNoDB.end(),
@@ -1911,9 +1879,9 @@ bool AppInit2()
         }
     }
 
-    fEnableZeromint = GetBoolArg("-enablezeromint", true);
+    fEnableZeromint = GetBoolArg("-enablezeromint", false);
 
-    nZeromintPercentage = GetArg("-zeromintpercentage", 10);
+    nZeromintPercentage = GetArg("-zeromintpercentage", 1);
     if (nZeromintPercentage > 100) nZeromintPercentage = 100;
     if (nZeromintPercentage < 1) nZeromintPercentage = 1;
 

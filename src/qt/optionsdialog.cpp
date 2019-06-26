@@ -46,6 +46,12 @@ OptionsDialog::OptionsDialog(QWidget* parent, bool enableWallet) : QDialog(paren
     ui->databaseCache->setMaximum(nMaxDbCache);
     ui->threadsScriptVerif->setMinimum(-(int)boost::thread::hardware_concurrency());
     ui->threadsScriptVerif->setMaximum(MAX_SCRIPTCHECK_THREADS);
+    ui->checkBoxZeromintEnable->setVisible(false);
+    ui->checkBoxZeromintAddresses->setVisible(false);
+    ui->percentage_label->setVisible(false);
+    ui->zeromintPercentage->setVisible(false);
+    ui->labelPreferredDenom->setVisible(false);
+    ui->preferredDenom->setVisible(false);
 
 /* Network elements init */
 #ifndef USE_UPNP

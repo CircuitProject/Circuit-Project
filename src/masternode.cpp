@@ -207,15 +207,15 @@ void CMasternode::Check(bool forceCheck)
         return;
     }
 
-    if(lastPing.sigTime - sigTime < MASTERNODE_MIN_MNP_SECONDS){
-    	activeState = MASTERNODE_PRE_ENABLED;
-    	return;
-    }
+    //if(lastPing.sigTime - sigTime < MASTERNODE_MIN_MNP_SECONDS){
+    //	activeState = MASTERNODE_PRE_ENABLED;
+    //	return;
+   // }
 
     if (!unitTest) {
         CValidationState state;
         CMutableTransaction tx = CMutableTransaction();
-        CTxOut vout = CTxOut(9999.99 * COIN, obfuScationPool.collateralPubKey);
+        CTxOut vout = CTxOut((Params().MasternodeCollateral() - 0.01) * COIN, obfuScationPool.collateralPubKey);
         tx.vin.push_back(vin);
         tx.vout.push_back(vout);
 
@@ -526,8 +526,8 @@ bool CMasternodeBroadcast::CheckAndUpdate(int& nDos)
     }
 
     if (Params().NetworkID() == CBaseChainParams::MAIN) {
-        if (addr.GetPort() != 31350) return false;
-    } else if (addr.GetPort() == 31350)
+        if (addr.GetPort() != Params().GetDefaultPort()) return false;
+    } else if (addr.GetPort() == Params().GetDefaultPort())
         return false;
 
     //search existing Masternode list, this is where we update existing Masternodes with new mnb broadcasts
@@ -585,7 +585,7 @@ bool CMasternodeBroadcast::CheckInputsAndAdd(int& nDoS)
 
     CValidationState state;
     CMutableTransaction tx = CMutableTransaction();
-    CTxOut vout = CTxOut(9999.99 * COIN, obfuScationPool.collateralPubKey);
+    CTxOut vout = CTxOut((Params().MasternodeCollateral() - 0.01) * COIN, obfuScationPool.collateralPubKey);
     tx.vin.push_back(vin);
     tx.vout.push_back(vout);
 

@@ -99,7 +99,7 @@ bool fLiteMode = false;
 bool fEnableSwiftTX = true;
 int nSwiftTXDepth = 5;
 // Automatic Zerocoin minting
-bool fEnableZeromint = true;
+bool fEnableZeromint = false;
 bool fEnableAutoConvert = true;
 int nZeromintPercentage = 10;
 int nPreferredDenom = 0;
@@ -498,9 +498,31 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
     if (!streamConfig.good()) {
         // Create empty circuit.conf if it does not exist
         FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
-        if (configFile != NULL)
+        if (configFile != NULL) {
+            unsigned char rand_pwd[32];
+            char rpc_passwd[32];
+            GetRandBytes(rand_pwd, 32);
+            for (int i = 0; i < 32; i++) {
+                rpc_passwd[i] = (rand_pwd[i] % 26) + 97;
+            }
+            rpc_passwd[31] = '\0';
+            unsigned char rand_user[16];
+            char rpc_user[16];
+            GetRandBytes(rand_user, 16);
+            for (int i = 0; i < 16; i++) {
+                rpc_user[i] = (rand_user[i] % 26) + 97;
+            }
+            rpc_user[15] = '\0';
+            std::string strHeader = "rpcuser=";
+            strHeader += rpc_user;
+            strHeader += "\nrpcpassword=";
+            strHeader += rpc_passwd;
+            strHeader += "txindex=1\ncircuitstake=1\n";
+            fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
             fclose(configFile);
-        return; // Nothing to read, so just return
+        }
+        // return; // Nothing to read, so just return
+        streamConfig.open(GetConfigFile());
     }
 
     set<string> setOptions;
