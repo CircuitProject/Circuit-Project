@@ -34,7 +34,7 @@ bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
     bool fundValid = nAmount >= budgetPayment;
 
     if (!fundValid) {
-        error("%s: invalid dev fund payment detected, expected %s, payed %s, tx:\n%s\n",
+        error("%s: invalid dev fund payment detected, expected %s, payed %s, tx:%s height:%d\n",
                 __func__, FormatMoney(budgetPayment), FormatMoney(nAmount), txNew.ToString().c_str(), nBlockHeight);
     }
     

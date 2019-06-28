@@ -433,7 +433,7 @@ outline:0;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
-background-color: #5c4c7c; /* Color Hex Gray99 */
+background-color: #000; /* Color Hex Gray99 */
 color:#fff; /* Color Hex White */
 min-height:25px;
 font-weight:bold;
@@ -474,7 +474,7 @@ font-size:12px;
 }
 
 QTableView::item:selected { /* Table Item Selected */
-background-color:#5c4c7c; /* Color Hex Gray99 */
+background-color:#000; /* Color Hex Gray99 */
 color:#fff; /* Color Hex White */
 }
 

@@ -351,7 +351,7 @@ void CMasternodePayments::FillBlockPayee(CMutableTransaction& txNew, int64_t nFe
         ExtractDestination(payee, address1);
         CBitcoinAddress address2(address1);
 
-        LogPrint("masternode","%s: Masternode payment of %s to %s nHeigh:%d\n", __func__, FormatMoney(masternodePayment).c_str(), address2.ToString().c_str(), nTargetHeight);
+         LogPrintf("%s: Masternode payment of %s to %s nHeigh:%d\n", __func__, FormatMoney(masternodePayment).c_str(), address2.ToString().c_str(), nTargetHeight);
     }
     else {
         if (!fProofOfStake) {

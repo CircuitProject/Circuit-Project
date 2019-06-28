@@ -54,11 +54,13 @@ static void convertSeed6(std::vector<CAddress>& vSeedsOut, const SeedSpec6* data
 static Checkpoints::MapCheckpoints mapCheckpoints =
     boost::assign::map_list_of
     (0, uint256("00000358424d602ae8564e2346a6305535b47a3e098a09bac96be7323f627b5b"))
+    (1, uint256("00000fbbdf225a1cf9120e23a06f20923e7112078ef2cc59334b7b252443b19f"))
+    (305, uint256("33270d192795b54169ef99b30d52ad319ee016be3d311dc3afef56b6ef13b225"))
     ;
 static const Checkpoints::CCheckpointData data = {
     &mapCheckpoints,
-    1560727481, // * UNIX timestamp of last checkpoint block
-    0,    // * total number of transactions between genesis and last checkpoint
+    1561330116, // * UNIX timestamp of last checkpoint block
+    312,    // * total number of transactions between genesis and last checkpoint
                 //   (the tx=... number in the SetBestChain debug.log lines)
     100        // * estimated number of transactions per day after checkpoint
 };
@@ -183,8 +185,9 @@ public:
         assert(hashGenesisBlock == uint256("0x00000358424d602ae8564e2346a6305535b47a3e098a09bac96be7323f627b5b"));
         assert(genesis.hashMerkleRoot == uint256("0xbd946f84ad9ac229cb8f9585fd5ddcba0fddc86d7cd8bf938325109a4e6bb955"));
 
-        //vSeeds.push_back(CDNSSeedData("66.42.76.32", "66.42.76.32"));     // Primary DNS Seeder
-        //vSeeds.push_back(CDNSSeedData("66.55.159.232", "66.55.159.232"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("seed1",   "seed1.circuit-society.io"));     // Primary DNS Seeder
+        vSeeds.push_back(CDNSSeedData("seed2",   "seed2.circuit-society.io")); 
+        vSeeds.push_back(CDNSSeedData("seed3",   "seed3.circuit-society.io"));   
         
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,28);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,33);
@@ -196,12 +199,12 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        fMiningRequiresPeers = false;
+        fMiningRequiresPeers = true;
         fAllowMinDifficultyBlocks = false;
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
         fMineBlocksOnDemand = false;
-        fSkipProofOfWorkCheck = true;
+        fSkipProofOfWorkCheck = false;
         fTestnetToBeDeprecatedFieldRPC = false;
         fHeadersFirstSyncingActive = false;
 

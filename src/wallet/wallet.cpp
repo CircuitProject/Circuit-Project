@@ -2397,7 +2397,7 @@ bool CWallet::CreateCoinStake(
         //make sure that enough time has elapsed between
         CBlockIndex* pindex = stakeInput->GetIndexFrom();
         if (!pindex || pindex->nHeight < 1) {
-            LogPrint("debug","%s: no pindexfrom\n", __func__);
+            LogPrint("staking","%s: no pindexfrom\n", __func__);
             continue;
         }
 
@@ -2410,7 +2410,7 @@ bool CWallet::CreateCoinStake(
         if (Stake(stakeInput.get(), nBits, block.GetBlockTime(), nTxNewTime, hashProofOfStake)) {
             //Double check that this will pass time requirements
             if (nTxNewTime <= chainActive.Tip()->GetMedianTimePast() && Params().NetworkID() != CBaseChainParams::REGTEST) {
-                LogPrintf("CreateCoinStake() : kernel found, but it is too far in the past \n");
+                LogPrint("staking","CreateCoinStake() : kernel found, but it is too far in the past \n");
                 continue;
             }
 

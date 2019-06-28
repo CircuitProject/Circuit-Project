@@ -1982,13 +1982,12 @@ int64_t GetBlockValue(int nHeight)
 {
     int64_t ret = 0;
 
-    if (nHeight < 101) {
+    if (nHeight < 102) {
         ret = COIN * 3600000;
     } else if (nHeight < Params().LAST_POW_BLOCK()) {
         ret = COIN * 1500;
 
     }
-
     else if (nHeight <= 264999) {
         ret = COIN * 750;
     }
@@ -3107,9 +3106,9 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
     pindex->nMoneySupply = nMoneySupplyPrev + nValueOut - nValueIn;
     pindex->nMint = pindex->nMoneySupply - nMoneySupplyPrev + nFees;
 
-//    LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zCrctSpent: %s\n",
-//              FormatMoney(nValueOut), FormatMoney(nValueIn),
-//              FormatMoney(nFees), FormatMoney(pindex->nMint), FormatMoney(nAmountZerocoinSpent));
+    //LogPrintf("XX69----------> ConnectBlock(): nValueOut: %s, nValueIn: %s, nFees: %s, nMint: %s zCrctSpent: %s\n",
+    //          FormatMoney(nValueOut), FormatMoney(nValueIn),
+    //          FormatMoney(nFees), FormatMoney(pindex->nMint), FormatMoney(nAmountZerocoinSpent));
 
     int64_t nTime1 = GetTimeMicros();
     nTimeConnect += nTime1 - nTimeStart;
@@ -3122,8 +3121,8 @@ bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pin
 
     //Check that the block does not overmint
     if (!IsBlockValueValid(block, nExpectedMint, pindex->nMint)) {
-        return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s)",
-                                    FormatMoney(pindex->nMint), FormatMoney(nExpectedMint)),
+        return state.DoS(100, error("ConnectBlock() : reward pays too much (actual=%s vs limit=%s pprevheight=%d pindexheight=%d)",
+                                    FormatMoney(pindex->nMint), FormatMoney(nExpectedMint), pindex->pprev->nHeight, pindex->nHeight),
                          REJECT_INVALID, "bad-cb-amount");
     }
 
