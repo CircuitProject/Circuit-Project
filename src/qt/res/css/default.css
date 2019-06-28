@@ -480,12 +480,8 @@ font-size:12px;
 }
 
 QTableView::item:selected { /* Table Item Selected */
-<<<<<<< HEAD
-background-color:#000; /* Color Hex Gray99 */
-=======
 /* background-color:#5c4c7c; Color Hex Purple */
 background-color:#000; /* Color Hex Black */
->>>>>>> b5e5056792188232c6a64992dc1a8197ce9e4605
 color:#fff; /* Color Hex White */
 }
 
