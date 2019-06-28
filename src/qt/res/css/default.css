@@ -23,7 +23,7 @@
 
 WalletFrame {
 border-image: url(':/images/walletFrame_bg') 0 0 0 0 stretch stretch;
-border-top:0px solid #000; /* Color Hex Black */
+border-top:0px solid #000; /* Color Hex Black */ 
 margin:0;
 padding:0;
 }
@@ -93,7 +93,7 @@ height: 60px;
 
 QToolBar > QToolButton:checked {
 /* background-color: qlineargradient(x1:0, x2: 1, stop: 0 #ffffff, stop: 0.07 #ffffff, stop: 0.0701 #372f44, stop: 1 #372f44);  Color Hex White - White - Purple - Purple */
-background-color: qlineargradient(x1:0, x2: 1, stop: 0 #ff0000, stop: 0.07 #ff0000, stop: 0.0701 #000, stop: 1 #000);  /* Color Hex Red - Red - Purple - Purple */
+background-color: qlineargradient(x1:0, x2: 1, stop: 0 #ff0000, stop: 0.07 #ff0000, stop: 0.0701 #000, stop: 1 #000);  /* Color Hex Red - Red - Black - Black */
 /* color:#fff; Color Hex White */
 color:#ff0000; /* Color Hex Red */
 }
@@ -374,7 +374,8 @@ background-color:#f2f2f2; /* Color Hex Gray95 */
 }
 
 QAbstractSpinBox:!focus {
-color:#5c4c7c; /* Color Hex Gray95 */
+/* color:#5c4c7c; Color Hex Purple */
+color:#000; /* Color Hex Black */
 background-color:#e7e7e7; /* Color Hex Light Gray */
 }
 
@@ -433,7 +434,12 @@ outline:0;
 
 QHeaderView::section { /* Table Header Sections */
 qproperty-alignment:center;
+<<<<<<< HEAD
 background-color: #000; /* Color Hex Gray99 */
+=======
+/* background-color: #5c4c7c; Color Hex Purple */
+background-color: #000; /* Color Hex Black */
+>>>>>>> b5e5056792188232c6a64992dc1a8197ce9e4605
 color:#fff; /* Color Hex White */
 min-height:25px;
 font-weight:bold;
@@ -474,7 +480,12 @@ font-size:12px;
 }
 
 QTableView::item:selected { /* Table Item Selected */
+<<<<<<< HEAD
 background-color:#000; /* Color Hex Gray99 */
+=======
+/* background-color:#5c4c7c; Color Hex Purple */
+background-color:#000; /* Color Hex Black */
+>>>>>>> b5e5056792188232c6a64992dc1a8197ce9e4605
 color:#fff; /* Color Hex White */
 }
 
@@ -502,7 +513,7 @@ QScrollBar { /* Scroll Bar */
 QScrollBar:vertical { /* Vertical Scroll Bar Attributes */
 border:0;
 /* background:#5c4c7c;  Color Hex Purple */
-background:#fcfcfc; /* Color Hex Gray99 */
+background:#000; /* Color Hex Black */
 width:18px;
 margin:18px 0px 18px 0px;
 }
@@ -510,14 +521,14 @@ margin:18px 0px 18px 0px;
 QScrollBar:horizontal { /* Horizontal Scroll Bar Attributes */
 border:0;
 /* background:#5c4c7c;  Color Hex Purple */
-background:#fcfcfc; /* Color Hex Gray99 */
+background:#000; /* Color Hex Black */
 height:18px;
 margin:0px 18px 0px 18px;
 }
 
 QScrollBar::handle:vertical { /* Scroll Bar Slider - vertical */
 /* background:#5c4c7c;  Color Hex Purple */
-background:#fcfcfc; /* Color Hex Gray99 */
+background:#000; /* Color Hex Black */
 min-height:10px;
 }
 
@@ -529,7 +540,7 @@ min-height:10px;
 
 QScrollBar::handle:horizontal { /* Scroll Bar Slider - horizontal */
 /* background:#5c4c7c;  Color Hex Purple */
-background:#fcfcfc; /* Color Hex Gray99 */
+background:#000; /* Color Hex Black */
 min-width:10px;
 }
 
@@ -876,7 +887,8 @@ min-width:180px;
 
 QDialog#RPCConsole QWidget#tab_peers QLabel#peerHeading { /* Peers Info Header */
 /* color:#382f44;  Color Hex Dark Purple */
-color:#818181; /* Color Hex Dark Gray */
+/* color:#818181; Color Hex Dark Gray */
+color:#000; /* Color Hex Black */
 }
 
 QDialog#RPCConsole QTableView#peerWidget::item { /* Peers Table Items */
