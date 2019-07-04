@@ -28,8 +28,7 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <table>
 <th colspan=4>Genesis Block</th>
 <tr><th>Block Height</th><th>Reward Amount</th><th>Notes</th></tr>
-<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial Pre-mine
-<table>
+<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial Pre-mine <table>
 
 ### PoW Rewards Breakdown
 
@@ -44,7 +43,6 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 
 <table>
 <th>Phase</th><th>Block Height</th><th>Reward</th><th>Masternodes & Stakers</th><th>Budget</th>
-<tr><td>Phase 0</td><td>259201-302399</td><td>50 CRCT</td><td>90% (45 CRCT)</td><td>10% (5 CRCT)</td></tr>
 <tr><td>Phase 1</td><td>301-264,999</td><td>750 CRCT</td><td>99% (742.5 CRCT)</td><td>1% (4.5 CRCT)</td></tr>
 <tr><td>Phase 2</td><td>265,000-527,998</td><td>1,000 CRCT</td><td>99% (990 CRCT)</td><td>1% (4 CRCT)</td></tr>
 <tr><td>Phase 3</td><td>527,999-790,997</td><td>800 CRCT</td><td>99% (792 CRCT)</td><td>1% (3.5 CRCT)</td></tr>
