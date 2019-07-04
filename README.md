@@ -17,9 +17,9 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <tr><td>Algo</td><td>Quark</td></tr>
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
-<tr><td>Max Coin Supply (PoW Phase)</td><td>43,199,500 CRCT</td></tr>
+<tr><td>Max Coin Supply (PoW Phase)</td><td>298,500 CRCT</td></tr>
 <tr><td>Max Coin Supply (PoS Phase)</td><td>Infinite</td></tr>
-<tr><td>Premine</td><td>60,000 CRCT*</td></tr>
+<tr><td>Premine</td><td>360,000,000 CRCT*</td></tr>
 </table>
 
 
