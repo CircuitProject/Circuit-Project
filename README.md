@@ -45,7 +45,7 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <table>
 <th>Phase</th><th>Block Height</th><th>Reward</th><th>Masternodes & Stakers</th><th>Budget</th>
 <tr><td>Phase 0</td><td>259201-302399</td><td>50 CRCT</td><td>90% (45 CRCT)</td><td>10% (5 CRCT)</td></tr>
-<tr><td>Phase 1</td><td>301-264,999</td><td>45 CRCT</td><td>90% (40.5 CRCT)</td><td>10% (4.5 CRCT)</td></tr>
+<tr><td>Phase 1</td><td>301-264,999</td><td>292.5 CRCT</td><td>90% (40.5 CRCT)</td><td>10% (4.5 CRCT)</td></tr>
 <tr><td>Phase 2</td><td>265,000-527,998</td><td>40 CRCT</td><td>90% (36 CRCT)</td><td>10% (4 CRCT)</td></tr>
 <tr><td>Phase 3</td><td>527,999-790,997</td><td>35 CRCT</td><td>90% (31.5 CRCT)</td><td>10% (3.5 CRCT)</td></tr>
 <tr><td>Phase 4</td><td>790,998-1,053,996</td><td>30 CRCT</td><td>90% (27 CRCT)</td><td>10% (3 CRCT)</td></tr>
