@@ -18,7 +18,7 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply (PoW Phase)</td><td>298,500 CRCT</td></tr>
-<tr><td>Max Coin Supply (PoS Phase)</td><td>Infinite</td></tr>
+<tr><td>Max Coin Supply (PoS Phase)</td><td>2,639,701,500</td></tr>
 <tr><td>Premine</td><td>360,000,000 CRCT*</td></tr>
 </table>
 
@@ -28,8 +28,7 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <table>
 <th colspan=4>Genesis Block</th>
 <tr><th>Block Height</th><th>Reward Amount</th><th>Notes</th></tr>
-<tr><td>1</td><td>60,000 CRCT</td><td>Initial Pre-mine, burnt in block <a href="http://www.presstab.pw/phpexplorer/CIRCUIT/block.php?blockhash=206d9cfe859798a0b0898ab00d7300be94de0f5469bb446cecb41c3e173a57e0">279917</a></td></tr>
-</table>
+<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial Pre-mine
 
 ### PoW Rewards Breakdown
 
