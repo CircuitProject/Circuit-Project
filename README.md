@@ -14,7 +14,7 @@ More information at [circuit-society.io](http://www.circuit-society.io) Visit ou
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
 <tr><td>Max Coin Supply (PoW Phase)</td><td>298,500 CRCT</td></tr>
-<tr><td>Max Coin Supply (PoS Phase)</td><td>2,639,701,500</td></tr>
+<tr><td>Max Coin Supply (PoS Phase)</td><td>2,639,701,500 CRCT</td></tr>
 <tr><td>Premine</td><td>360,000,000 CRCT*</td></tr>
 </table>
 
