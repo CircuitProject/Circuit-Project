@@ -4,7 +4,6 @@ CIRCUIT Core integration/staging repository
 [![Build Status](https://travis-ci.org/CircuitProject/Circuit-Project.svg?branch=master)](https://travis-ci.org/CircuitProject/Circuit-Project) [![GitHub version](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT.svg)](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT)
 
 CIRCUIT is an open source cryptocurrency focused on fast private transactions build constructed off a state-of-the-art hybrid consist of: Proof-of-Stake (PoS), Proof-of-Work (PoW), and the prestigious Masternode (MN) system. The CIRCUIT blockchain is constructed off the X11 algorithm. This algorithm is very similar to C11 as it uses 11 different algorithms, however in a different order. The Proof-of-Stake hashing is made possible through the ShA256d algorithm. Both algorithms, when utilized in conjunction with each other, allow for increased security and stability throughout the CIRCUIT network.
-The goal of CIRCUIT is to achieve a decentralized sustainable crypto currency with near instant full-time private transactions, fair governance and community intelligence.
 
 
 More information at [circuit-society.io](http://www.circuit-society.io) Visit our ANN thread at [BitcoinTalk](Coming soon)
