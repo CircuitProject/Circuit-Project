@@ -24,7 +24,7 @@ More information at [circuit-society.io](http://www.circuit-society.io) Visit ou
 <table>
 <th colspan=4>Genesis Block</th>
 <tr><th>Block Height</th><th>Reward Amount</th><th>Notes</th></tr>
-<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial Pre-mine</td></tr> <table>
+<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial pre-mine</td></tr> <table>
 
 ### PoW Rewards Breakdown
 
