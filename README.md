@@ -3,14 +3,11 @@ CIRCUIT Core integration/staging repository
 
 [![Build Status](https://travis-ci.org/CircuitProject/Circuit-Project.svg?branch=master)](https://travis-ci.org/CircuitProject/Circuit-Project) [![GitHub version](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT.svg)](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT)
 
-CIRCUIT is an open source crypto-currency focused on fast private transactions using the Zerocoin protocol, with low transaction fees & environmental footprint.  It utilizes the first ever anonymous proof of stake protocol, called zPoS, combined with regular PoS and masternodes for securing its network. zPoS incentivises using the privacy features available in CIRCUIT by granting a higher block reward for zPoS over regular PoS and masternodes. In practice CIRCUIT has between 4 to 10 times higher use of it's privacy features in comparison to other coins that combine public and private transactions. This is thanks to innovations like zPoS and integrating the Zerocoin protocol into light/mobile wallets, allowing for a complete and lightweight privacy protocol that can be used on the go. As well as security improvements like [deterministic generation of zCRCT for easy backups.](https://www.reddit.com/r/circuit/comments/8gbjf7/how_to_use_deterministic_zerocoin_generation/)
+CIRCUIT is an open source cryptocurrency focused on fast private transactions build constructed off a state-of-the-art hybrid consist of: Proof-of-Stake (PoS), Proof-of-Work (PoW), and the prestigious Masternode (MN) system. The CIRCUIT blockchain is constructed off the X11 algorithm. This algorithm is very similar to C11 as it uses 11 different algorithms, however in a different order. The Proof-of-Stake hashing is made possible through the ShA256d algorithm. Both algorithms, when utilized in conjunction with each other, allow for increased security and stability throughout the CIRCUIT network.
 The goal of CIRCUIT is to achieve a decentralized sustainable crypto currency with near instant full-time private transactions, fair governance and community intelligence.
-- Anonymized transactions & consensus using the [_Zerocoin Protocol_](http://www.circuit.org/zcrct) and [zPoS](https://circuit.org/zpos/).
-- light/mobile wallet privacy using the [Zerocoin Light Node Protocol](https://circuit.org/wp-content/uploads/2018/11/Zerocoin_Light_Node_Protocol.pdf)
-- Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftX_.
-- Decentralized blockchain voting utilizing Masternode technology to form a DAO. The blockchain will distribute monthly treasury funds based on successful proposals submitted by the community and voted on by the DAO.
 
-More information at [circuit.org](http://www.circuit.org) Visit our ANN thread at [BitcoinTalk](http://www.bitcointalk.org/index.php?topic=1262920)
+
+More information at [circuit-society.io](http://www.circuit-society.io) Visit our ANN thread at [BitcoinTalk](Coming soon)
 
 ### Coin Specs
 <table>
@@ -34,7 +31,7 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 
 <table>
 <th>Block Height</th><th>Masternodes</th><th>Miner</th><th>Budget</th>
-<tr><td>101-300</td><td>20% (50 CRCT)</td><td>80% (200 CRCT)</td><td>N/A</td></tr>
+<tr><td>101-300</td><td>0% (0 CRCT)</td><td>100% (1,500 CRCT)</td><td>N/A</td></tr>
 
 </table>
 
