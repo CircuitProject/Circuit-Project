@@ -318,6 +318,7 @@ void OverviewPage::setBalance(const CAmount& balance, const CAmount& unconfirmed
     ui->label_5z_3->setVisible(false);
     ui->labelzBalanceText->setVisible(false);
     ui->labelzBalance->setVisible(false);
+    ui->frame_ZerocoinBalances->setVisible(false);
 
     // Percent split
     bool showPercentages = false;// ! (zerocoinBalance == 0 && nTotalBalance == 0);
