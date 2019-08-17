@@ -3,47 +3,57 @@ CIRCUIT Core integration/staging repository
 
 [![Build Status](https://travis-ci.org/CircuitProject/Circuit-Project.svg?branch=master)](https://travis-ci.org/CircuitProject/Circuit-Project) [![GitHub version](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT.svg)](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT)
 
-CIRCUIT is an open source cryptocurrency focused on fast private transactions build constructed off a state-of-the-art hybrid consist of: Proof-of-Stake (PoS), Proof-of-Work (PoW), and the prestigious Masternode (MN) system. The CIRCUIT blockchain is constructed off the X11 algorithm. This algorithm is very similar to C11 as it uses 11 different algorithms, however in a different order. The Proof-of-Stake hashing is made possible through the ShA256d algorithm. Both algorithms, when utilized in conjunction with each other, allow for increased security and stability throughout the CIRCUIT network.
+CIRCUIT is an open source crypto-currency focused on fast private transactions using the Zerocoin protocol, with low transaction fees & environmental footprint.  It utilizes the first ever anonymous proof of stake protocol, called zPoS, combined with regular PoS and masternodes for securing its network. zPoS incentivises using the privacy features available in CIRCUIT by granting a higher block reward for zPoS over regular PoS and masternodes. In practice CIRCUIT has between 4 to 10 times higher use of it's privacy features in comparison to other coins that combine public and private transactions. This is thanks to innovations like zPoS and integrating the Zerocoin protocol into light/mobile wallets, allowing for a complete and lightweight privacy protocol that can be used on the go. As well as security improvements like [deterministic generation of zCRCT for easy backups.](https://www.reddit.com/r/circuit/comments/8gbjf7/how_to_use_deterministic_zerocoin_generation/)
+The goal of CIRCUIT is to achieve a decentralized sustainable crypto currency with near instant full-time private transactions, fair governance and community intelligence.
+- Anonymized transactions & consensus using the [_Zerocoin Protocol_](http://www.circuit.org/zcrct) and [zPoS](https://circuit.org/zpos/).
+- light/mobile wallet privacy using the [Zerocoin Light Node Protocol](https://circuit.org/wp-content/uploads/2018/11/Zerocoin_Light_Node_Protocol.pdf)
+- Fast transactions featuring guaranteed zero confirmation transactions, we call it _SwiftX_.
+- Decentralized blockchain voting utilizing Masternode technology to form a DAO. The blockchain will distribute monthly treasury funds based on successful proposals submitted by the community and voted on by the DAO.
 
-
-More information at [circuit-society.io](http://www.circuit-society.io) Visit our ANN thread at [BitcoinTalk](Coming soon)
+More information at [circuit.org](http://www.circuit.org) Visit our ANN thread at [BitcoinTalk](http://www.bitcointalk.org/index.php?topic=1262920)
 
 ### Coin Specs
 <table>
 <tr><td>Algo</td><td>Quark</td></tr>
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
-<tr><td>Max Coin Supply (PoW Phase)</td><td>298,500 CRCT</td></tr>
-<tr><td>Max Coin Supply (PoS Phase)</td><td>2,639,701,500 CRCT</td></tr>
-<tr><td>Premine</td><td>360,000,000 CRCT*</td></tr>
+<tr><td>Max Coin Supply (PoW Phase)</td><td>43,199,500 CRCT</td></tr>
+<tr><td>Max Coin Supply (PoS Phase)</td><td>Infinite</td></tr>
+<tr><td>Premine</td><td>60,000 CRCT*</td></tr>
 </table>
 
+*60,000 CRCT Premine was burned in block [279917](http://www.presstab.pw/phpexplorer/CIRCUIT/block.php?blockhash=206d9cfe859798a0b0898ab00d7300be94de0f5469bb446cecb41c3e173a57e0)
 
 ### Reward Distribution
 
 <table>
 <th colspan=4>Genesis Block</th>
 <tr><th>Block Height</th><th>Reward Amount</th><th>Notes</th></tr>
-<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial pre-mine</td></tr> <table>
+<tr><td>1</td><td>60,000 CRCT</td><td>Initial Pre-mine, burnt in block <a href="http://www.presstab.pw/phpexplorer/CIRCUIT/block.php?blockhash=206d9cfe859798a0b0898ab00d7300be94de0f5469bb446cecb41c3e173a57e0">279917</a></td></tr>
+</table>
 
 ### PoW Rewards Breakdown
 
 <table>
 <th>Block Height</th><th>Masternodes</th><th>Miner</th><th>Budget</th>
-<tr><td>101-300</td><td>0% (0 CRCT)</td><td>100% (1,500 CRCT)</td><td>N/A</td></tr>
-
+<tr><td>2-43200</td><td>20% (50 CRCT)</td><td>80% (200 CRCT)</td><td>N/A</td></tr>
+<tr><td>43201-151200</td><td>20% (50 CRCT)</td><td>70% (200 CRCT)</td><td>10% (25 CRCT)</td></tr>
+<tr><td>151201-259200</td><td>45% (22.5 CRCT)</td><td>45% (22.5 CRCT)</td><td>10% (5 CRCT)</td></tr>
 </table>
 
 ### PoS Rewards Breakdown
 
 <table>
 <th>Phase</th><th>Block Height</th><th>Reward</th><th>Masternodes & Stakers</th><th>Budget</th>
-<tr><td>Phase 1</td><td>301-264,999</td><td>750 CRCT</td><td>99% (742.5 CRCT)</td><td>1% (4.5 CRCT)</td></tr>
-<tr><td>Phase 2</td><td>265,000-527,998</td><td>1,000 CRCT</td><td>99% (990 CRCT)</td><td>1% (4 CRCT)</td></tr>
-<tr><td>Phase 3</td><td>527,999-790,997</td><td>800 CRCT</td><td>99% (792 CRCT)</td><td>1% (3.5 CRCT)</td></tr>
-<tr><td>Phase 4</td><td>790,998-1,053,996</td><td>600 CRCT</td><td>99% (594 CRCT)</td><td>1% (3 CRCT)</td></tr>
-<tr><td>Phase 5</td><td>1,053,997-1,842,500</td><td>500 CRCT</td><td>99% (495 CRCT)</td><td>1% (2.5 CRCT)</td></tr>
-<tr><td>Phase 6</td><td>1,842,501-2,631,004</td><td>250 CRCT</td><td>99% (247.5 CRCT)</td><td>1% (2 CRCT)</td></tr>
-<tr><td>Phase 7</td><td>2,631,005-8,724,033</td><td>200 CRCT</td><td>99% (198 CRCT)</td><td>1% (1.5 CRCT)</td></tr>
-<tr><td>Phase 8</td><td>8,724,034-infinite</td><td>0 CRCT</td><td>99% (0 CRCT)</td><td>1% (0 CRCT)</td></tr>
+<tr><td>Phase 0</td><td>259201-302399</td><td>50 CRCT</td><td>90% (45 CRCT)</td><td>10% (5 CRCT)</td></tr>
+<tr><td>Phase 1</td><td>302400-345599</td><td>45 CRCT</td><td>90% (40.5 CRCT)</td><td>10% (4.5 CRCT)</td></tr>
+<tr><td>Phase 2</td><td>345600-388799</td><td>40 CRCT</td><td>90% (36 CRCT)</td><td>10% (4 CRCT)</td></tr>
+<tr><td>Phase 3</td><td>388800-431999</td><td>35 CRCT</td><td>90% (31.5 CRCT)</td><td>10% (3.5 CRCT)</td></tr>
+<tr><td>Phase 4</td><td>432000-475199</td><td>30 CRCT</td><td>90% (27 CRCT)</td><td>10% (3 CRCT)</td></tr>
+<tr><td>Phase 5</td><td>475200-518399</td><td>25 CRCT</td><td>90% (22.5 CRCT)</td><td>10% (2.5 CRCT)</td></tr>
+<tr><td>Phase 6</td><td>518400-561599</td><td>20 CRCT</td><td>90% (18 CRCT)</td><td>10% (2 CRCT)</td></tr>
+<tr><td>Phase 7</td><td>561600-604799</td><td>15 CRCT</td><td>90% (13.5 CRCT)</td><td>10% (1.5 CRCT)</td></tr>
+<tr><td>Phase 8</td><td>604800-647999</td><td>10 CRCT</td><td>90% (9 CRCT)</td><td>10% (1 CRCT)</td></tr>
+<tr><td>Phase 9</td><td>648000-1154203</td><td>5 CRCT</td><td>90% (4.5 CRCT)</td><td>10% (0.5 CRCT)</td></tr>
+<tr><td>Phase X</td><td>1154203-∞</td><td>6 CRCT</td><td>84% (5 CRCT/zCRCT)</td><td>16% (1 CRCT)</td></tr>
 </table>
