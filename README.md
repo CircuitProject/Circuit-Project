@@ -28,17 +28,9 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <table>
 <th colspan=4>Genesis Block</th>
 <tr><th>Block Height</th><th>Reward Amount</th><th>Notes</th></tr>
-<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial pre-mine, non-staking (allocation within white paper)</td></tr>
+<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial pre-mine, non-staking (Please see above)</td></tr>
 </table>
 
-### PoW Rewards Breakdown
-
-<table>
-<th>Block Height</th><th>Masternodes</th><th>Miner</th><th>Budget</th>
-<tr><td>2-43200</td><td>20% (50 CRCT)</td><td>80% (200 CRCT)</td><td>N/A</td></tr>
-<tr><td>43201-151200</td><td>20% (50 CRCT)</td><td>70% (200 CRCT)</td><td>10% (25 CRCT)</td></tr>
-<tr><td>151201-259200</td><td>45% (22.5 CRCT)</td><td>45% (22.5 CRCT)</td><td>10% (5 CRCT)</td></tr>
-</table>
 
 ### PoS Rewards Breakdown
 
