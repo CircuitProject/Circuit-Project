@@ -17,12 +17,11 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <tr><td>Algo</td><td>Quark</td></tr>
 <tr><td>Block Time</td><td>60 Seconds</td></tr>
 <tr><td>Difficulty Retargeting</td><td>Every Block</td></tr>
-<tr><td>Max Coin Supply (PoW Phase)</td><td>43,199,500 CRCT</td></tr>
-<tr><td>Max Coin Supply (PoS Phase)</td><td>Infinite</td></tr>
-<tr><td>Premine</td><td>60,000 CRCT*</td></tr>
+<tr><td>Maximum Coin Supply</td><td>3,000,000,000 CRCT</td></tr>
+<tr><td>Premine</td><td>360,000,000 CRCT</td></tr>
 </table>
 
-*60,000 CRCT Premine was burned in block [279917](http://www.presstab.pw/phpexplorer/CIRCUIT/block.php?blockhash=206d9cfe859798a0b0898ab00d7300be94de0f5469bb446cecb41c3e173a57e0)
+*Premine outlined in official white paper - https://media.circuit-society.io/docs/PDF_Circuit_Whitepaper.pdf
 
 ### Reward Distribution
 
