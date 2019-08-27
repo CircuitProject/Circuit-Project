@@ -29,7 +29,7 @@ More information at [circuit.org](http://www.circuit.org) Visit our ANN thread a
 <table>
 <th colspan=4>Genesis Block</th>
 <tr><th>Block Height</th><th>Reward Amount</th><th>Notes</th></tr>
-<tr><td>1</td><td>60,000 CRCT</td><td>Initial Pre-mine, burnt in block <a href="http://www.presstab.pw/phpexplorer/CIRCUIT/block.php?blockhash=206d9cfe859798a0b0898ab00d7300be94de0f5469bb446cecb41c3e173a57e0">279917</a></td></tr>
+<tr><td>1</td><td>360,000,000 CRCT</td><td>Initial pre-mine, non-staking (allocation within white paper)</td></tr>
 </table>
 
 ### PoW Rewards Breakdown
