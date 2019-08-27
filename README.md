@@ -35,7 +35,7 @@ More information can be found at the official CIRCUIT website, https://www.circu
 ### PoS Rewards Breakdown
 
 <table>
-<th>Phase</th><th>Block Height</th><th>Reward</th><th>Masternodes & Stakers</th><th>Budget</th>
+<th>Phase</th><th>Block Height</th><th>Reward Per Block</th><th>Masternodes & Stakers</th><th>Budget</th>
 <tr><td>Phase 1</td><td>2,001-264,999</td><td>750 CRCT</td><td>99% (742.5 CRCT)</td><td>1% (7.5 CRCT)</td></tr>
 <tr><td>Phase 2</td><td>265,000-527,998</td><td>1,000 CRCT</td><td>99% (990 CRCT)</td><td>1% (10 CRCT)</td></tr>
 <tr><td>Phase 3</td><td>527,999-790,997</td><td>800 CRCT</td><td>99% (792 CRCT)</td><td>1% (8 CRCT)</td></tr>
