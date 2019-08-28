@@ -7,7 +7,9 @@ CIRCUIT utilizes the proof-of-stake protocol with the enhancement of masternode 
 
 The mission of CIRCUIT is to reach world-wide adoption specifically focusing on the competitive racing audiences.
 
-More information can be found at the official CIRCUIT website, https://www.circuit-society.io. Visit our ANN thread at https://bitcointalk.org/index.php?topic=5164625
+More information can be found at the official CIRCUIT website, https://www.circuit-society.io 
+
+Visit our ANN thread at https://bitcointalk.org/index.php?topic=5164625
 
 DOWNLOAD THE OFFICIAL CIRCUIT WALLET: https://github.com/CircuitProject/Circuit-Project/releases
 
