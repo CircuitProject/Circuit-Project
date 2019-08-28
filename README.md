@@ -42,5 +42,5 @@ DOWNLOAD THE OFFICIAL CIRCUIT WALLET: https://github.com/CircuitProject/Circuit-
 <tr><td>5</td><td>1,053,997-1,842,500</td><td>500 CRCT</td><td>64% (320 CRCT)</td><td>35% (175 CRCT)</td><td>1% (5 CRCT)</td></tr>
 <tr><td>6</td><td>1,842,501-2,631,004</td><td>250 CRCT</td><td>69% (172.5 CRCT)</td><td>30% (75 CRCT)</td><td>1% (2.5 CRCT)</td></tr>
 <tr><td>7</td><td>2,631,005-4,208,011</td><td>200 CRCT</td><td>79% (158 CRCT)</td><td>20% (40 CRCT)</td><td>1% (2 CRCT)</td></tr>
-<tr><td>8</td><td>4,208,012-∞</td><td>10 CRCT</td><td>-% (- CRCT)</td><td>-% (- CRCT)</td><td>-% (- CRCT)</td></tr>
+<tr><td>8</td><td>4,208,012-∞</td><td>- CRCT</td><td>-% (- CRCT)</td><td>-% (- CRCT)</td><td>-% (- CRCT)</td></tr>
 </table>
