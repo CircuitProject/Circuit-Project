@@ -1,8 +1,6 @@
 CIRCUIT Core integration/staging repository
 =====================================
 
-[![Build Status](https://travis-ci.org/CircuitProject/Circuit-Project.svg?branch=master)](https://travis-ci.org/CircuitProject/Circuit-Project) [![GitHub version](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT.svg)](https://badge.fury.io/gh/CIRCUIT-Project%2FCIRCUIT)
-
 CIRCUIT is an innovative cryptocurrency geared towards the fanatics and supporters of the competitive racing industry. Utilizing the PIVX protocol, it utilizes the first ever anonymous proof-of-stake protocol, named zPoS, combined with regular PoS and masternode technology for securing its network. ZPoS incentivizes using the privacy feature by granting higher block rewards over regular PoS and masternodes. In reality, CIRCUIT has between 4 to 10 times higher use of its privacy feautres in comparison to other digital currencies that combine public and private transactions. With this innovation, integrating the technology into mobile wallets allows for a complete and lightweight privacy protocol that can be used worldwide.
 
 CIRCUIT utilizes the proof-of-stake protocol with the enhancement of masternode technology with nearly zero transaction fees.
