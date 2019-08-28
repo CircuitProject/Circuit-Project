@@ -34,13 +34,13 @@ DOWNLOAD THE OFFICIAL CIRCUIT WALLET: https://github.com/CircuitProject/Circuit-
 ### PoS Rewards Breakdown
 
 <table>
-<th>Phase</th><th>Block Height</th><th>Reward Per Block</th><th>Masternodes & Stakers</th><th>Budget</th>
-<tr><td>Phase 1</td><td>2,001-264,999</td><td>750 CRCT</td><td>99% (742.5 CRCT)</td><td>1% (7.5 CRCT)</td></tr>
-<tr><td>Phase 2</td><td>265,000-527,998</td><td>1,000 CRCT</td><td>99% (990 CRCT)</td><td>1% (10 CRCT)</td></tr>
-<tr><td>Phase 3</td><td>527,999-790,997</td><td>800 CRCT</td><td>99% (792 CRCT)</td><td>1% (8 CRCT)</td></tr>
-<tr><td>Phase 4</td><td>790,998-1,053,996</td><td>600 CRCT</td><td>99% (594 CRCT)</td><td>1% (6 CRCT)</td></tr>
-<tr><td>Phase 5</td><td>1,053,997-1,842,500</td><td>500 CRCT</td><td>99% (495 CRCT)</td><td>1% (5 CRCT)</td></tr>
-<tr><td>Phase 6</td><td>1,842,501-2,631,004</td><td>250 CRCT</td><td>99% (247.5 CRCT)</td><td>1% (2.5 CRCT)</td></tr>
-<tr><td>Phase 7</td><td>2,631,005-4,208,011</td><td>200 CRCT</td><td>99% (198 CRCT)</td><td>1% (2 CRCT)</td></tr>
-<tr><td>Phase 8</td><td>4,208,012-∞</td><td>10 CRCT</td><td>-% (- CRCT)</td><td>-% (- CRCT)</td></tr>
+<th>Phase</th><th>Block Height</th><th>Block Reward</th><th>Masternode</th><th>Staking</th><th>Budget</th>
+<tr><td>1</td><td>2,001-264,999</td><td>750 CRCT</td><td>39% (292.5 CRCT)</td><td>60% (450 CRCT)</td><td>1% (7.5 CRCT)</td></tr>
+<tr><td>2</td><td>265,000-527,998</td><td>1,000 CRCT</td><td>49% (490 CRCT)</td><td>50% (500 CRCT)</td><td>1% (10 CRCT)</td></tr>
+<tr><td>3</td><td>527,999-790,997</td><td>800 CRCT</td><td>54% (432 CRCT)</td><td>45% (360 CRCT)</td><td>1% (8 CRCT)</td></tr>
+<tr><td>4</td><td>790,998-1,053,996</td><td>600 CRCT</td><td>59% (354 CRCT)</td><td>40% (240 CRCT)</td><td>1% (6 CRCT)</td></tr>
+<tr><td>5</td><td>1,053,997-1,842,500</td><td>500 CRCT</td><td>64% (320 CRCT)</td><td>35% (175 CRCT)</td><td>1% (5 CRCT)</td></tr>
+<tr><td>6</td><td>1,842,501-2,631,004</td><td>250 CRCT</td><td>69% (172.5 CRCT)</td><td>30% (75 CRCT)</td><td>1% (2.5 CRCT)</td></tr>
+<tr><td>7</td><td>2,631,005-4,208,011</td><td>200 CRCT</td><td>79% (158 CRCT)</td><td>20% (40 CRCT)</td><td>1% (2 CRCT)</td></tr>
+<tr><td>8</td><td>4,208,012-∞</td><td>10 CRCT</td><td>-% (- CRCT)</td><td>-% (- CRCT)</td><td>-% (- CRCT)</td></tr>
 </table>
