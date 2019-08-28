@@ -11,6 +11,7 @@ The mission of CIRCUIT is to reach world-wide adoption specifically focusing on 
 
 More information can be found at the official CIRCUIT website, https://www.circuit-society.io. Visit our ANN thread at https://bitcointalk.org/index.php?topic=5164625
 
+DOWNLOAD THE OFFICIAL CIRCUIT WALLET: https://github.com/CircuitProject/Circuit-Project/releases
 
 ### Coin Specs
 <table>
