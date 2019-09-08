@@ -36,7 +36,7 @@ QT_TRANSLATE_NOOP("circuit-core", ""
 "running."),
 QT_TRANSLATE_NOOP("circuit-core", ""
 "Change automatic finalized budget voting behavior. mode=auto: Vote for only "
-"exact finalized budget match to my generated budget. (string, default: auto)"),
+"exact finalized budget match to my generated budget. (std::string, default: auto)"),
 QT_TRANSLATE_NOOP("circuit-core", ""
 "Continuously rate-limit free transactions to <n>*1000 bytes per minute "
 "(default:%u)"),
@@ -283,7 +283,6 @@ QT_TRANSLATE_NOOP("circuit-core", "Connection options:"),
 QT_TRANSLATE_NOOP("circuit-core", "Copyright (C) 2009-%i The Bitcoin Core Developers"),
 QT_TRANSLATE_NOOP("circuit-core", "Copyright (C) 2014-%i The Dash Core Developers"),
 QT_TRANSLATE_NOOP("circuit-core", "Copyright (C) 2015-%i The PIVX Core Developers"),
-QT_TRANSLATE_NOOP("circuit-core", "Copyright (C) 2019-%i The CIRCUIT Core Developers"),
 QT_TRANSLATE_NOOP("circuit-core", "Corrupted block database detected"),
 QT_TRANSLATE_NOOP("circuit-core", "Could not parse masternode.conf"),
 QT_TRANSLATE_NOOP("circuit-core", "Couldn't generate the accumulator witness"),

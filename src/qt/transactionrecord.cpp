@@ -45,19 +45,8 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
     bool fZSpendFromMe = false;
 
     if (wtx.HasZerocoinSpendInputs()) {
-        // a zerocoin spend that was created by this wallet
-        if (wtx.HasZerocoinPublicSpendInputs()) {
-            libzerocoin::ZerocoinParams* params = Params().Zerocoin_Params(false);
-            PublicCoinSpend publicSpend(params);
-            CValidationState state;
-            if (!ZCRCTModule::ParseZerocoinPublicSpend(wtx.vin[0], wtx, state, publicSpend)){
-                throw std::runtime_error("Error parsing zc public spend");
-            }
-            fZSpendFromMe = wallet->IsMyZerocoinSpend(publicSpend.getCoinSerialNumber());
-        } else {
-            libzerocoin::CoinSpend zcspend = TxInToZerocoinSpend(wtx.vin[0]);
-            fZSpendFromMe = wallet->IsMyZerocoinSpend(zcspend.getCoinSerialNumber());
-        }
+        libzerocoin::CoinSpend zcspend = wtx.HasZerocoinPublicSpendInputs() ? ZCRCTModule::parseCoinSpend(wtx.vin[0]) : TxInToZerocoinSpend(wtx.vin[0]);
+        fZSpendFromMe = wallet->IsMyZerocoinSpend(zcspend.getCoinSerialNumber());
     }
 
     if (wtx.IsCoinStake()) {
@@ -86,15 +75,15 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
         } else {
             //Masternode reward
             for (unsigned int i = 1; i < wtx.vout.size(); i++) {
-		    CTxDestination destMN;
+            CTxDestination destMN;
 		    //int nIndexMN = wtx.vout.size() - 3;
 		    if (ExtractDestination(wtx.vout[i].scriptPubKey, destMN) && IsMine(*wallet, destMN)) {
 		        isminetype mine = wallet->IsMine(wtx.vout[i]);
-		        sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
-		        sub.type = TransactionRecord::MNReward;
-		        sub.address = CBitcoinAddress(destMN).ToString();
+                sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
+                sub.type = TransactionRecord::MNReward;
+                sub.address = CBitcoinAddress(destMN).ToString();
 		        sub.credit = wtx.vout[i].nValue;
-		    }
+            }
            } 
            // nIndexMN++;
            // if (ExtractDestination(wtx.vout[nIndexMN].scriptPubKey, destMN) && IsMine(*wallet, destMN)) {
@@ -131,7 +120,7 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
                 continue;
             }
 
-            string strAddress = "";
+            std::string strAddress = "";
             CTxDestination address;
             if (ExtractDestination(txout.scriptPubKey, address))
                 strAddress = CBitcoinAddress(address).ToString();
