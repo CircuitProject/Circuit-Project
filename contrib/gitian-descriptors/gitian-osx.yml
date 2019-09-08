@@ -1,5 +1,5 @@
 ---
-name: "circuit-osx-1.0"
+name: "circuit-osx-1.0.2"
 enable_cache: true
 distro: "ubuntu"
 suites:
