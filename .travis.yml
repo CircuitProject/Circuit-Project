@@ -102,7 +102,7 @@ jobs:
         BITCOIN_CONFIG="--enable-glibc-back-compat --enable-reduce-exports CXXFLAGS=-Wno-psabi"
 
     - stage: test
-      name: 'ARM 64-bit  [GOAL:install] [no unit or functional tests]'
+      name: 'AARCH 64-bit  [GOAL:install] [no unit or functional tests]'
       env: >-
         HOST=aarch64-linux-gnu
         PACKAGES="python3 g++-aarch64-linux-gnu"
