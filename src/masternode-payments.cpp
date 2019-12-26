@@ -252,6 +252,7 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
         }
     }
 
+    bool devbudgetValid = true;
     if (!devbudget.IsTransactionValid(txNew, nBlockHeight)) {
         LogPrint("masternode","Invalid dev budget payment detected %s\n", txNew.ToString().c_str());
         return false;
@@ -261,11 +262,15 @@ bool IsBlockPayeeValid(const CBlock& block, int nBlockHeight)
     // a double budget payment (status = TrxValidationStatus::DoublePayment) was detected, or no/not enough masternode
     // votes (status = TrxValidationStatus::VoteThreshold) for a finalized budget were found
     // In all cases a masternode will get the payment for this block
-
+    bool masternodeValid = true;
     //check for masternode payee
-    if (masternodePayments.IsTransactionValid(txNew, nBlockHeight))
-        return true;
+    if (!masternodePayments.IsTransactionValid(txNew, nBlockHeight)) {
+        masternodeValid =  false;
     LogPrint("masternode","Invalid mn payment detected %s\n", txNew.ToString().c_str());
+    }
+    
+    if (devbudgetValid && masternodeValid)
+        return true;
 
     if (IsSporkActive(SPORK_8_MASTERNODE_PAYMENT_ENFORCEMENT))
         return false;
