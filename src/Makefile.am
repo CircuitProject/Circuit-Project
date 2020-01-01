@@ -99,10 +99,13 @@ BITCOIN_CORE_H = \
   compat/endian.h \
   compat/sanity.h \
   compressor.h \
+  consensus/merkle.h \
   primitives/block.h \
   primitives/transaction.h \
   core_io.h \
   crypter.h \
+  pairresult.h \
+  addressbook.h \
   denomination_functions.h \
   obfuscation.h \
   obfuscation-relay.h \
@@ -124,11 +127,11 @@ BITCOIN_CORE_H = \
   masternode.h \
   masternode-payments.h \
   masternode-budget.h \
-  masternode-devbudget.h \
   masternode-sync.h \
   masternodeman.h \
   masternodeconfig.h \
   merkleblock.h \
+  messagesigner.h \
   miner.h \
   mruset.h \
   netbase.h \
@@ -153,6 +156,7 @@ BITCOIN_CORE_H = \
   serialize.h \
   spork.h \
   sporkdb.h \
+  sporkid.h \
   stakeinput.h \
   streams.h \
   support/cleanse.h \
@@ -260,15 +264,16 @@ libbitcoin_wallet_a_SOURCES = \
   obfuscation.cpp \
   obfuscation-relay.cpp \
   wallet/db.cpp \
+  addressbook.cpp \
   crypter.cpp \
   swifttx.cpp \
   masternode.cpp \
   masternode-budget.cpp \
-  masternode-devbudget.cpp \
   masternode-payments.cpp \
   masternode-sync.cpp \
   masternodeconfig.cpp \
   masternodeman.cpp \
+  messagesigner.cpp \
   wallet/rpcdump.cpp \
   wallet/rpcwallet.cpp \
   kernel.cpp \
@@ -295,6 +300,8 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha1.cpp \
   crypto/sha256.cpp \
   crypto/sha512.cpp \
+  crypto/chacha20.h \
+  crypto/chacha20.cpp \
   crypto/hmac_sha256.cpp \
   crypto/rfc6979_hmac_sha256.cpp \
   crypto/hmac_sha512.cpp \
@@ -332,6 +339,7 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
   libzerocoin/AccumulatorProofOfKnowledge.h \
   libzerocoin/bignum.h \
   libzerocoin/Coin.h \
+  libzerocoin/CoinRandomnessSchnorrSignature.h \
   libzerocoin/CoinSpend.h \
   libzerocoin/Commitment.h \
   libzerocoin/Denominations.h \
@@ -344,9 +352,10 @@ libzerocoin_libbitcoin_zerocoin_a_SOURCES = \
   libzerocoin/Accumulator.cpp \
   libzerocoin/AccumulatorProofOfKnowledge.cpp \
   libzerocoin/Coin.cpp \
-  libzerocoin/Denominations.cpp \
+  libzerocoin/CoinRandomnessSchnorrSignature.cpp \
   libzerocoin/CoinSpend.cpp \
   libzerocoin/Commitment.cpp \
+  libzerocoin/Denominations.cpp \
   libzerocoin/ParamGeneration.cpp \
   libzerocoin/Params.cpp \
   libzerocoin/SerialNumberSignatureOfKnowledge.cpp
@@ -371,6 +380,7 @@ libbitcoin_common_a_SOURCES = \
   chainparams.cpp \
   coins.cpp \
   compressor.cpp \
+  consensus/merkle.cpp \
   primitives/block.cpp \
   zcrct/deterministicmint.cpp \
   primitives/transaction.cpp \

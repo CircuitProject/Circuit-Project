@@ -27,7 +27,7 @@ from test_framework.siphash import siphash256
 from test_framework.util import hex_str_to_bytes, bytes_to_hex_str
 
 MIN_VERSION_SUPPORTED = 60001
-MY_VERSION = 70917  # past bip-31 for ping/pong
+MY_VERSION = 70918
 MY_SUBVERSION = b"/python-mininode-tester:0.0.3/"
 MY_RELAY = 1 # from version 70001 onwards, fRelay should be appended to version messages (BIP37)
 
@@ -486,15 +486,19 @@ class CBlockHeader():
         r += ser_uint256(prevout.hash)
         return r
 
-    def solve_stake(self, prevouts):
+    def solve_stake(self, prevouts, isModifierV2=False):
         target0 = uint256_from_compact(self.nBits)
         loop = True
         while loop:
             for prevout in prevouts:
-                nvalue, txBlockTime, stakeModifier, hashStake = prevouts[prevout]
+                nvalue, txBlockTime, hashStake = prevouts[prevout]
                 target = int(target0 * nvalue / 100) % 2**256
                 data = b""
-                data += ser_uint64(stakeModifier)
+                if isModifierV2:
+                    data += ser_uint256(0)
+                else:
+                    data += ser_uint64(0)
+                #data += ser_uint64(stakeModifier)
                 data += struct.pack("<I", txBlockTime)
                 # prevout for zPoS is serial hashes hex strings
                 if isinstance(prevout, COutPoint):

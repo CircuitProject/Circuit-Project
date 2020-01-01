@@ -59,6 +59,9 @@ BASE_SCRIPTS= [
     'wallet_backup.py',
 
     # vv Tests less than 5m vv
+    'wallet_abandonconflict.py',
+    'wallet_reorg-stake.py',
+    'feature_coldStaking.py',
     'rpc_rawtransaction.py',
     'wallet_zapwallettxes.py',
     'wallet_keypool_topup.py',
@@ -67,8 +70,10 @@ BASE_SCRIPTS= [
     'wallet_txn_clone.py --mineblock',
     'interface_rest.py',
     'feature_proxy.py',
+
     'p2p_pos_fakestake.py',
     'p2p_pos_fakestake_accepted.py',
+    'zerocoin_valid_public_spend.py',
     #'p2p_zpos_fakestake.py',
     #'p2p_zpos_fakestake_accepted.py',
     #'zerocoin_wrapped_serials.py',
@@ -84,13 +89,13 @@ BASE_SCRIPTS= [
 
     # vv Tests less than 60s vv
     #'wallet_importmulti.py',
-    #'mempool_limit.py', # We currently don't limit our mempool
-    #'wallet_abandonconflict.py',
+    #'mempool_limit.py', # We currently don't limit our mempool_reorg
     'feature_reindex.py',
     'rpc_bip38.py',
 
     # vv Tests less than 30s vv
     'rpc_spork.py',
+    'rpc_budget.py',
     #'interface_zmq.py',
     'interface_bitcoin_cli.py',
     'mempool_resurrect.py',
@@ -107,6 +112,7 @@ BASE_SCRIPTS= [
     #'rpc_deprecated.py',
     'wallet_disable.py',
     'rpc_net.py',
+    'p2p_time_offset.py',
     'wallet_keypool.py',
     #'p2p_mempool.py',
     #'mining_prioritisetransaction.py',

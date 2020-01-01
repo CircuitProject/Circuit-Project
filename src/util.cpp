@@ -21,9 +21,6 @@
 #include <stdarg.h>
 
 #include <boost/date_time/posix_time/posix_time.hpp>
-#include <openssl/bio.h>
-#include <openssl/buffer.h>
-#include <openssl/evp.h>
 
 
 #ifndef WIN32
@@ -117,7 +114,6 @@ bool fDebug = false;
 bool fPrintToConsole = false;
 bool fPrintToDebugLog = true;
 bool fDaemon = false;
-bool fServer = false;
 std::string strMiscWarning;
 bool fLogTimestamps = false;
 bool fLogIPs = false;
@@ -381,7 +377,7 @@ std::string HelpMessageOpt(const std::string &option, const std::string &message
            std::string("\n\n");
 }
 
-static std::string FormatException(std::exception* pex, const char* pszThread)
+static std::string FormatException(const std::exception* pex, const char* pszThread)
 {
 #ifdef WIN32
     char pszModule[MAX_PATH] = "";
@@ -397,7 +393,7 @@ static std::string FormatException(std::exception* pex, const char* pszThread)
             "UNKNOWN EXCEPTION       \n%s in %s       \n", pszModule, pszThread);
 }
 
-void PrintExceptionContinue(std::exception* pex, const char* pszThread)
+void PrintExceptionContinue(const std::exception* pex, const char* pszThread)
 {
     std::string message = FormatException(pex, pszThread);
     LogPrintf("\n\n************************\n%s\n", message);
@@ -497,31 +493,9 @@ void ReadConfigFile(std::map<std::string, std::string>& mapSettingsRet,
     if (!streamConfig.good()) {
         // Create empty circuit.conf if it does not exist
         FILE* configFile = fopen(GetConfigFile().string().c_str(), "a");
-        if (configFile != NULL) {
-            unsigned char rand_pwd[32];
-            char rpc_passwd[32];
-            GetRandBytes(rand_pwd, 32);
-            for (int i = 0; i < 32; i++) {
-                rpc_passwd[i] = (rand_pwd[i] % 26) + 97;
-            }
-            rpc_passwd[31] = '\0';
-            unsigned char rand_user[16];
-            char rpc_user[16];
-            GetRandBytes(rand_user, 16);
-            for (int i = 0; i < 16; i++) {
-                rpc_user[i] = (rand_user[i] % 26) + 97;
-            }
-            rpc_user[15] = '\0';
-            std::string strHeader = "rpcuser=";
-            strHeader += rpc_user;
-            strHeader += "\nrpcpassword=";
-            strHeader += rpc_passwd;
-            strHeader += "txindex=1\ncircuitstake=1\n";
-            fwrite(strHeader.c_str(), std::strlen(strHeader.c_str()), 1, configFile);
+        if (configFile != NULL)
             fclose(configFile);
-        }
-        // return; // Nothing to read, so just return
-        streamConfig.open(GetConfigFile());
+        return; // Nothing to read, so just return
     }
 
     std::set<std::string> setOptions;
@@ -578,7 +552,7 @@ bool TryCreateDirectory(const boost::filesystem::path& p)
 {
     try {
         return boost::filesystem::create_directory(p);
-    } catch (boost::filesystem::filesystem_error) {
+    } catch (const boost::filesystem::filesystem_error&) {
         if (!boost::filesystem::exists(p) || !boost::filesystem::is_directory(p))
             throw;
     }
