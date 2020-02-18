@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -456,7 +456,7 @@ static const CRPCCommand vRPCCommands[] =
         {"wallet", "delegatorremove", &delegatorremove, true, false, true},
 
         {"zerocoin", "createrawzerocoinstake", &createrawzerocoinstake, false, false, true},
-        {"zerocoin", "createrawzerocoinpublicspend", &createrawzerocoinpublicspend, false, false, true},
+        {"zerocoin", "createrawzerocoinspend", &createrawzerocoinspend, false, false, true},
         {"zerocoin", "getzerocoinbalance", &getzerocoinbalance, false, false, true},
         {"zerocoin", "listmintedzerocoins", &listmintedzerocoins, false, false, true},
         {"zerocoin", "listspentzerocoins", &listspentzerocoins, false, false, true},
@@ -477,7 +477,6 @@ static const CRPCCommand vRPCCommands[] =
         {"zerocoin", "generatemintlist", &generatemintlist, false, false, true},
         {"zerocoin", "searchdzcrct", &searchdzcrct, false, false, true},
         {"zerocoin", "dzcrctstate", &dzcrctstate, false, false, true},
-        {"zerocoin", "clearspendcache", &clearspendcache, false, false, true}
 
 #endif // ENABLE_WALLET
 };

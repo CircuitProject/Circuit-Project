@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2016 The Dash developers
-// Copyright (c) 2016-2019 The PIVX developers
+// Copyright (c) 2016-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -29,6 +29,11 @@
 #include <QFuture>
 
 #define SINGLE_THREAD_MAX_TXES_SIZE 4000
+
+// Maximum amount of loaded records in ram in the first load.
+// If the user has more and want to load them:
+// TODO, add load on demand in pages (not every tx loaded all the time into the records list).
+#define MAX_AMOUNT_LOADED_RECORDS 20000
 
 // Amount column is right-aligned it contains numbers
 static int column_alignments[] = {
@@ -87,6 +92,21 @@ public:
         // Divide the work between multiple threads to speedup the process if the vector is larger than 4k txes
         std::size_t txesSize = walletTxes.size();
         if (txesSize > SINGLE_THREAD_MAX_TXES_SIZE) {
+
+            // First check if the amount of txs exceeds the UI limit
+            if (txesSize > MAX_AMOUNT_LOADED_RECORDS) {
+                // Sort the txs by date just to be really really sure that them are ordered.
+                // (this extra calculation should be removed in the future if can ensure that
+                // txs are stored in order in the db, which is what should be happening)
+                sort(walletTxes.begin(), walletTxes.end(),
+                        [](const CWalletTx & a, const CWalletTx & b) -> bool {
+                         return a.GetComputedTxTime() > b.GetComputedTxTime();
+                     });
+
+                // Only latest ones.
+                walletTxes = std::vector<CWalletTx>(walletTxes.begin(), walletTxes.begin() + MAX_AMOUNT_LOADED_RECORDS);
+                txesSize = walletTxes.size();
+            };
 
             // Simple way to get the processors count
             std::size_t threadsCount = (QThreadPool::globalInstance()->maxThreadCount() / 2 ) + 1;
@@ -439,10 +459,14 @@ QString TransactionTableModel::formatTxType(const TransactionRecord* wtx) const
     case TransactionRecord::StakeDelegated:
         return tr("CRCT Cold Stake");
     case TransactionRecord::StakeHot:
-        return tr("CRCT Stake in behalf of");
+        return tr("CRCT Stake on behalf of");
     case TransactionRecord::P2CSDelegationSent:
+    case TransactionRecord::P2CSDelegationSentOwner:
     case TransactionRecord::P2CSDelegation:
         return tr("Stake delegation");
+    case TransactionRecord::P2CSUnlockOwner:
+    case TransactionRecord::P2CSUnlockStaker:
+        return tr("Stake delegation spent by");
     case TransactionRecord::Generated:
         return tr("Mined");
     case TransactionRecord::ObfuscationDenominate:
@@ -523,6 +547,9 @@ QString TransactionTableModel::formatTxToAddress(const TransactionRecord* wtx, b
         return tr("Anonymous");
     case TransactionRecord::P2CSDelegation:
     case TransactionRecord::P2CSDelegationSent:
+    case TransactionRecord::P2CSDelegationSentOwner:
+    case TransactionRecord::P2CSUnlockOwner:
+    case TransactionRecord::P2CSUnlockStaker:
     case TransactionRecord::StakeDelegated:
     case TransactionRecord::StakeHot:
     case TransactionRecord::SendToSelf: {
@@ -765,7 +792,7 @@ QModelIndex TransactionTableModel::index(int row, int column, const QModelIndex&
     Q_UNUSED(parent);
     TransactionRecord* data = priv->index(row);
     if (data) {
-        return createIndex(row, column, priv->index(row));
+        return createIndex(row, column, data);
     }
     return QModelIndex();
 }

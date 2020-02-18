@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2016 The Dash developers
-// Copyright (c) 2017-2019 The PIVX developers
+// Copyright (c) 2017-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -145,6 +145,8 @@ public:
     /** Whether cold staking is enabled or disabled in the network **/
     bool isColdStakingNetworkelyEnabled() const;
     CAmount getMinColdStakingAmount() const;
+    /* current staking status from the miner thread **/
+    bool isStakingStatusActive() const;
 
     CAmount getBalance(const CCoinControl* coinControl = NULL) const;
     CAmount getUnconfirmedBalance() const;
@@ -161,10 +163,13 @@ public:
     CAmount getDelegatedBalance() const;
     CAmount getColdStakedBalance() const;
 
+    int getRequiredMasternodeCollateral() const;
+
     bool isColdStaking() const;
 
     EncryptionStatus getEncryptionStatus() const;
     bool isWalletUnlocked() const;
+    bool isWalletLocked() const;
     CKey generateNewKey() const; //for temporary paper wallet key generation
     bool setAddressBook(const CTxDestination& address, const std::string& strName, const std::string& strPurpose);
     void encryptKey(const CKey key, const std::string& pwd, const std::string& slt, std::vector<unsigned char>& crypted);
@@ -222,18 +227,6 @@ public:
             bool fMinimizeChange,
             CZerocoinSpendReceipt &receipt
     );
-
-    // ###################
-    // Cold Staking
-    // ###################
-
-
-
-    // ###################
-    // End Cold Staking
-    // ###################
-
-
 
     // Wallet encryption
     bool setWalletEncrypted(bool encrypted, const SecureString& passphrase);

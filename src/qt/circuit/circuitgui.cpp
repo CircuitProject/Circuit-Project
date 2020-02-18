@@ -18,6 +18,7 @@
 #include "qt/circuit/defaultdialog.h"
 #include "qt/circuit/settings/settingsfaqwidget.h"
 
+#include <QDesktopWidget>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
 #include <QApplication>
@@ -30,6 +31,7 @@
 
 #define BASE_WINDOW_WIDTH 1200
 #define BASE_WINDOW_HEIGHT 740
+#define BASE_WINDOW_MIN_HEIGHT 620
 
 
 const QString CIRCUITGUI::DEFAULT_WALLET = "~Default";
@@ -40,8 +42,17 @@ CIRCUITGUI::CIRCUITGUI(const NetworkStyle* networkStyle, QWidget* parent) :
 
     /* Open CSS when configured */
     this->setStyleSheet(GUIUtil::loadStyleSheet());
-    this->setMinimumSize(BASE_WINDOW_WIDTH, BASE_WINDOW_HEIGHT);
-    GUIUtil::restoreWindowGeometry("nWindow", QSize(BASE_WINDOW_WIDTH, BASE_WINDOW_HEIGHT), this);
+    this->setMinimumSize(BASE_WINDOW_WIDTH, BASE_WINDOW_MIN_HEIGHT);
+
+
+    // Adapt screen size
+    QRect rec = QApplication::desktop()->screenGeometry();
+    int adaptedHeight = (rec.height() < BASE_WINDOW_HEIGHT) ?  BASE_WINDOW_MIN_HEIGHT : BASE_WINDOW_HEIGHT;
+    GUIUtil::restoreWindowGeometry(
+            "nWindow",
+            QSize(BASE_WINDOW_WIDTH, adaptedHeight),
+            this
+    );
 
 #ifdef ENABLE_WALLET
     /* if compiled with wallet support, -disablewallet can still disable the wallet */
@@ -49,11 +60,13 @@ CIRCUITGUI::CIRCUITGUI(const NetworkStyle* networkStyle, QWidget* parent) :
 #else
     enableWallet = false;
 #endif // ENABLE_WALLET
-
-    QString windowTitle = tr("CIRCUIT Core") + " - ";
-    windowTitle += ((enableWallet) ? tr("Wallet") : tr("Node"));
-    windowTitle += " " + networkStyle->getTitleAddText();
-    setWindowTitle(windowTitle);
+    
+    
+    QString windowTitle = QString::fromStdString(GetArg("-windowtitle", ""));
+    if (windowTitle.isEmpty()) {
+        windowTitle = tr("CIRCUIT Core") + " - ";
+        windowTitle += ((enableWallet) ? tr("Wallet") : tr("Node"));
+    }
 
 #ifndef Q_OS_MAC
     QApplication::setWindowIcon(networkStyle->getAppIcon());
@@ -71,7 +84,7 @@ CIRCUITGUI::CIRCUITGUI(const NetworkStyle* networkStyle, QWidget* parent) :
 
         QFrame* centralWidget = new QFrame(this);
         this->setMinimumWidth(BASE_WINDOW_WIDTH);
-        this->setMinimumHeight(BASE_WINDOW_HEIGHT);
+        this->setMinimumHeight(BASE_WINDOW_MIN_HEIGHT);
         QHBoxLayout* centralWidgetLayouot = new QHBoxLayout();
         centralWidget->setLayout(centralWidgetLayouot);
         centralWidgetLayouot->setContentsMargins(0,0,0,0);

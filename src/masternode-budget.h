@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -327,7 +327,7 @@ public:
     CFinalizedBudget();
     CFinalizedBudget(const CFinalizedBudget& other);
 
-    void CleanAndRemove(bool fSignatureCheck);
+    void CleanAndRemove();
     bool AddOrUpdateVote(CFinalizedBudgetVote& vote, std::string& strError);
     double GetScore();
     bool HasMinimumRequiredSupport();
@@ -509,7 +509,7 @@ public:
     void SetAllotted(CAmount nAllotedIn) { nAlloted = nAllotedIn; }
     CAmount GetAllotted() { return nAlloted; }
 
-    void CleanAndRemove(bool fSignatureCheck);
+    void CleanAndRemove();
 
     uint256 GetHash() const
     {

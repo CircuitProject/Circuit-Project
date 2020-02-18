@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2019 The PIVX developers
+// Copyright (c) 2017-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -131,19 +131,6 @@ void ZCrctControlDialog::updateList()
         itemMint->setText(COLUMN_CONFIRMATIONS, QString::number(nConfirmations));
         itemMint->setData(COLUMN_CONFIRMATIONS, Qt::UserRole, QVariant((qlonglong) nConfirmations));
 
-        {
-            LOCK(pwalletMain->zcrctTracker->cs_spendcache);
-
-            CoinWitnessData *witnessData = pwalletMain->zcrctTracker->GetSpendCache(mint.hashStake);
-            if (witnessData->nHeightAccStart > 0  && witnessData->nHeightAccEnd > 0) {
-                int nPercent = std::max(0, std::min(100, (int)((double)(witnessData->nHeightAccEnd - witnessData->nHeightAccStart) / (double)(nBestHeight - witnessData->nHeightAccStart - 220) * 100)));
-                QString percent = QString::number(nPercent) + QString("%");
-                itemMint->setText(COLUMN_PRECOMPUTE, percent);
-            } else {
-                itemMint->setText(COLUMN_PRECOMPUTE, QString("0%"));
-            }
-        }
-
         // check for maturity
         // Always mature, public spends doesn't require any new accumulation.
         bool isMature = true;
@@ -164,7 +151,7 @@ void ZCrctControlDialog::updateList()
             if(nConfirmations < Params().Zerocoin_MintRequiredConfirmations())
                 strReason = strprintf("Needs %d more confirmations", Params().Zerocoin_MintRequiredConfirmations() - nConfirmations);
             else if (model->getEncryptionStatus() == WalletModel::EncryptionStatus::Locked)
-                strReason = "Your wallet is locked. Impossible to precompute or spend zCRCT.";
+                strReason = "Your wallet is locked. Impossible to spend zCRCT.";
             else if (!mint.isSeedCorrect)
                 strReason = "The zCRCT seed used to mint this zCRCT is not the same as currently hold in the wallet";
             else

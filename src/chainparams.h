@@ -161,13 +161,12 @@ public:
     int Zerocoin_Block_Double_Accumulated() const { return nBlockDoubleAccumulated; }
     CAmount InvalidAmountFiltered() const { return nInvalidAmountFiltered; };
 
+    int Zerocoin_Block_Public_Spend_Enabled() const { return nPublicZCSpends; }
+    int Zerocoin_Block_Last_Checkpoint() const { return nBlockLastAccumulatorCheckpoint; }
     /** Masternode colleteral value */
     int MasternodeCollateral() const { return  nMasternodeCollateral; }
     /** Address of developers fund */
     std::string GetDevFundAddress() const { return  strDevFundAddress; }
-
-    int Zerocoin_Block_Public_Spend_Enabled() const { return nPublicZCSpends; }
-    int Zerocoin_Block_Last_Checkpoint() const { return nBlockLastAccumulatorCheckpoint; }
 
 protected:
     CChainParams() {}

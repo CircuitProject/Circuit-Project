@@ -291,6 +291,10 @@ bool CheckStakeKernelHash(const CBlockIndex* pindexPrev, const unsigned int nBit
     }
 
     const CAmount& nValueIn = stake->GetValue();
+
+    if (Params().StakeInputMinimal() > nValueIn && pindexPrev->nHeight > 300000)
+        return error("%s : Failed to check coinstake min amount", __func__);
+
     const CDataStream& ssUniqueID = stake->GetUniqueness();
 
     // Base target
@@ -344,10 +348,10 @@ bool GetHashProofOfStake(const CBlockIndex* pindexPrev, CStakeInput* stake, cons
     hashProofOfStakeRet = Hash(ss.begin(), ss.end());
 
     if (fVerify) {
-        LogPrint("staking", "%s :{ nStakeModifier=%s\n"
-                            "nStakeModifierHeight=%s\n"
-                            "}\n",
-            __func__, HexStr(modifier_ss), ((stake->IsZCRCT()) ? "Not available" : std::to_string(stake->getStakeModifierHeight())));
+        LogPrint("staking", "%s : nStakeModifier=%s (nStakeModifierHeight=%s)\n"
+                "nTimeBlockFrom=%d\nssUniqueIDD=%s\n-->DATA=%s",
+            __func__, HexStr(modifier_ss), ((stake->IsZCRCT()) ? "Not available" : std::to_string(stake->getStakeModifierHeight())),
+            nTimeBlockFrom, HexStr(ssUniqueID), HexStr(ss));
     }
     return true;
 }
@@ -360,12 +364,8 @@ bool Stake(const CBlockIndex* pindexPrev, CStakeInput* stakeInput, unsigned int 
     CBlockIndex* pindexFrom = stakeInput->GetIndexFrom();
     if (!pindexFrom || pindexFrom->nHeight < 1) return error("%s : no pindexfrom", __func__);
 
-    // Time protocol V2: one-try
+    // Time protocol V2: one
     if (Params().IsTimeProtocolV2(nHeight)) {
-        // store a time stamp of when we last hashed on this block
-        mapHashedBlocks.clear();
-        mapHashedBlocks[pindexPrev->nHeight] = GetTime();
-
         // check required min depth for stake
         const int nHeightBlockFrom = pindexFrom->nHeight;
         if (nHeight < nHeightBlockFrom + Params().COINSTAKE_MIN_DEPTH())
@@ -396,15 +396,12 @@ bool StakeV1(const CBlockIndex* pindexPrev, CStakeInput* stakeInput, const uint3
         minTime = prevBlockTime;
     unsigned int nTryTime = maxTime;
 
+    if (maxTime <= minTime) {
     // check required maturity for stake
-    if (maxTime <= minTime)
-        return error("%s : stake age violation, nTimeBlockFrom = %d, prevBlockTime = %d -- maxTime = %d ", __func__, nTimeBlockFrom, prevBlockTime, maxTime);
+        return false;
+    }
 
     while (nTryTime > minTime) {
-        // store a time stamp of when we last hashed on this block
-        mapHashedBlocks.clear();
-        mapHashedBlocks[pindexPrev->nHeight] = GetTime();
-
         //new block came in, move on
         if (chainActive.Height() != pindexPrev->nHeight) break;
 
@@ -419,10 +416,6 @@ bool StakeV1(const CBlockIndex* pindexPrev, CStakeInput* stakeInput, const uint3
     }
 
     nTimeTx = nTryTime;
-
-    mapHashedBlocks.clear();
-    mapHashedBlocks[pindexPrev->nHeight] = GetTime(); //store a time stamp of when we last hashed on this block
-
     return fSuccess;
 }
 

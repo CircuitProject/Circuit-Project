@@ -46,7 +46,7 @@ DashboardWidget::DashboardWidget(CIRCUITGUI* parent) :
     ui->right->setContentsMargins(20,20,20,0);
 
     // Title
-    ui->labelTitle2->setText(tr("Staking Rewards"));
+    ui->labelTitle2->setText(tr("Staking & Masternode Rewards"));
     setCssTitleScreen(ui->labelTitle);
     setCssTitleScreen(ui->labelTitle2);
 
@@ -55,12 +55,12 @@ DashboardWidget::DashboardWidget(CIRCUITGUI* parent) :
     setCssSubtitleScreen(ui->labelSubtitle);
 
     // Staking Information
-    ui->labelMessage->setText(tr("Amount of CRCT and zCRCT staked."));
+    ui->labelMessage->setText(tr("Amount of CRCT staked and/or generated from Masternodes."));
     setCssSubtitleScreen(ui->labelMessage);
     setCssProperty(ui->labelSquareCrct, "square-chart-crct");
-    setCssProperty(ui->labelSquarezCrct, "square-chart-zcrct");
+    setCssProperty(ui->labelSquareMNRewards, "square-chart-mnrewards");
     setCssProperty(ui->labelCrct, "text-chart-crct");
-    setCssProperty(ui->labelZcrct, "text-chart-zcrct");
+    setCssProperty(ui->labelMNRewards, "text-chart-mnrewards");
 
     // Staking Amount
     QFont fontBold;
@@ -68,10 +68,10 @@ DashboardWidget::DashboardWidget(CIRCUITGUI* parent) :
 
     setCssProperty(ui->labelChart, "legend-chart");
 
-    ui->labelAmountZcrct->setText("0 zCRCT");
+    ui->labelAmountMNRewards->setText("0 CRCT");
     ui->labelAmountCrct->setText("0 CRCT");
     setCssProperty(ui->labelAmountCrct, "text-stake-crct-disable");
-    setCssProperty(ui->labelAmountZcrct, "text-stake-zcrct-disable");
+    setCssProperty(ui->labelAmountMNRewards, "text-stake-mnrewards-disable");
 
     setCssProperty({ui->pushButtonAll,  ui->pushButtonMonth, ui->pushButtonYear}, "btn-check-time");
     setCssProperty({ui->comboBoxMonths,  ui->comboBoxYears}, "btn-combo-chart-selected");
@@ -112,7 +112,7 @@ DashboardWidget::DashboardWidget(CIRCUITGUI* parent) :
     ui->comboBoxSortType->addItem(tr("To yourself"), TransactionFilterProxy::TYPE(TransactionRecord::SendToSelf));
     ui->comboBoxSortType->addItem(tr("Cold stakes"), TransactionFilterProxy::TYPE(TransactionRecord::StakeDelegated));
     ui->comboBoxSortType->addItem(tr("Hot stakes"), TransactionFilterProxy::TYPE(TransactionRecord::StakeHot));
-    ui->comboBoxSortType->addItem(tr("Delegated"), TransactionFilterProxy::TYPE(TransactionRecord::P2CSDelegationSent));
+    ui->comboBoxSortType->addItem(tr("Delegated"), TransactionFilterProxy::TYPE(TransactionRecord::P2CSDelegationSent) | TransactionFilterProxy::TYPE(TransactionRecord::P2CSDelegationSentOwner));
     ui->comboBoxSortType->addItem(tr("Delegations"), TransactionFilterProxy::TYPE(TransactionRecord::P2CSDelegation));
     ui->comboBoxSortType->setCurrentIndex(0);
     connect(ui->comboBoxSortType, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(onSortTypeChanged(const QString&)));
@@ -124,6 +124,9 @@ DashboardWidget::DashboardWidget(CIRCUITGUI* parent) :
     ui->listTransactions->setMinimumHeight(NUM_ITEMS * (DECORATION_SIZE + 2));
     ui->listTransactions->setAttribute(Qt::WA_MacShowFocusRect, false);
     ui->listTransactions->setSelectionBehavior(QAbstractItemView::SelectRows);
+    ui->listTransactions->setLayoutMode(QListView::LayoutMode::Batched);
+    ui->listTransactions->setBatchSize(50);
+    ui->listTransactions->setUniformItemSizes(true);
 
     // Sync Warning
     ui->layoutWarning->setVisible(true);
@@ -140,7 +143,7 @@ DashboardWidget::DashboardWidget(CIRCUITGUI* parent) :
     setCssProperty(ui->chartContainer, "container-chart");
     setCssProperty(ui->pushImgEmptyChart, "img-empty-staking-on");
 
-    ui->btnHowTo->setText(tr("How to get CRCT or zCRCT"));
+    ui->btnHowTo->setText(tr("How to get CRCT"));
     setCssBtnSecondary(ui->btnHowTo);
 
 
@@ -182,6 +185,7 @@ void DashboardWidget::handleTransactionClicked(const QModelIndex &index){
     window->showHide(true);
     TxDetailDialog *dialog = new TxDetailDialog(window, false);
     dialog->setData(walletModel, rIndex);
+    dialog->adjustSize();
     openDialogWithOpaqueBackgroundY(dialog, window, 3, 17);
 
     // Back to regular status
@@ -227,7 +231,7 @@ void DashboardWidget::loadWalletModel(){
         stakesFilter->setSortCaseSensitivity(Qt::CaseInsensitive);
         stakesFilter->setFilterCaseSensitivity(Qt::CaseInsensitive);
         stakesFilter->setSortRole(Qt::EditRole);
-        stakesFilter->setOnlyStakes(true);
+        stakesFilter->setOnlyStakesandMNTxes(true);
         stakesFilter->setSourceModel(txModel);
         stakesFilter->sort(TransactionTableModel::Date, Qt::AscendingOrder);
         hasStakes = stakesFilter->rowCount() > 0;
@@ -448,7 +452,7 @@ void DashboardWidget::changeChartColors(){
     }else{
         gridY = QColor("#40ffffff");
         axisY->setGridLineColor(gridY);
-        gridLineColorX = QColor(15,11,22);
+        gridLineColorX = QColor(94, 4, 29);
         linePenColorY =  gridLineColorX;
         backgroundColor = linePenColorY;
     }
@@ -505,8 +509,8 @@ const QMap<int, std::pair<qint64, qint64>> DashboardWidget::getAmountBy() {
         QModelIndex modelIndex = stakesFilter->index(i, TransactionTableModel::ToAddress);
         qint64 amount = llabs(modelIndex.data(TransactionTableModel::AmountRole).toLongLong());
         QDate date = modelIndex.data(TransactionTableModel::DateRole).toDateTime().date();
-        bool isCrct = modelIndex.data(TransactionTableModel::TypeRole).toInt() != TransactionRecord::StakeZCRCT;
-
+        bool isCrct = modelIndex.data(TransactionTableModel::TypeRole).toInt() != TransactionRecord::StakeZCRCT && modelIndex.data(TransactionTableModel::TypeRole).toInt() != TransactionRecord::MNReward;
+        bool isMN = modelIndex.data(TransactionTableModel::TypeRole).toInt() == TransactionRecord::MNReward;
         int time = 0;
         switch (chartShow) {
             case YEAR: {
@@ -528,14 +532,18 @@ const QMap<int, std::pair<qint64, qint64>> DashboardWidget::getAmountBy() {
         if (amountBy.contains(time)) {
             if (isCrct) {
                 amountBy[time].first += amount;
-            } else
+            }
+            else if (isMN){
                 amountBy[time].second += amount;
+                hasMNRewards = true;
+
+            }
         } else {
             if (isCrct) {
                 amountBy[time] = std::make_pair(amount, 0);
             } else {
                 amountBy[time] = std::make_pair(0, amount);
-                hasZcrctStakes = true;
+                hasMNRewards = true;
             }
         }
     }
@@ -564,21 +572,21 @@ bool DashboardWidget::loadChartData(bool withMonthNames) {
     for (int j = range.first; j < range.second; j++) {
         int num = (isOrderedByMonth && j > daysInMonth) ? (j % daysInMonth) : j;
         qreal crct = 0;
-        qreal zcrct = 0;
+        qreal mnrewards = 0;
         if (chartData->amountsByCache.contains(num)) {
             std::pair <qint64, qint64> pair = chartData->amountsByCache[num];
             crct = (pair.first != 0) ? pair.first / 100000000 : 0;
-            zcrct = (pair.second != 0) ? pair.second / 100000000 : 0;
+            mnrewards = (pair.second != 0) ? pair.second / 100000000 : 0;
             chartData->totalCrct += pair.first;
-            chartData->totalZcrct += pair.second;
+            chartData->totalMNRewards += pair.second;
         }
 
         chartData->xLabels << ((withMonthNames) ? monthsNames[num - 1] : QString::number(num));
 
         chartData->valuesCrct.append(crct);
-        chartData->valueszCrct.append(zcrct);
+        chartData->valuesMNRewards.append(mnrewards);
 
-        int max = std::max(crct, zcrct);
+        int max = std::max(crct, mnrewards);
         if (max > chartData->maxValue) {
             chartData->maxValue = max;
         }
@@ -632,9 +640,9 @@ void DashboardWidget::onChartRefreshed() {
     }
     // init sets
     set0 = new QBarSet("CRCT");
-    set1 = new QBarSet("zCRCT");
-    set0->setColor(QColor(92,75,125));
-    set1->setColor(QColor(176,136,255));
+    set1 = new QBarSet("CRCT MN");
+    set0->setColor(QColor(128, 77, 77));
+    set1->setColor(QColor(255, 253, 135));
 
     if(!series) {
         series = new QBarSeries();
@@ -644,23 +652,23 @@ void DashboardWidget::onChartRefreshed() {
     series->attachAxis(axisY);
 
     set0->append(chartData->valuesCrct);
-    set1->append(chartData->valueszCrct);
+    set1->append(chartData->valuesMNRewards);
 
     // Total
     nDisplayUnit = walletModel->getOptionsModel()->getDisplayUnit();
-    if (chartData->totalCrct > 0 || chartData->totalZcrct > 0) {
+    if (chartData->totalCrct > 0 || chartData->totalMNRewards > 0) {
         setCssProperty(ui->labelAmountCrct, "text-stake-crct");
-        setCssProperty(ui->labelAmountZcrct, "text-stake-zcrct");
+        setCssProperty(ui->labelAmountMNRewards, "text-mnrewards-mnrcrct");
     } else {
         setCssProperty(ui->labelAmountCrct, "text-stake-crct-disable");
-        setCssProperty(ui->labelAmountZcrct, "text-stake-zcrct-disable");
+        setCssProperty(ui->labelAmountMNRewards, "text-stake-mnrewards-disable");
     }
-    forceUpdateStyle({ui->labelAmountCrct, ui->labelAmountZcrct});
+    forceUpdateStyle({ui->labelAmountCrct, ui->labelAmountMNRewards});
     ui->labelAmountCrct->setText(GUIUtil::formatBalance(chartData->totalCrct, nDisplayUnit));
-    ui->labelAmountZcrct->setText(GUIUtil::formatBalance(chartData->totalZcrct, nDisplayUnit, true));
+    ui->labelAmountMNRewards->setText(QString::number(chartData->totalMNRewards / COIN) +" CRCT MNR");
 
     series->append(set0);
-    if(hasZcrctStakes)
+    if(hasMNRewards)
         series->append(set1);
 
     // bar width

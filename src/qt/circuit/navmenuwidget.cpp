@@ -1,4 +1,4 @@
-// Copyright (c) 2019 The PIVX developers
+// Copyright (c) 2019-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,6 +8,7 @@
 #include "qt/circuit/qtutils.h"
 #include "clientversion.h"
 #include "optionsmodel.h"
+#include <QScrollBar>
 
 NavMenuWidget::NavMenuWidget(CIRCUITGUI *mainWindow, QWidget *parent) :
     PWidget(mainWindow, parent),
@@ -58,10 +59,21 @@ NavMenuWidget::NavMenuWidget(CIRCUITGUI *mainWindow, QWidget *parent) :
     btns = {ui->btnDashboard, ui->btnSend, ui->btnReceive, ui->btnAddress, ui->btnPrivacy, ui->btnMaster, ui->btnColdStaking, ui->btnSettings, ui->btnColdStaking};
     onNavSelected(ui->btnDashboard, true);
 
+    ui->scrollAreaNav->setWidgetResizable(true);
+
+    QSizePolicy scrollAreaPolicy = ui->scrollAreaNav->sizePolicy();
+    scrollAreaPolicy.setVerticalStretch(1);
+    ui->scrollAreaNav->setSizePolicy(scrollAreaPolicy);
+
+    QSizePolicy scrollVertPolicy = ui->scrollAreaNavVert->sizePolicy();
+    scrollVertPolicy.setVerticalStretch(1);
+    ui->scrollAreaNavVert->setSizePolicy(scrollVertPolicy);
+
     connectActions();
 }
 
 void NavMenuWidget::loadWalletModel() {
+    ui->btnPrivacy->setVisible(false);
     if (walletModel && walletModel->getOptionsModel()) {
         ui->btnColdStaking->setVisible(walletModel->getOptionsModel()->isColdStakingScreenEnabled());
     }
@@ -149,7 +161,15 @@ void NavMenuWidget::selectSettings() {
 
 void NavMenuWidget::onShowHideColdStakingChanged(bool show) {
     ui->btnColdStaking->setVisible(show);
-    window->setMinimumHeight(show ? 780 : 740);
+    if (show)
+        ui->scrollAreaNav->verticalScrollBar()->setValue(ui->btnColdStaking->y());
+}
+
+void NavMenuWidget::showEvent(QShowEvent *event) {
+    if (!init) {
+        init = true;
+        ui->scrollAreaNav->verticalScrollBar()->setValue(ui->btnDashboard->y());
+    }
 }
 
 void NavMenuWidget::updateButtonStyles(){

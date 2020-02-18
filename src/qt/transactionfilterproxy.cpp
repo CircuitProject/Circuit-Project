@@ -1,5 +1,5 @@
 // Copyright (c) 2011-2013 The Bitcoin developers
-// Copyright (c) 2017-2019 The PIVX developers
+// Copyright (c) 2017-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,7 +63,7 @@ bool TransactionFilterProxy::filterAcceptsRow(int sourceRow, const QModelIndex& 
     if (fOnlyZc && !isZcTx(type)){
         return false;
     }
-    if (fOnlyStakes && !isStakeTx(type))
+    if (fOnlyStakesandMN && !isStakeTx(type) && !isMasternodeRewardTx(type) && !isColdStake(type))
         return false;
 
     if (fOnlyColdStaking && !isColdStake(type))
@@ -128,9 +128,9 @@ void TransactionFilterProxy::setShowZcTxes(bool fOnlyZc)
     invalidateFilter();
 }
 
-void TransactionFilterProxy::setOnlyStakes(bool fOnlyStakes)
+void TransactionFilterProxy::setOnlyStakesandMNTxes(bool fOnlyStakesandMN)
 {
-    this->fOnlyStakes = fOnlyStakes;
+    this->fOnlyStakesandMN = fOnlyStakesandMN;
     invalidateFilter();
 }
 
@@ -165,8 +165,12 @@ bool TransactionFilterProxy::isStakeTx(int type) const {
     return (type == TransactionRecord::StakeMint || type == TransactionRecord::Generated || type == TransactionRecord::StakeZCRCT);
 }
 
+bool TransactionFilterProxy::isMasternodeRewardTx(int type) const {
+    return (type == TransactionRecord::MNReward);
+}
+
 bool TransactionFilterProxy::isColdStake(int type) const {
-    return (type == TransactionRecord::P2CSDelegation || type == TransactionRecord::P2CSDelegationSent || type == TransactionRecord::StakeDelegated || type == TransactionRecord::StakeHot);
+    return (type == TransactionRecord::P2CSDelegation || type == TransactionRecord::P2CSDelegationSent || type == TransactionRecord::P2CSDelegationSentOwner || type == TransactionRecord::StakeDelegated || type == TransactionRecord::StakeHot);
 }
 
 /*QVariant TransactionFilterProxy::dataFromSourcePos(int sourceRow, int role) const {

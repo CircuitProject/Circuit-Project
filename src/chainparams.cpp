@@ -205,9 +205,9 @@ public:
         nEnforceNewSporkKey = 1525158000; //!> Sporks signed after Monday, August 26, 2019 11:00:00 PM GMT must use the new spork key
         nRejectOldSporkKey = 1527811200; //!> Fully reject old spork key after Thursday, September 26, 2019 11:00:00 PM GMT
         nBlockStakeModifierlV2 = 110000;
-        nBIP65ActivationHeight = 1808634;
+        nBIP65ActivationHeight = 410000;
         // Activation height for TimeProtocolV2, Blocks V7 and newMessageSignatures
-        nBlockTimeProtocolV2 = 300000;
+        nBlockTimeProtocolV2 = 400000;
 
         // Public coin spend enforcement
         nPublicZCSpends = 0;
@@ -216,7 +216,7 @@ public:
         nBlockEnforceNewMessageSignatures = nBlockTimeProtocolV2;
 
         // Blocks v7
-        nBlockLastAccumulatorCheckpoint = 300000;
+        nBlockLastAccumulatorCheckpoint = 400000;
         nBlockV7StartHeight = nBlockTimeProtocolV2;
 
         // Fake Serial Attack

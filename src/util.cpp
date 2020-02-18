@@ -1,7 +1,7 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -96,8 +96,8 @@ bool fEnableSwiftTX = true;
 int nSwiftTXDepth = 5;
 // Automatic Zerocoin minting
 bool fEnableZeromint = false;
-bool fEnableAutoConvert = true;
-int nZeromintPercentage = 1;
+bool fEnableAutoConvert = false;
+int nZeromintPercentage = 0;
 int nPreferredDenom = 0;
 const int64_t AUTOMINT_DELAY = (60 * 5); // Wait at least 5 minutes until Automint starts
 
@@ -223,7 +223,6 @@ bool LogAcceptCategory(const char* category)
                 ptrCategory->insert(std::string("mnpayments"));
                 ptrCategory->insert(std::string("zero"));
                 ptrCategory->insert(std::string("mnbudget"));
-                ptrCategory->insert(std::string("precompute"));
                 ptrCategory->insert(std::string("staking"));
             }
         }

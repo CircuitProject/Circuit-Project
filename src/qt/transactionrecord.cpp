@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +14,7 @@
 #include "zcrctchain.h"
 #include "main.h"
 
-#include <iostream>
+#include <algorithm>
 #include <stdint.h>
 
 /*
@@ -73,13 +73,27 @@ QList<TransactionRecord> TransactionRecord::decomposeTransaction(const CWallet* 
         } else {
             //Masternode reward
             CTxDestination destMN;
+            
             int nIndexMN = wtx.vout.size() - 1;
+             int nIndexDev = wtx.vout.size() - 1;
+            if (wtx.vout.size() > 3)
+            {
+                 nIndexMN = wtx.vout.size() - 2;
+            }
+           
             if (ExtractDestination(wtx.vout[nIndexMN].scriptPubKey, destMN) && IsMine(*wallet, destMN)) {
                 isminetype mine = wallet->IsMine(wtx.vout[nIndexMN]);
                 sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
                 sub.type = TransactionRecord::MNReward;
                 sub.address = CBitcoinAddress(destMN).ToString();
                 sub.credit = wtx.vout[nIndexMN].nValue;
+            }
+            else if (ExtractDestination(wtx.vout[nIndexDev].scriptPubKey, destMN) && IsMine(*wallet, destMN)) {
+                isminetype mine = wallet->IsMine(wtx.vout[nIndexDev]);
+                sub.involvesWatchAddress = mine & ISMINE_WATCH_ONLY;
+                sub.type = TransactionRecord::MNReward;
+                sub.address = CBitcoinAddress(destMN).ToString();
+                sub.credit = wtx.vout[nIndexDev].nValue;
             }
         }
 
@@ -377,11 +391,16 @@ void TransactionRecord::loadHotOrColdStakeOrContract(
             break;
         }
     }
-    bool isSpendable = wallet->IsMine(p2csUtxo) & ISMINE_SPENDABLE_DELEGATED;
+
+    bool isSpendable = (wallet->IsMine(p2csUtxo) & ISMINE_SPENDABLE_DELEGATED);
+    bool isFromMe = wallet->IsFromMe(wtx);
 
     if (isContract) {
-        if (isSpendable) {
+        if (isSpendable && isFromMe) {
             // Wallet delegating balance
+            record.type = TransactionRecord::P2CSDelegationSentOwner;
+        } else if (isFromMe){
+            // Wallet delegating balance and transfering ownership
             record.type = TransactionRecord::P2CSDelegationSent;
         } else {
             // Wallet receiving a delegation
@@ -436,13 +455,15 @@ bool IsZCRCTType(TransactionRecord::Type type)
 void TransactionRecord::updateStatus(const CWalletTx& wtx)
 {
     AssertLockHeld(cs_main);
-    // Determine transaction status
+    int chainHeight = chainActive.Height();
 
+    CBlockIndex *pindex = nullptr;
     // Find the block the tx is in
-    CBlockIndex* pindex = NULL;
     BlockMap::iterator mi = mapBlockIndex.find(wtx.hashBlock);
     if (mi != mapBlockIndex.end())
         pindex = (*mi).second;
+
+    // Determine transaction status
 
     // Sort order, unrecorded transactions sort to the top
     status.sortKey = strprintf("%010d-%01d-%010u-%03d",
@@ -450,22 +471,22 @@ void TransactionRecord::updateStatus(const CWalletTx& wtx)
         (wtx.IsCoinBase() ? 1 : 0),
         wtx.nTimeReceived,
         idx);
-    //status.countsForBalance = wtx.IsTrusted() && !(wtx.GetBlocksToMaturity() > 0);
-    bool fConflicted;
-    status.depth = wtx.GetDepthAndMempool(fConflicted);
+
+    bool fConflicted = false;
+    int depth = 0;
+    bool isTrusted = wtx.IsTrusted(depth, fConflicted);
     const bool isOffline = (GetAdjustedTime() - wtx.nTimeReceived > 2 * 60 && wtx.GetRequestCount() == 0);
+    int nBlocksToMaturity = (wtx.IsCoinBase() || wtx.IsCoinStake()) ? std::max(0, (Params().COINBASE_MATURITY() + 1) - depth) : 0;
 
-    //Determine the depth of the block
-    int nBlocksToMaturity = wtx.GetBlocksToMaturity();
-
-    status.countsForBalance = wtx.IsTrusted() && !(nBlocksToMaturity > 0);
-    status.cur_num_blocks = chainActive.Height();
+    status.countsForBalance = isTrusted && !(nBlocksToMaturity > 0);
+    status.cur_num_blocks = chainHeight;
+    status.depth = depth;
     status.cur_num_ix_locks = nCompleteTXLocks;
 
-    if (!IsFinalTx(wtx, chainActive.Height() + 1)) {
+    if (!IsFinalTx(wtx, chainHeight + 1)) {
         if (wtx.nLockTime < LOCKTIME_THRESHOLD) {
             status.status = TransactionStatus::OpenUntilBlock;
-            status.open_for = wtx.nLockTime - chainActive.Height();
+            status.open_for = wtx.nLockTime - chainHeight;
         } else {
             status.status = TransactionStatus::OpenUntilDate;
             status.open_for = wtx.nLockTime;
@@ -477,7 +498,7 @@ void TransactionRecord::updateStatus(const CWalletTx& wtx)
             status.status = TransactionStatus::Immature;
             status.matures_in = nBlocksToMaturity;
 
-            if (pindex && chainActive.Contains(pindex)) {
+            if (status.depth >= 0 && !fConflicted) {
                 // Check if the block was requested by anyone
                 if (isOffline)
                     status.status = TransactionStatus::MaturesWarning;
@@ -527,8 +548,9 @@ bool TransactionRecord::isCoinStake() const
 bool TransactionRecord::isAnyColdStakingType() const
 {
     return (type == TransactionRecord::P2CSDelegation || type == TransactionRecord::P2CSDelegationSent
-           || type == TransactionRecord::StakeDelegated || type == TransactionRecord::StakeHot
-           || type == TransactionRecord::P2CSUnlockOwner || type == TransactionRecord::P2CSUnlockStaker);
+            || type == TransactionRecord::P2CSDelegationSentOwner
+            || type == TransactionRecord::StakeDelegated || type == TransactionRecord::StakeHot
+            || type == TransactionRecord::P2CSUnlockOwner || type == TransactionRecord::P2CSUnlockStaker);
 }
 
 bool TransactionRecord::isNull() const

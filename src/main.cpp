@@ -66,7 +66,6 @@ CCriticalSection cs_main;
 
 BlockMap mapBlockIndex;
 std::map<uint256, uint256> mapProofOfStake;
-std::map<unsigned int, unsigned int> mapHashedBlocks;
 CChain chainActive;
 CBlockIndex* pindexBestHeader = NULL;
 int64_t nTimeBestReceived = 0;
@@ -85,7 +84,6 @@ bool fCheckBlockIndex = false;
 bool fVerifyingBlocks = false;
 unsigned int nCoinCacheSize = 5000;
 bool fAlerts = DEFAULT_ALERTS;
-bool fClearSpendCache = false;
 
 /* If the tip is older than this (in seconds), the node is considered to be in initial block download. */
 int64_t nMaxTipAge = DEFAULT_MAX_TIP_AGE;
@@ -2024,7 +2022,7 @@ int64_t GetBlockValue(int nHeight)
     }
     else {
         ret = COIN * 0;
-}
+     }
 
     LogPrint("debug","%s: Reward:%s nHeight:%s\n", __func__, FormatMoney(ret), nHeight);
     //if a mn count is inserted into the function we are looking for a specific result for a masternode count
@@ -2195,11 +2193,11 @@ void static InvalidChainFound(CBlockIndex* pindexNew)
     if (!pindexBestInvalid || pindexNew->nChainWork > pindexBestInvalid->nChainWork)
         pindexBestInvalid = pindexNew;
 
-    LogPrintf("InvalidChainFound: invalid block=%s  height=%d  log2_work=%.8g  date=%s\n",
+    LogPrintf("InvalidChainFound: invalid block=%s  height=%d  log2_work=%.16f  date=%s\n",
         pindexNew->GetBlockHash().ToString(), pindexNew->nHeight,
         log(pindexNew->nChainWork.getdouble()) / log(2.0), DateTimeStrFormat("%Y-%m-%d %H:%M:%S",
                                                                pindexNew->GetBlockTime()));
-    LogPrintf("InvalidChainFound:  current best=%s  height=%d  log2_work=%.8g  date=%s\n",
+    LogPrintf("InvalidChainFound:  current best=%s  height=%d  log2_work=%.16f  date=%s\n",
         chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), log(chainActive.Tip()->nChainWork.getdouble()) / log(2.0),
         DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()));
     CheckForkWarningConditions();
@@ -3327,7 +3325,7 @@ void static UpdateTip(CBlockIndex* pindexNew)
         g_best_block_cv.notify_all();
     }
 
-    LogPrintf("UpdateTip: new best=%s  height=%d version=%d  log2_work=%.8g  tx=%lu  date=%s progress=%f  cache=%u\n",
+    LogPrintf("UpdateTip: new best=%s  height=%d version=%d  log2_work=%.16f  tx=%lu  date=%s progress=%f  cache=%u\n",
               chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(), chainActive.Tip()->nVersion, log(chainActive.Tip()->nChainWork.getdouble()) / log(2.0), (unsigned long)chainActive.Tip()->nChainTx,
               DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()),
               Checkpoints::GuessVerificationProgress(chainActive.Tip()), (unsigned int)pcoinsTip->GetCacheSize());
@@ -4318,12 +4316,12 @@ bool CheckWork(const CBlock block, CBlockIndex* const pindexPrev)
 
     if (block.nBits != nBitsRequired) {
         // Circuit Specific reference to the block with the wrong threshold was used.
-        if ((block.nTime == (uint32_t) Params().CircuitBadBlockTime()) && (block.nBits == (uint32_t) Params().CircuitBadBlocknBits())) {
+        if (((block.nTime == (uint32_t) Params().CircuitBadBlockTime()) && (block.nBits == (uint32_t) Params().CircuitBadBlocknBits())) || (pindexPrev->nHeight + 1 <= 1000)) {
             // accept CIRCUIT block minted with incorrect proof of work threshold
             return true;
         }
 
-        return error("%s : incorrect proof of work at %d", __func__, pindexPrev->nHeight + 1);
+        return error("%s : incorrect proof of work at %d nBits:%s nBitsRequired:%s", __func__, pindexPrev->nHeight + 1, strprintf("%08x", block.nBits), strprintf("%08x", nBitsRequired));
     }
 
     return true;
@@ -4634,14 +4632,14 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
                     }
                 }
                 if(tx.IsCoinStake()) continue;
-                if(hasCRCTInputs)
+                if(hasCRCTInputs) {
                     // Check if coinstake input is double spent inside the same block
-                    for (const CTxIn& crctIn : crctInputs){
-                        if(crctIn.prevout == in.prevout){
+                    for (const CTxIn& crctIn : crctInputs)
+                        if(crctIn.prevout == in.prevout)
                             // double spent coinstake input inside block
                             return error("%s: double spent coinstake input inside block", __func__);
                         }
-                    }
+
             }
         }
         inBlockSerials.clear();
@@ -4672,23 +4670,19 @@ bool AcceptBlock(CBlock& block, CValidationState& state, CBlockIndex** ppindex, 
 
                 // Loop through every input from said block
                 for (const CTransaction &t : bl.vtx) {
+                    // Loop through every input of this tx
                     for (const CTxIn &in: t.vin) {
-                        // Loop through every input of the staking tx
-                        for (const CTxIn &stakeIn : crctInputs) {
+
                             // if it's already spent
+                        if(hasZCRCTInputs && in.IsZerocoinSpend())
+                            vBlockSerials.push_back(TxInToZerocoinSpend(in).getCoinSerialNumber());
 
                             // First regular staking check
                             if (hasCRCTInputs) {
-                                if (stakeIn.prevout == in.prevout) {
-                                    return state.DoS(100, error("%s: input already spent on a previous block",
-                                                                __func__));
-                                }
+                            for (const CTxIn& stakeIn : crctInputs)
 
-                                // Second, if there is zPoS staking then store the serials for later check
-                                if(in.IsZerocoinSpend()){
-                                    vBlockSerials.push_back(TxInToZerocoinSpend(in).getCoinSerialNumber());
-                                }
-                            }
+                                if (stakeIn.prevout == in.prevout)
+                                    return state.DoS(100, error("%s: input already spent on a previous block", __func__));
                         }
                     }
                 }

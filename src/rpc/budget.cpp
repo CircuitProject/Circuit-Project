@@ -1,5 +1,5 @@
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -732,10 +732,10 @@ UniValue mnbudgetrawvote(const UniValue& params, bool fHelp)
     vote.nTime = nTime;
     vote.SetVchSig(vchSig);
 
-    if (!vote.CheckSignature(true)) {
+    if (!vote.CheckSignature()) {
         // try old message version
         vote.nMessVersion = MessageVersion::MESS_VER_STRMESS;
-        if (!vote.CheckSignature(true)) return "Failure to verify signature.";
+        if (!vote.CheckSignature()) return "Failure to verify signature.";
     }
 
     std::string strError = "";

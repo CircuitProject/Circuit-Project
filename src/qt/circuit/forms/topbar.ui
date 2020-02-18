@@ -566,7 +566,7 @@ border:none;</string>
                  <item>
                   <widget class="QLabel" name="labelImmaturezCrct">
                    <property name="text">
-                    <string>10 zCRCT</string>
+                    <string></string>
                    </property>
                   </widget>
                  </item>

@@ -25,6 +25,7 @@ public:
 
 private slots:
     void setNumConnections(int count);
+    void setMasternodeCount(const QString& strMasternodes);
     void setNumBlocks(int count);
     void openNetworkMonitor();
 

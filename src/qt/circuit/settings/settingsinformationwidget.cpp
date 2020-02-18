@@ -32,12 +32,13 @@ SettingsInformationWidget::SettingsInformationWidget(CIRCUITGUI* _window,QWidget
     ui->labelTitleGeneral->setText(tr("General"));
     ui->labelTitleClient->setText(tr("Client Version: "));
     ui->labelTitleAgent->setText(tr("User Agent:"));
-    ui->labelTitleBerkeley->setText(tr("Using BerkeleyDB version:"));
+    ui->labelTitleBerkeley->setText(tr("BerkeleyDB version:"));
     ui->labelTitleDataDir->setText(tr("Datadir: "));
-    ui->labelTitleTime->setText(tr("Startup Time:  "));
+    ui->labelTitleTime->setText(tr("Startup time:  "));
     ui->labelTitleNetwork->setText(tr("Network"));
     ui->labelTitleName->setText(tr("Name:"));
-    ui->labelTitleConnections->setText(tr("Number Connections:"));
+    ui->labelTitleConnections->setText(tr("Connections:"));
+    ui->labelTitleMasternodes->setText(tr("Masternodes:"));
 
     setCssProperty({
         ui->labelTitleDataDir,
@@ -47,8 +48,10 @@ SettingsInformationWidget::SettingsInformationWidget(CIRCUITGUI* _window,QWidget
         ui->labelTitleTime,
         ui->labelTitleName,
         ui->labelTitleConnections,
+        ui->labelTitleMasternodes,
         ui->labelTitleBlockNumber,
         ui->labelTitleBlockTime,
+        ui->labelTitleBlockHash,
         ui->labelTitleNumberTransactions,
         ui->labelInfoNumberTransactions,
         ui->labelInfoClient,
@@ -57,6 +60,7 @@ SettingsInformationWidget::SettingsInformationWidget(CIRCUITGUI* _window,QWidget
         ui->labelInfoDataDir,
         ui->labelInfoTime,
         ui->labelInfoConnections,
+        ui->labelInfoMasternodes,
         ui->labelInfoBlockNumber
         }, "text-main-settings");
 
@@ -69,13 +73,14 @@ SettingsInformationWidget::SettingsInformationWidget(CIRCUITGUI* _window,QWidget
     },"text-title");
 
     ui->labelTitleBlockchain->setText(tr("Blockchain"));
-    ui->labelTitleBlockNumber->setText(tr("Current Number of Blocks:"));
-    ui->labelTitleBlockTime->setText(tr("Last Block Time:"));
+    ui->labelTitleBlockNumber->setText(tr("Current number of blocks:"));
+    ui->labelTitleBlockTime->setText(tr("Last block time:"));
+    ui->labelTitleBlockHash->setText(tr("Last block hash:"));
 
     ui->labelTitleMemory->setText(tr("Memory Pool"));
     ui->labelTitleMemory->setVisible(false);
 
-    ui->labelTitleNumberTransactions->setText(tr("Current Number of Transactions:"));
+    ui->labelTitleNumberTransactions->setText(tr("Current number of transactions:"));
     ui->labelTitleNumberTransactions->setVisible(false);
 
     ui->labelInfoNumberTransactions->setText("0");
@@ -85,11 +90,13 @@ SettingsInformationWidget::SettingsInformationWidget(CIRCUITGUI* _window,QWidget
     ui->labelInfoName->setText(tr("Main"));
     ui->labelInfoName->setProperty("cssClass", "text-main-settings");
     ui->labelInfoConnections->setText("0 (In: 0 / Out:0)");
+    ui->labelInfoMasternodes->setText("Total: 0 (IPv4: 0 / IPv6: 0 / Tor: 0 / Unknown: 0");
 
     // Information Blockchain
     ui->labelInfoBlockNumber->setText("0");
     ui->labelInfoBlockTime->setText("Sept 6, 2018. Thursday, 8:21:49 PM");
     ui->labelInfoBlockTime->setProperty("cssClass", "text-main-grey");
+    ui->labelInfoBlockHash->setProperty("cssClass", "text-main-hash");
 
     // Buttons
     ui->pushButtonFile->setText(tr("Wallet Conf"));
@@ -133,6 +140,9 @@ void SettingsInformationWidget::loadClientModel(){
 
         setNumBlocks(clientModel->getNumBlocks());
         connect(clientModel, SIGNAL(numBlocksChanged(int)), this, SLOT(setNumBlocks(int)));
+
+        setMasternodeCount(clientModel->getMasternodeCountString());
+        connect(clientModel, &ClientModel::strMasternodesChanged, this, &SettingsInformationWidget::setMasternodeCount);
     }
 }
 
@@ -149,8 +159,15 @@ void SettingsInformationWidget::setNumConnections(int count){
 
 void SettingsInformationWidget::setNumBlocks(int count){
     ui->labelInfoBlockNumber->setText(QString::number(count));
-    if (clientModel)
+    if (clientModel) {
         ui->labelInfoBlockTime->setText(clientModel->getLastBlockDate().toString());
+        ui->labelInfoBlockHash->setText(clientModel->getLastBlockHash());
+    }
+}
+
+void SettingsInformationWidget::setMasternodeCount(const QString& strMasternodes)
+{
+    ui->labelInfoMasternodes->setText(strMasternodes);
 }
 
 void SettingsInformationWidget::openNetworkMonitor(){

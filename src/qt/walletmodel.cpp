@@ -1,6 +1,6 @@
 // Copyright (c) 2011-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -64,6 +64,10 @@ bool WalletModel::isTestNetwork() const {
 
 bool WalletModel::isColdStakingNetworkelyEnabled() const {
     return sporkManager.IsSporkActive(SPORK_17_COLDSTAKING_ENFORCEMENT);
+}
+
+bool WalletModel::isStakingStatusActive() const {
+    return wallet->pStakerStatus->IsActive();
 }
 
 CAmount WalletModel::getBalance(const CCoinControl* coinControl) const
@@ -148,6 +152,12 @@ CAmount WalletModel::getColdStakedBalance() const
     return wallet->GetColdStakingBalance();
 }
 
+int WalletModel::getRequiredMasternodeCollateral() const
+{
+    return Params().MasternodeCollateral();
+}
+
+
 bool WalletModel::isColdStaking() const
 {
     // TODO: Complete me..
@@ -165,6 +175,10 @@ void WalletModel::updateStatus()
 bool WalletModel::isWalletUnlocked() const {
     EncryptionStatus status = getEncryptionStatus();
     return status == Unencrypted || status == Unlocked;
+}
+
+bool WalletModel::isWalletLocked() const {
+    return getEncryptionStatus() == Locked;
 }
 
 void WalletModel::pollBalanceChanged()
