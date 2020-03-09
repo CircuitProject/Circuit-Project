@@ -1,29 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="ic_empty_multisend" width="100" height="100" viewBox="0 0 100 100">
-    <defs>
-        <style type="text/css">
-            .cls-1{fill:#d6d6d6}.cls-2{fill:#666}.cls-3{fill:none}
-        </style>
-    </defs>
-    <g id="Group_9031" data-name="Group 9031">
-        <g id="Group_9029" data-name="Group 9029">
-            <path id="Rectangle_4683" d="M0 0h10v9H0z" class="cls-1" data-name="Rectangle 4683" transform="translate(45 18)"/>
-            <g id="Group_9028" data-name="Group 9028">
-                <path id="Rectangle_4684" d="M0 0h6v10H0z" class="cls-1" data-name="Rectangle 4684" transform="translate(14 66)"/>
-                <path id="Rectangle_4685" d="M0 0h6v10H0z" class="cls-1" data-name="Rectangle 4685" transform="translate(80 66)"/>
-                <path id="Rectangle_4686" d="M0 0h6v10H0z" class="cls-1" data-name="Rectangle 4686" transform="translate(47 66)"/>
-            </g>
-        </g>
-        <g id="Group_9030" data-name="Group 9030">
-            <path id="Rectangle_4687" d="M0 0h6.787v1.412H0z" class="cls-2" data-name="Rectangle 4687" transform="translate(43.382 35.772)"/>
-            <path id="Path_18985" d="M46.613 41.941h4.459a5.256 5.256 0 0 0 5.546-5.506A5.2 5.2 0 0 0 51.058 31h-6.519v1.609L49 32.6h1.863a3.607 3.607 0 0 1 3.937 3.84 3.655 3.655 0 0 1-3.965 3.911H44.85V49h1.763z" class="cls-2" data-name="Path 18985"/>
-            <path id="Rectangle_4688" d="M0 0h2v4H0z" class="cls-2" data-name="Rectangle 4688" transform="translate(67 40)"/>
-            <circle id="Ellipse_626" cx="1" cy="1" r="1" class="cls-2" data-name="Ellipse 626" transform="translate(49 72)"/>
-            <circle id="Ellipse_627" cx="1" cy="1" r="1" class="cls-2" data-name="Ellipse 627" transform="translate(82 72)"/>
-            <path id="Rectangle_4689" d="M0 0h4v2H0z" class="cls-2" data-name="Rectangle 4689" transform="translate(32 58)"/>
-            <path id="Path_18986" d="M16 65h-3v3H7v4h2v-2h4v7h8v-7h4v21H9V76H7v17h20V68h-6v-3h-3v-5h10v-2H16zm3 2v8h-4v-8z" class="cls-2" data-name="Path 18986"/>
-            <circle id="Ellipse_628" cx="1" cy="1" r="1" class="cls-2" data-name="Ellipse 628" transform="translate(16 72)"/>
-            <path id="Path_18987" d="M87 68v-3h-3v-7H51v-5h18v-5h-2v3H33V28h34v8h2v-8h4V17H59.46A5.994 5.994 0 1 0 50 9.69 5.995 5.995 0 1 0 40.54 17H27v11h4v25h18v5h-9v2h9v5h-3v3h-6v16h2V70h4v7h8v-7h4v21H42v-3h-2v5h20V68h-6v-3h-3v-5h31v5h-3v3h-6v12h2V70h4v7h8v-7h4v21H75v-7h-2v9h20V68zM71 19v7H56v-7zm-20-6a4 4 0 1 1 4 4h-4zm0 6h3v7h-8v-7h5zM45 9a4 4 0 0 1 4 4v4h-4a4 4 0 0 1 0-8zM29 26v-7h15v7H29zm23 41v8h-4v-8zm33 8h-4v-8h4z" class="cls-2" data-name="Path 18987"/>
-        </g>
-    </g>
-    <path id="Rectangle_4690" d="M0 0h100v100H0z" class="cls-3" data-name="Rectangle 4690"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="417" height="417" viewBox="0 0 417 417">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c142 79.160924, 2017/07/13-01:06:39        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<image x="29" y="29" width="359" height="359" xlink:href="data:img/png;base64,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"/>
 </svg>

@@ -19,7 +19,7 @@ SettingsFaqWidget::SettingsFaqWidget(QWidget *parent) :
     ui->labelTitle->setText(tr("Frequently Asked Questions"));
     ui->labelWebLink->setText(tr("You can read more here"));
 #ifdef Q_OS_MAC
-    ui->container->load("://bg-welcome");
+    ui->container->load("://bg-faq");
     setCssProperty(ui->container, "container-welcome-no-image");
 #else
     setCssProperty(ui->container, "container-welcome");
@@ -91,7 +91,7 @@ SettingsFaqWidget::SettingsFaqWidget(QWidget *parent) :
     setCssProperty(ui->pushButtonExit, "btn-faq-exit");
 
     // Web Link
-    ui->pushButtonWebLink->setText("https://CIRCUIT.org/");
+    ui->pushButtonWebLink->setText("https://www.circuit-society.io/");
     setCssProperty(ui->pushButtonWebLink, "btn-faq-web");
     setCssProperty(ui->containerButtons, "container-faq-buttons");
 

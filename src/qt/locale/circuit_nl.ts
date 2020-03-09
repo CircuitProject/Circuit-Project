@@ -4242,7 +4242,7 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
                            zCRCT is an optional privacy-centric method of coin mixing on the
                            CIRCUIT blockchain. Basically all your transactions cannot be tracked
                            on to any block explorer. You can read more about the technicals in the
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt;
+                           &lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt;
                            "CIRCUIT Zerocoin (zCRCT) Technical Paper"&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>
@@ -4251,7 +4251,7 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
                            zCRCT is een optionele privacy-gerichte methode om munten te mengen op de
                            CIRCUIT blockchain. In principe kunnen al uw transacties niet worden gevolgd
                            op enige block explorer. U kunt meer lezen over de technische gegevens in de
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt;
+                           &lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt;
                            "CIRCUIT Zerocoin (zCRCT) Technische Paper"&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </translation>
@@ -4301,7 +4301,7 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
                            marks and restart your wallet to disable automint.&lt;/p&gt;
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            You can read more about zCRCT in the
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt; "CIRCUIT Zerocoin (zCRCT) Technical Paper"&lt;/a&gt;.
+                           &lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt; "CIRCUIT Zerocoin (zCRCT) Technical Paper"&lt;/a&gt;.
                            If you would like to keep and stake your zCRCT, please read the "How do I stake"
                            section of the FAQ below.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
@@ -4318,7 +4318,7 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
                            en je portemonnee herstarten om automuntering uit te schakelen.&lt;/p&gt;
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            Je kan meer lezen over zCRCT in de
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt; "CIRCUIT Zerocoin (zCRCT) Technische Paper"&lt;/a&gt;.
+                           &lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt; "CIRCUIT Zerocoin (zCRCT) Technische Paper"&lt;/a&gt;.
                            Als u uw zCRCT wilt behouden en staken, lees dan de "Hoe stake ik"
                            sectie in onderstaande FAQ.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
@@ -4428,20 +4428,20 @@ Controleer of u een vooraf bepaalde teksteditor hebt geïnstalleerd.</translatio
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
                            We have support channels in most of our official chat groups, for example
-                           &lt;a style='color: #b088ff' href='https://Discord.CIRCUIT.com'&gt;
+                           &lt;a style='color: #fc0200' href='https://Discord.CIRCUIT.com'&gt;
                            #support in our Discord&lt;/a&gt;.
                            If you prefer to submit a ticket, One can be
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.FreshDesk.com'&gt;
+                           &lt;a style='color: #fc0200' href='https://CIRCUIT.FreshDesk.com'&gt;
                            our Freshdesk support site&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>
         <translation>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
                            We hebben ondersteuningskanalen in de meeste van onze officiële chatgroepen, bijvoorbeeld
-                           &lt;a style='color: #b088ff' href='https://Discord.CIRCUIT.com'&gt;
+                           &lt;a style='color: #fc0200' href='https://Discord.CIRCUIT.com'&gt;
                            #support in onze Discord&lt;/a&gt;.
                            Als u liever een ticket indient, kan men dat
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.FreshDesk.com'&gt;
+                           &lt;a style='color: #fc0200' href='https://CIRCUIT.FreshDesk.com'&gt;
                            op onze Freshdesk support site&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </translation>

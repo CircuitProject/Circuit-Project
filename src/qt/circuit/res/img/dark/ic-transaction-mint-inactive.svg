@@ -1,15 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-    <defs>
-        <style type="text/css">
-            .cls-1{opacity:.7}.cls-2{fill:#fff}.cls-3{fill:none}
-        </style>
-    </defs>
-    <g id="ic_mint" class="cls-1">
-        <g id="Group_9004" data-name="Group 9004">
-            <path id="Path_18964" d="M6 5h12v2.586l-.793-.793-1.414 1.414L19 11.414l3.207-3.207-1.414-1.414-.793.793V3H4v7h2z" class="cls-2" data-name="Path 18964"/>
-            <path id="Path_18965" d="M12 8a4 4 0 1 0 4 4 4 4 0 0 0-4-4zm0 6a2 2 0 1 1 2-2 2 2 0 0 1-2 2z" class="cls-2" data-name="Path 18965"/>
-            <path id="Path_18966" d="M18 19H6v-2.586l.793.793 1.414-1.414L5 12.586l-3.207 3.207 1.414 1.414.793-.793V21h16v-7h-2z" class="cls-2" data-name="Path 18966"/>
-        </g>
-        <path id="Rectangle_4647" d="M0 0h24v24H0z" class="cls-3" data-name="Rectangle 4647"/>
-    </g>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="100" viewBox="0 0 100 100">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c142 79.160924, 2017/07/13-01:06:39        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<image x="7" y="12" width="86" height="76" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFYAAABMCAQAAABdEoiBAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAAAmJLR0QAAKqNIzIAAAAJcEhZcwAALiMAAC4jAXilP3YAAAAHdElNRQfkAhUVFDvZTlgTAAAEaklEQVRo3u2ZP2jbWBzHf5YV2bVMDCbonpc7KAcHGW64OzoEImgG325IN2/N0MHQQdCpU5cbPBQM16Gjtxq810MCCngod0sHQ+EIHB3yakLAxXJsJ5Y7KLKl98d6kp2K3um7+f1+eu+Tn376vd97SQGlj5XZQ4hd6ZNPbXJMpt1mD8eHcaMCZAEoWCluqDBKYBPYBDaBdSSLOA3RXWN8V7H+DPb6piKbwCawCex/GbbYRjrPVtKKHa81Zthie7pnNdm4JW3Umf7stcYKW2xP9wDmGatp/0La5tujzgw5Vhc3RlgHFQBgnrl6TFonv8+Qa3VxY4NdogbLxRXqDUSF9Fl5tmvfRkTC6V66g811URe41Q3Bot2bJ9PysOAbvA978Hh7oHTkV7jn97Z+DbvCPGM/2EAalLSdxvB4fGgXWFa7MD4cHu80StpyDPfUamoSbpVcvV9fGxbp1mnw0X18aJ16CxQ2w+Hm6v362h+YZlhNdkRJ2QWrqRnRcB3UNWE1Y2TMM6Le88zIiILroq4Fi/SrWthnrmphk2GJugZsSRu9Fo+qq3lm9Nr3qQXgelGZdVb6Vz4LXvb6OT9X5TOAm/tsm124fg6eN4JNVLWa7D/bjwqQol3+EogQ2h0es8aVrvLS3QaQPn3KLv35A6Lu6ixcEjVyGlw/o8ekQf7RZWW5Y2HzspJ/JA1oz5sn/t+sZKBRI0d2+wOZBNJA3T/v054lzTqlfT//RPr5o8tCjRhZpNP5mjtioQKc93NH5JhdoDtYb3TZqBFhZ2VyROmyGxYHQ+kGz7DE5aFGhd2lYF+u8qet9AwuLh+VmbPB+qdLFqagC6Y89v+Wz34M1SI62kjzHVyXRSr3V4L9WtoILG+3CuMhIplfVTVDesf+xiUMxOJI51cDAKQPqRmCq/lv9Lp81JHBO9Gne+TI9OmqZWkrPYOIOLCaMTL8Z3bfUh0KZ49/r4J0ukOgZxBRivU6HNRbh4lapV/x5rdbWkJp4EXlRVehImMX/KcsN6o0KutpMVGwflQervyKnsouDN94r9mQXmwP37C6XtbTIiLSgEa9daOSYafBP9Ouar4Bsq0L6jiE9PEf/hGl/T217fpOCjxU90bEi7v1YlrmnRVWVVVpsPWCMf8O+Yz8A+NZEdQFricZzvu5o7AXFQCpCa+VFNECdjUqCxeb9xphl7vXWLV5CMIGo7Jw+/VcXTy6qcmq9k8YVgyVjatWWacsxkIDtboeKoAUBpWFi011P9sKeirbUvfXSYBb2HCoC1xPp3/ev6jlD7ItdoSlQbaVP7ioRf+slpKld6lJ2JuVrb8x0YjgHtTCXCZHhF11I8KW0r2ssC3YhA2i0ZJErse8Vj7q3UtyIrLETePMW9JpaY0TdVFnXdw0zpVTn0kn1xovqmcHw6ZaVd7nyuyvFptqNfM2XlRfI4NNKPMd7/rjEdH/7yiewCawCSxbQv9oJi8sNy9LyOubimwCm8AmsAmsI0adTZ9k46YCgPQJPfYFTnrj2HBAOtQAAAAASUVORK5CYII="/>
 </svg>

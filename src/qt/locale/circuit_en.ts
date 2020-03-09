@@ -5307,7 +5307,7 @@ Verify that you have installed a predetermined text editor.</source>
                            zCRCT is an optional privacy-centric method of coin mixing on the
                            CIRCUIT blockchain. Basically all your transactions cannot be tracked
                            on to any block explorer. You can read more about the technicals in the
-                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://CIRCUIT.org/zcrct/&apos;&gt;
+                           &lt;a style=&apos;color: #fc0200&apos; href=&apos;https://www.circuit-society.io/zcrct/&apos;&gt;
                            &quot;CIRCUIT Zerocoin (zCRCT) Technical Paper&quot;&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>
@@ -5358,7 +5358,7 @@ Verify that you have installed a predetermined text editor.</source>
                            marks and restart your wallet to disable automint.&lt;/p&gt;
                            &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
                            You can read more about zCRCT in the
-                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://CIRCUIT.org/zcrct/&apos;&gt; &quot;CIRCUIT Zerocoin (zCRCT) Technical Paper&quot;&lt;/a&gt;.
+                           &lt;a style=&apos;color: #fc0200&apos; href=&apos;https://www.circuit-society.io/zcrct/&apos;&gt; &quot;CIRCUIT Zerocoin (zCRCT) Technical Paper&quot;&lt;/a&gt;.
                            If you would like to keep and stake your zCRCT, please read the &quot;How do I stake&quot;
                            section of the FAQ below.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
@@ -5444,10 +5444,10 @@ Verify that you have installed a predetermined text editor.</source>
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
                            We have support channels in most of our official chat groups, for example
-                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://discord.CIRCUIT.org&apos;&gt;
+                           &lt;a style=&apos;color: #fc0200&apos; href=&apos;https://discord.www.circuit-society.io&apos;&gt;
                            #support in our Discord&lt;/a&gt;.
                            If you prefer to submit a ticket, One can be
-                           &lt;a style=&apos;color: #b088ff&apos; href=&apos;https://CIRCUIT.freshdesk.com&apos;&gt;
+                           &lt;a style=&apos;color: #fc0200&apos; href=&apos;https://CIRCUIT.freshdesk.com&apos;&gt;
                            our Freshdesk support site&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>

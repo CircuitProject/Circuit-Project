@@ -4238,7 +4238,7 @@ CIRCUIT использует консенсус PoS (Proof of Stake), позво
                            zCRCT is an optional privacy-centric method of coin mixing on the
                            CIRCUIT blockchain. Basically all your transactions cannot be tracked
                            on to any block explorer. You can read more about the technicals in the
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt;
+                           &lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt;
                            "CIRCUIT Zerocoin (zCRCT) Technical Paper"&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>
@@ -4247,7 +4247,7 @@ CIRCUIT использует консенсус PoS (Proof of Stake), позво
 zCRCT - это необязательная конфиденциальность, которая возможна при микшировании монет
 в блокчейне CIRCUIT. По сути,ни одна транзакция не может быть отслежена
 ни в одном из обозревателей блоков. Вы можете прочитать больше о технических характеристиках в
-&lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt;
+&lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt;
 "Техническом документе CIRCUIT Zerocoin (zCRCT)"&lt;/a&gt;.
  &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; </translation>
     </message>
@@ -4295,7 +4295,7 @@ zCRCT - это необязательная конфиденциальность
                            marks and restart your wallet to disable automint.&lt;/p&gt;
                            &lt;/p&gt;&lt;p align="justify"&gt;
                            You can read more about zCRCT in the
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt; "CIRCUIT Zerocoin (zCRCT) Technical Paper"&lt;/a&gt;.
+                           &lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt; "CIRCUIT Zerocoin (zCRCT) Technical Paper"&lt;/a&gt;.
                            If you would like to keep and stake your zCRCT, please read the "How do I stake"
                            section of the FAQ below.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
@@ -4310,7 +4310,7 @@ zCRCT - это необязательная конфиденциальность
 Если вы не используете CIRCUIT-QT или GUI, вы можете просто открыть
 свой файл circuit.conf и добавить &lt;i&gt;enablezeromint=0&lt;/i&gt; без кавычек и
 перезапустите свой кошелек для отключения  автоматической чеканки. &lt;/p&gt; &lt;/p&gt;&lt;p align="justify"&gt; Вы можете прочитать больше о zCRCT в
-&lt;a style='color: #b088ff' href='https://CIRCUIT.org/zcrct/'&gt;
+&lt;a style='color: #fc0200' href='https://www.circuit-society.io/zcrct/'&gt;
  "Технический документ CIRCUIT Zerocoin (zCRCT)"&lt;/a&gt;.
 Если вы хотите продолжать стекинг zCRCT, ознакомьтесь с разделом" Как осуществить стекинг"
 в разделе часто задаваемых вопросов ниже.
@@ -4403,20 +4403,20 @@ zCRCT можно потратить и отправить на любой адр
         <source>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
                            We have support channels in most of our official chat groups, for example
-                           &lt;a style='color: #b088ff' href='https://Discord.CIRCUIT.com'&gt;
+                           &lt;a style='color: #fc0200' href='https://Discord.CIRCUIT.com'&gt;
                            #support in our Discord&lt;/a&gt;.
                            If you prefer to submit a ticket, One can be
-                           &lt;a style='color: #b088ff' href='https://CIRCUIT.FreshDesk.com'&gt;
+                           &lt;a style='color: #fc0200' href='https://CIRCUIT.FreshDesk.com'&gt;
                            our Freshdesk support site&lt;/a&gt;.
                            &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </source>
         <translation>
 &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align="justify"&gt;
 У нас есть каналы поддержки в большинстве наших официальных групп, например
-&lt;a style='color: #b088ff' href='https://Discord.CIRCUIT.com'&gt;
+&lt;a style='color: #fc0200' href='https://Discord.CIRCUIT.com'&gt;
 #support в нашем Discord&lt;/a&gt;.
 Если вы хотите задать вопрос, одним из способов это сделать может послужить
-&lt;a style='color: #b088ff' href='https://CIRCUIT.FreshDesk.com'&gt;
+&lt;a style='color: #fc0200' href='https://CIRCUIT.FreshDesk.com'&gt;
 наш сайт поддержки Freshdesk&lt;/a&gt;.
 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>

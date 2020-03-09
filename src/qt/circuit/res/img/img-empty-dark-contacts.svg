@@ -1,25 +1,31 @@
-<svg xmlns="http://www.w3.org/2000/svg" id="Group_9058" width="100" height="100" data-name="Group 9058" viewBox="0 0 100 100">
-    <defs>
-        <style type="text/css">
-            .cls-1{fill:#413d4a}.cls-2{fill:#a09ea5}.cls-3{fill:none}
-        </style>
-    </defs>
-    <g id="Group_9057" data-name="Group 9057">
-        <g id="Group_9055" data-name="Group 9055">
-            <path id="Rectangle_4710" d="M0 0h11v84H0z" class="cls-1" data-name="Rectangle 4710" transform="translate(18 8)"/>
-            <path id="Rectangle_4711" d="M0 0h5v12H0z" class="cls-1" data-name="Rectangle 4711" transform="translate(81 17)"/>
-            <path id="Rectangle_4712" d="M0 0h5v12H0z" class="cls-1" data-name="Rectangle 4712" transform="translate(81 38)"/>
-            <path id="Rectangle_4713" d="M0 0h5v12H0z" class="cls-1" data-name="Rectangle 4713" transform="translate(81 59)"/>
-            <circle id="Ellipse_642" cx="9" cy="9" r="9" class="cls-1" data-name="Ellipse 642" transform="translate(46 27)"/>
-            <path id="Path_19002" d="M70.581 64c-3.087-8.828-7.13-15-15.331-15S42.73 55.172 39.5 64z" class="cls-1" data-name="Path 19002"/>
-        </g>
-        <g id="Group_9056" data-name="Group 9056">
-            <path id="Rectangle_4714" d="M0 0h4.001v2H0z" class="cls-2" data-name="Rectangle 4714" transform="translate(64 7)"/>
-            <path id="Rectangle_4715" d="M0 0h2v4H0z" class="cls-2" data-name="Rectangle 4715" transform="translate(28 76)"/>
-            <path id="Path_19003" d="M87 30V16h-5V7H72v2h8v82H30v-7h-2v7h-9V9h9v63h2V9h30V7H17v86h65V72h5V58h-5v-7h5V37h-5v-7zm-5-12h3v10h-3zm3 42v10h-3V60zm0-21v10h-3V39z" class="cls-2" data-name="Path 19003"/>
-            <path id="Path_19004" d="M45 36a10 10 0 1 0 10-10 10.011 10.011 0 0 0-10 10zm18 0a8 8 0 1 1-8-8 8.009 8.009 0 0 1 8 8z" class="cls-2" data-name="Path 19004"/>
-            <path id="Path_19005" d="M55.25 48c-9.716 0-14.022 8.367-16.687 15.656L38.071 65H71.99l-.465-1.33C68.815 55.921 64.763 48 55.25 48zm-14.3 15c3.577-9.094 7.9-13 14.3-13 6.362 0 10.45 3.788 13.906 13z" class="cls-2" data-name="Path 19005"/>
-        </g>
-    </g>
-    <path id="Rectangle_4716" d="M0 0h100v100H0z" class="cls-3" data-name="Rectangle 4716"/>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="417" height="417" viewBox="0 0 417 417">
+  <metadata><?xpacket begin="﻿" id="W5M0MpCehiHzreSzNTczkc9d"?>
+<x:xmpmeta xmlns:x="adobe:ns:meta/" x:xmptk="Adobe XMP Core 5.6-c142 79.160924, 2017/07/13-01:06:39        ">
+   <rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+      <rdf:Description rdf:about=""/>
+   </rdf:RDF>
+</x:xmpmeta>
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                                                                                                    
+                           
+<?xpacket end="w"?></metadata>
+<image x="70" y="29" width="293" height="359" xlink:href="data:img/png;base64,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"/>
 </svg>

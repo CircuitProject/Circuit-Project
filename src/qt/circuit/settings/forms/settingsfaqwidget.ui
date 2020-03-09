@@ -194,7 +194,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>2) Why are my CRCT unspendable?</string>
+                      <string>2) Which competitive racing genres does Circuit support?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -222,7 +222,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>3) CIRCUIT privacy? What is Zerocoin (zCRCT)?</string>
+                      <string>3) Where do I go to view the drivers sponsored by Circuit??</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -250,7 +250,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>4) Why are my zCRCT unspendable?</string>
+                      <string>4) How do I stake $CRCT in my desktop wallet?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -272,8 +272,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>5) Why did my wallet convert the balance
-    into zCRCT automatically?</string>
+                      <string>5) How often will I receive staking rewards?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -295,7 +294,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>6) How do I receive CRCT/zCRCT?</string>
+                      <string>6) What does Generated, but not accepted mean when staking?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -317,7 +316,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>7) How do I stake CRCT/zCRCT?</string>
+                      <string>7) How do I receive $CRCT to my desktop wallet?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -339,7 +338,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>8) Where I should go if I need support?</string>
+                      <string>8) How do I sent $CRCT from my desktop wallet?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -361,7 +360,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>9) What is a Masternode?</string>
+                      <string>9) What is a masternode and what is required?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -383,7 +382,7 @@
                       <enum>Qt::NoFocus</enum>
                      </property>
                      <property name="text">
-                      <string>10) What is a Masternode Controller?</string>
+                      <string>10) Where do I go to contact the Circuit support team?</string>
                      </property>
                      <property name="checkable">
                       <bool>true</bool>
@@ -624,17 +623,13 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           CIRCUIT is a form of digital online money using blockchain technology
-                           that can be easily transferred globally, instantly, and with near
-                           zero fees.  CIRCUIT incorporates market leading security &amp;
-                           privacy and is also the first PoS (Proof of Stake) Cryptocurrency
-                           to implement ZeroCoin(zCRCT) and Zerocoin staking.
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           CIRCUIT utilizes a Proof of Stake (PoS) consensus system algorithm,
-                           allowing all owners of CIRCUIT to participate in earning block rewards
-                           while securing the network with full node wallets, as well as to
-                           run Masternodes to create and vote on proposals.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   Circuit is the first cryptocurrency specifically geared towards the competitive 
+						   racing audiences. Circuit is constructed off a state-of-the-art hybrid consisting 
+						   of: Proof-of-Stake (PoS), Proof-of-Work (PoW), and the highly desired masternode 
+						   technology. Our primary mission at Circuit is to ensure the continuous growth 
+						   of the racing industry and deliver the highest quality racing experience to 
+						   our community.
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -702,7 +697,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle2">
                         <property name="text">
-                         <string>Why are my CRCT unspendable?</string>
+                         <string>Which competitive racing genres does Circuit support?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -730,12 +725,11 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           Newly received CIRCUIT requires 6 confirmations on the network
-                           to become eligible for spending which can take ~6 minutes.
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           Your CIRCUIT wallet also needs to be completely synchronized
-                           to see and spend balances on the network.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   Circuit incorporates countless competitive racing outlets. We have compiled 
+						   a list that includes, but is NOT limited to: Auto-Cross, Cycling, Dragster, 
+						   Demolition Derby, Drones, Formula 1, Go-Kart, Indy Car, Monster Truck, 
+						   MotoGP, Nascar, Off-Road, Street Racing, Supercross, Top Fuel, and World Rally Championship.
+							&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -800,7 +794,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle3">
                         <property name="text">
-                         <string>CIRCUIT privacy? What is Zerocoin (zCRCT)?</string>
+                         <string>Where do I go to view the drivers sponsored by Circuit?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -828,12 +822,12 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           zCRCT is an optional privacy-centric method of coin mixing on the
-                           CIRCUIT blockchain. Basically all your transactions cannot be tracked
-                           on to any block explorer. You can read more about the technicals in the
-                           &lt;a style='color: #eb071a' href='https://encocoin.net'&gt;
-                           &quot;CIRCUIT Zerocoin (zCRCT) Technical Paper&quot;&lt;/a&gt;.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   To view the current list of Circuit sponsored drivers, visit the official 
+						   Circuit website at &lt;a style='color: #eb071a' href='https://circuit-society.io'&gt;
+						   www.circuit-society.io&quot;&lt;/a&gt;, scroll across at the top menu until 
+						   you see &quot;partners&quot;, and scroll down until you find &quot;drivers&quot;. 
+						   From here, you can view all drivers along with their biography, photographs, and much more!
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -898,7 +892,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle4">
                         <property name="text">
-                         <string>Why are my zCRCT unspendable?</string>
+                         <string>How do I stake $CRCT in my desktop wallet?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -926,10 +920,14 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           After minting, zCRCT will require 20 confirmations as well as 1
-                           additional mint of the same denomination on the network to
-                           become eligible for spending.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   In order to stake $CRCT, you must first ensure that your wallet is fully 
+						   synchronized to the Circuit network. You can double check this by visiting 
+						   our block explorer at &lt;a style='color: #eb071a' href='https://explorer.circuit-society.io'&gt;
+						   explorer.circuit-society.io.&lt;/a&gt; Once you ensure your desktop wallet 
+						   block matches the explorer block and your $CRCT is mature, a continued 
+						   internet connection and open wallet will begin the process of staking for 
+						   dividends/rewards.
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -994,7 +992,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle5">
                         <property name="text">
-                         <string>Why did my wallet convert the balance into zCRCT automatically?</string>
+                         <string>How often will I receive staking rewards?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -1022,20 +1020,12 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           By default the CIRCUIT wallet will convert 10% of your entire CRCT
-                           balance to zCRCT to assist the network. If you do not wish to
-                           stake zCRCT or take advantage of the privacy benefit it brings,
-                           you can disable the automatic minting in your CIRCUIT wallet by
-                           going to Settings-&gt;Options and deselecting “Enable zCRCT Automint”.
-                           If you are not making use of the CIRCUIT-QT or GUI you can simply open
-                           your circuit.conf file and add &lt;i&gt;enablezeromint=0&lt;/i&gt; Without the quotation
-                           marks and restart your wallet to disable automint.&lt;/p&gt;
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           You can read more about zCRCT in the
-                           &lt;a style='color: #eb071a' href='https://encocoin.net'&gt; &quot;CIRCUIT Zerocoin (zCRCT) Technical Paper&quot;&lt;/a&gt;.
-                           If you would like to keep and stake your zCRCT, please read the &quot;How do I stake&quot;
-                           section of the FAQ below.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   There is no set time of receiving staking dividends/rewards, but the more 
+						   coins that you stake the higher the reward possibility. Additionally, ensuring 
+						   that you have your wallet open to an active internet connection 24/7 
+						   ensures that your staking process is not interrupted and increases your 
+						   chances of receiving dividends/rewards.
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -1103,7 +1093,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle6">
                         <property name="text">
-                         <string>How do I receive CRCT/zCRCT?</string>
+                         <string>What does Generated, but not accepted mean when staking?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -1130,12 +1120,12 @@
                        <widget class="QLabel" name="labelContent6">
                         <property name="text">
                          <string>
-                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           zCRCT can be spent and sent to any CIRCUIT address. The receiver will
-                           receive standard CIRCUIT but the origin of the CIRCUIT is anonymized by the zCRCT Protocol.
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           If you want more zCRCT you will need to mint your balance in the “Privacy” tab.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+                           &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;&quot;
+						   Generated, but not accepted&quot; means that your desktop wallet has found a 
+						   block, but someone has submitted it before you. Ultimately, it was generated, 
+						   but was rejected by the network since there can not be two identical blocks. 
+						   Rest assured, this does not disturb your staking process.
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -1200,7 +1190,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle7">
                         <property name="text">
-                         <string>How do I stake CRCT/zCRCT?</string>
+                         <string>How do I receive $CRCT to my desktop wallet?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -1228,31 +1218,12 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           To Stake CIRCUIT:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           &lt;ol&gt;&lt;li&gt;
-                           Make sure your wallet is completely synchronized and you are using the latest release.
-                           &lt;li&gt;
-                           You must have a balance of CIRCUIT with a minimum of 600 confirmations.
-                           &lt;li&gt;
-                           Your wallet must stay online and be unlocked for staking purposes.
-                           &lt;li&gt;
-                           Once all those steps are followed staking should be enabled.
-                           &lt;li&gt;
-                           You can see the status of staking in the wallet by mousing over the package icon in the row on the top left of the wallet interface. There package will be lit up and will state &quot;Staking Enabled&quot; to indicate it is staking.  Using the command line interface (circuit-cli); the command &lt;i&gt;getstakingstatus&lt;/i&gt; will confirm that staking is active.
-                           &lt;/li&gt;&lt;/ol&gt;
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           To Stake zCRCT:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           &lt;ol&gt;&lt;li&gt;
-                           Make sure your wallet is completely synchronized and you are using the latest release.
-                           &lt;li&gt;
-                           Your newly minted or existing zCRCT balance must have a minimum of 200 confirmations.
-                           &lt;li&gt;
-                           Your wallet must stay online and be unlocked for anonymization and staking purposes.
-                           Staking should now be enabled.
-                           &lt;/li&gt;&lt;/ol&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   To receive $CRCT to your desktop wallet, click &quot;Receive&quot; and 
+						   select your wallet address that has populated. Granted, you can create 
+						   additional receiving addresses by click &quot;Generate Address&quot; at 
+						   the bottom of the screen. With this address, you will place/send to 
+						   where you are requesting a payment from.
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -1317,7 +1288,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle8">
                         <property name="text">
-                         <string>Where should I go if I need support?</string>
+                         <string>How do I sent $CRCT from my desktop wallet?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -1345,13 +1316,14 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           We have support channels in most of our official chat groups, for example
-                           &lt;a style='color: #eb071a' href='https://discord.gg/Qp3SbWm'&gt;
-                           #support in our Discord&lt;/a&gt;.
-                           If you prefer to submit a ticket, One can be
-                           &lt;a style='color: #eb071a' href='https://CIRCUIT.freshdesk.com'&gt;
-                           our Freshdesk support site&lt;/a&gt;.
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   To sent $CRCT from your desktop wallet, click &quot;Send&quot; to enter 
+						   the primary screen. From there, you can click &quot;Coin Control&quot; 
+						   in the top right to select the address from where the coins are being 
+						   sent from. In the top right, you will place the address you would like 
+						   the $CRCT to go to along with the amount being placed to the right of it. 
+						   Once you have verified the transaction, press &quot;Sent CRCT&quot; 
+						   at the bottom to send your $CRCT instantaneously.
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt; 
                          </string>
                         </property>
                         <property name="alignment">
@@ -1416,7 +1388,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle9">
                         <property name="text">
-                         <string>What is a Masternode?</string>
+                         <string>What is a masternode and what is required?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -1444,45 +1416,13 @@
                         <property name="text">
                          <string>
                            &lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
-                           A masternode is a computer running a full node CRCT core wallet with a
-                           requirement of 100,000 CRCT secured collateral to provide extra services
-                           to the network and in return, receive a portion of the block reward
-                           regularly.  These services include:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-                           &lt;ul&gt;
-                           &lt;li&gt;Instant transactions (SwiftX)&lt;/li&gt;
-                           &lt;li&gt;A decentralized governance (Proposal Voting)&lt;/li&gt;
-                           &lt;li&gt;A decentralized budgeting system (Treasury)&lt;/li&gt;
-                           &lt;li&gt;Validation of transactions within each block&lt;/li&gt;
-                           &lt;li&gt;Act as an additional full node in the network&lt;/li&gt;
-                           &lt;/ul&gt;
-
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           For providing such services, masternodes are also paid a certain portion
-                           of reward for each block. This can serve as a passive income to the
-                           masternode owners minus their running cost.
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-                           Masternode Perks:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;Participate in CRCT Governance&lt;/li&gt;
-                           &lt;li&gt;Earn Masternode Rewards&lt;/li&gt;
-                           &lt;li&gt;Commodity option for future sale&lt;/li&gt;
-                           &lt;li&gt;Help secure the CRCT network&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-
-                           Requirements:
-                           &lt;/p&gt;&lt;p align=&quot;justify&quot;&gt;
-                           &lt;ul&gt;
-                           &lt;li&gt;100,000 CRCT per single Masternode instance&lt;/li&gt;
-                           &lt;li&gt;Must be stored in a core wallet&lt;/li&gt;
-                           &lt;li&gt;Need dedicated IP address&lt;/li&gt;
-                           &lt;li&gt;Masternode wallet to remain online&lt;/li&gt;
-                           &lt;/ul&gt;
-                           &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
+						   Masternodes are decentralized serves on the network that run 24/7 to maintain 
+						   the health and security of the network. They are used by normal wallet 
+						   for multiple features. These features consist of direct send, instantaneous 
+						   transactions, and private transactions. Circuit masternodes receive higher 
+						   dividends/rewards in the longevity of the project along with being more 
+						   frequent. The collateral required to own a masternode is 500,000 $CRCT.
+						   &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;
                          </string>
                         </property>
                         <property name="alignment">
@@ -1547,7 +1487,7 @@
                       <item>
                        <widget class="QLabel" name="labelSubtitle10">
                         <property name="text">
-                         <string>What is a Masternode Controller?</string>
+                         <string>Where do I go to contact the Circuit support team?</string>
                         </property>
                         <property name="wordWrap">
                          <bool>true</bool>
@@ -1573,7 +1513,12 @@
                       <item>
                        <widget class="QLabel" name="labelContent10">
                         <property name="text">
-                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;A Masternode Controller wallet is where the 100,000 CRCT collateral can reside during a Controller-Remote masternode setup. It is a wallet that can activate the remote masternode wallet(s) and allows you to keep your collateral coins offline while the remote masternode remains online. &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+                         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;justify&quot;&gt;
+						 There are numerous routes to contact the Circuit support team. You can visit our 
+						 official Discord server &lt;a style='color: #eb071a' href='https://https://discord.gg/qQGYbbe'&gt;
+						 &quot;Official Discord&quot;&lt;/a&gt;. Once selected, you will go to &quot;#request-help&quot; 
+						 and place your question there. You can also email support@circuit-society.io for assistance.
+						 &lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
                         </property>
                         <property name="alignment">
                          <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
