@@ -9,7 +9,7 @@
 * @copyright  Copyright 2013 Ian Miers, Christina Garman and Matthew Green
 * @license    This project is released under the MIT license.
 **/
-// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2017-2019 The PIVX developers
 
 #include <boost/test/unit_test.hpp>
 #include <string>
@@ -265,7 +265,7 @@ ZerocoinTutorial()
         // We're done
         return true;
 
-    } catch (std::runtime_error &e) {
+    } catch (const std::runtime_error& e) {
         std::cout << e.what() << std::endl;
         return false;
     }

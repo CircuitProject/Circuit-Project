@@ -44,38 +44,76 @@ QT_TS = \
 QT_FORMS_UI = \
   qt/forms/addressbookpage.ui \
   qt/forms/askpassphrasedialog.ui \
-  qt/forms/bip38tooldialog.ui \
   qt/forms/coincontroldialog.ui \
   qt/forms/blockexplorer.ui \
   qt/forms/editaddressdialog.ui \
   qt/forms/governancepage.ui \
   qt/forms/helpmessagedialog.ui \
   qt/forms/intro.ui \
-  qt/forms/masternodelist.ui \
-  qt/forms/multisenddialog.ui \
-  qt/forms/multisigdialog.ui\
   qt/forms/openuridialog.ui \
   qt/forms/optionsdialog.ui \
-  qt/forms/overviewpage.ui \
-  qt/forms/receivecoinsdialog.ui \
-  qt/forms/privacydialog.ui \
-  qt/forms/receiverequestdialog.ui \
   qt/forms/rpcconsole.ui \
-  qt/forms/sendcoinsdialog.ui \
-  qt/forms/sendcoinsentry.ui \
-  qt/forms/signverifymessagedialog.ui \
-  qt/forms/transactiondescdialog.ui \
-  qt/forms/zcrctcontroldialog.ui
+  qt/circuit/forms/loadingdialog.ui \
+  qt/forms/zcrctcontroldialog.ui \
+  qt/circuit/forms/snackbar.ui \
+  qt/circuit/forms/navmenuwidget.ui \
+  qt/circuit/forms/lockunlock.ui \
+  qt/circuit/forms/expandablebutton.ui \
+  qt/circuit/forms/receivedialog.ui \
+  qt/circuit/forms/walletpassworddialog.ui \
+  qt/circuit/forms/topbar.ui \
+  qt/circuit/forms/txrow.ui \
+  qt/circuit/forms/dashboardwidget.ui \
+  qt/circuit/forms/coincontrolcrctwidget.ui \
+  qt/circuit/forms/addresslabelrow.ui \
+  qt/circuit/forms/contactdropdownrow.ui \
+  qt/circuit/forms/mninfodialog.ui \
+  qt/circuit/forms/optionbutton.ui \
+  qt/circuit/forms/masternodewizarddialog.ui \
+  qt/circuit/forms/mnrow.ui \
+  qt/circuit/forms/masternodeswidget.ui \
+  qt/circuit/forms/myaddressrow.ui \
+  qt/circuit/forms/csrow.ui \
+  qt/circuit/forms/sendchangeaddressdialog.ui \
+  qt/circuit/forms/sendconfirmdialog.ui \
+  qt/circuit/forms/sendcustomfeedialog.ui \
+  qt/circuit/forms/sendchangeaddressdialog.ui \
+  qt/circuit/forms/sendmultirow.ui \
+  qt/circuit/forms/send.ui \
+  qt/circuit/forms/addnewaddressdialog.ui \
+  qt/circuit/forms/addnewcontactdialog.ui \
+  qt/circuit/forms/requestdialog.ui \
+  qt/circuit/forms/receivewidget.ui \
+  qt/circuit/forms/tooltipmenu.ui \
+  qt/circuit/forms/addresseswidget.ui \
+  qt/circuit/forms/defaultdialog.ui \
+  qt/circuit/forms/denomgenerationdialog.ui \
+  qt/circuit/forms/privacywidget.ui \
+  qt/circuit/forms/coldstakingwidget.ui \
+  qt/circuit/settings/forms/settingsbackupwallet.ui \
+  qt/circuit/settings/forms/settingsbittoolwidget.ui \
+  qt/circuit/settings/forms/settingsconsolewidget.ui \
+  qt/circuit/settings/forms/settingsdisplayoptionswidget.ui \
+  qt/circuit/settings/forms/settingsfaqwidget.ui \
+  qt/circuit/settings/forms/settingsinformationwidget.ui \
+  qt/circuit/settings/forms/settingsmainoptionswidget.ui \
+  qt/circuit/settings/forms/settingsmultisenddialog.ui \
+  qt/circuit/settings/forms/settingsmultisendwidget.ui \
+  qt/circuit/settings/forms/settingssignmessagewidgets.ui \
+  qt/circuit/settings/forms/settingswalletoptionswidget.ui \
+  qt/circuit/settings/forms/settingswalletrepairwidget.ui \
+  qt/circuit/settings/forms/settingswidget.ui \
+  qt/circuit/forms/welcomecontentwidget.ui \
+  qt/circuit/forms/splash.ui
 
 QT_MOC_CPP = \
   qt/moc_addressbookpage.cpp \
   qt/moc_addresstablemodel.cpp \
   qt/moc_askpassphrasedialog.cpp \
   qt/moc_bantablemodel.cpp \
-  qt/moc_bip38tooldialog.cpp \
   qt/moc_bitcoinaddressvalidator.cpp \
   qt/moc_bitcoinamountfield.cpp \
-  qt/moc_bitcoingui.cpp \
+  qt/circuit/moc_circuitgui.cpp \
   qt/moc_bitcoinunits.cpp \
   qt/moc_blockexplorer.cpp \
   qt/moc_clientmodel.cpp \
@@ -88,39 +126,82 @@ QT_MOC_CPP = \
   qt/moc_intro.cpp \
   qt/moc_macdockiconhandler.cpp \
   qt/moc_macnotificationhandler.cpp \
-  qt/moc_masternodelist.cpp \
-  qt/moc_multisenddialog.cpp \
-  qt/moc_multisigdialog.cpp\
   qt/moc_notificator.cpp \
   qt/moc_openuridialog.cpp \
   qt/moc_optionsdialog.cpp \
   qt/moc_optionsmodel.cpp \
-  qt/moc_overviewpage.cpp \
   qt/moc_peertablemodel.cpp \
   qt/moc_paymentserver.cpp \
   qt/moc_qvalidatedlineedit.cpp \
   qt/moc_qvaluecombobox.cpp \
-  qt/moc_receivecoinsdialog.cpp \
-  qt/moc_privacydialog.cpp \
   qt/moc_proposalframe.cpp \
-  qt/moc_receiverequestdialog.cpp \
   qt/moc_recentrequeststablemodel.cpp \
   qt/moc_rpcconsole.cpp \
-  qt/moc_sendcoinsdialog.cpp \
-  qt/moc_sendcoinsentry.cpp \
-  qt/moc_signverifymessagedialog.cpp \
   qt/moc_splashscreen.cpp \
   qt/moc_trafficgraphwidget.cpp \
   qt/moc_transactiondesc.cpp \
-  qt/moc_transactiondescdialog.cpp \
   qt/moc_transactionfilterproxy.cpp \
   qt/moc_transactiontablemodel.cpp \
-  qt/moc_transactionview.cpp \
   qt/moc_utilitydialog.cpp \
-  qt/moc_walletframe.cpp \
   qt/moc_walletmodel.cpp \
-  qt/moc_walletview.cpp \
-  qt/moc_zcrctcontroldialog.cpp
+  qt/circuit/moc_loadingdialog.cpp \
+  qt/moc_zcrctcontroldialog.cpp \
+  qt/circuit/moc_pwidget.cpp \
+  qt/circuit/moc_snackbar.cpp \
+  qt/circuit/moc_navmenuwidget.cpp \
+  qt/circuit/moc_lockunlock.cpp \
+  qt/circuit/moc_expandablebutton.cpp \
+  qt/circuit/moc_furabstractlistitemdelegate.cpp \
+  qt/circuit/moc_receivedialog.cpp \
+  qt/circuit/moc_walletpassworddialog.cpp \
+  qt/circuit/moc_pfborderimage.cpp \
+  qt/circuit/moc_topbar.cpp \
+  qt/circuit/moc_txrow.cpp \
+  qt/circuit/moc_dashboardwidget.cpp \
+  qt/circuit/moc_coincontrolcrctwidget.cpp \
+  qt/circuit/moc_addresslabelrow.cpp \
+  qt/circuit/moc_contactdropdownrow.cpp \
+  qt/circuit/moc_mninfodialog.cpp \
+  qt/circuit/moc_optionbutton.cpp \
+  qt/circuit/moc_coldstakingmodel.cpp \
+  qt/circuit/moc_mnmodel.cpp \
+  qt/circuit/moc_masternodewizarddialog.cpp \
+  qt/circuit/moc_mnrow.cpp \
+  qt/circuit/moc_masternodeswidget.cpp \
+  qt/circuit/moc_myaddressrow.cpp \
+  qt/circuit/moc_csrow.cpp \
+  qt/circuit/moc_contactsdropdown.cpp \
+  qt/circuit/moc_sendchangeaddressdialog.cpp \
+  qt/circuit/moc_sendconfirmdialog.cpp \
+  qt/circuit/moc_sendcustomfeedialog.cpp \
+  qt/circuit/moc_sendchangeaddressdialog.cpp \
+  qt/circuit/moc_sendmultirow.cpp \
+  qt/circuit/moc_send.cpp \
+  qt/circuit/moc_addnewaddressdialog.cpp \
+  qt/circuit/moc_addnewcontactdialog.cpp \
+  qt/circuit/moc_requestdialog.cpp \
+  qt/circuit/moc_receivewidget.cpp \
+  qt/circuit/moc_tooltipmenu.cpp \
+  qt/circuit/moc_addresseswidget.cpp \
+  qt/circuit/moc_defaultdialog.cpp \
+  qt/circuit/moc_denomgenerationdialog.cpp \
+  qt/circuit/moc_privacywidget.cpp \
+  qt/circuit/moc_coldstakingwidget.cpp \
+  qt/circuit/settings/moc_settingsbackupwallet.cpp \
+  qt/circuit/settings/moc_settingsbittoolwidget.cpp \
+  qt/circuit/settings/moc_settingsconsolewidget.cpp \
+  qt/circuit/settings/moc_settingsdisplayoptionswidget.cpp \
+  qt/circuit/settings/moc_settingsfaqwidget.cpp \
+  qt/circuit/settings/moc_settingsinformationwidget.cpp \
+  qt/circuit/settings/moc_settingsmainoptionswidget.cpp \
+  qt/circuit/settings/moc_settingsmultisenddialog.cpp \
+  qt/circuit/settings/moc_settingsmultisendwidget.cpp \
+  qt/circuit/settings/moc_settingssignmessagewidgets.cpp \
+  qt/circuit/settings/moc_settingswalletoptionswidget.cpp \
+  qt/circuit/settings/moc_settingswalletrepairwidget.cpp \
+  qt/circuit/settings/moc_settingswidget.cpp \
+  qt/circuit/moc_welcomecontentwidget.cpp \
+  qt/circuit/moc_splash.cpp
 
 BITCOIN_MM = \
   qt/macdockiconhandler.mm \
@@ -130,8 +211,8 @@ QT_MOC = \
   qt/circuit.moc \
   qt/bitcoinamountfield.moc \
   qt/intro.moc \
-  qt/overviewpage.moc \
-  qt/rpcconsole.moc
+  qt/rpcconsole.moc \
+  qt/circuit/settings/moc_settingsconsolewidget.cpp
 
 QT_QRC_CPP = qt/qrc_circuit.cpp
 QT_QRC = qt/circuit.qrc
@@ -147,10 +228,9 @@ BITCOIN_QT_H = \
   qt/addresstablemodel.h \
   qt/askpassphrasedialog.h \
   qt/bantablemodel.h \
-  qt/bip38tooldialog.h \
   qt/bitcoinaddressvalidator.h \
   qt/bitcoinamountfield.h \
-  qt/bitcoingui.h \
+  qt/circuit/circuitgui.h \
   qt/bitcoinunits.h \
   qt/blockexplorer.h \
   qt/clientmodel.h \
@@ -164,15 +244,11 @@ BITCOIN_QT_H = \
   qt/intro.h \
   qt/macdockiconhandler.h \
   qt/macnotificationhandler.h \
-  qt/masternodelist.h \
-  qt/multisenddialog.h \
-  qt/multisigdialog.h\
   qt/networkstyle.h \
   qt/notificator.h \
   qt/openuridialog.h \
   qt/optionsdialog.h \
   qt/optionsmodel.h \
-  qt/overviewpage.h \
   qt/paymentrequestplus.h \
   qt/paymentserver.h \
   qt/peertablemodel.h \
@@ -180,29 +256,83 @@ BITCOIN_QT_H = \
   qt/proposalframe.h \
   qt/qvalidatedlineedit.h \
   qt/qvaluecombobox.h \
-  qt/receivecoinsdialog.h \
-  qt/privacydialog.h \
-  qt/receiverequestdialog.h \
   qt/recentrequeststablemodel.h \
   qt/rpcconsole.h \
-  qt/sendcoinsdialog.h \
-  qt/sendcoinsentry.h \
-  qt/signverifymessagedialog.h \
   qt/splashscreen.h \
   qt/trafficgraphwidget.h \
   qt/transactiondesc.h \
-  qt/transactiondescdialog.h \
   qt/transactionfilterproxy.h \
   qt/transactionrecord.h \
   qt/transactiontablemodel.h \
-  qt/transactionview.h \
   qt/utilitydialog.h \
-  qt/walletframe.h \
   qt/walletmodel.h \
   qt/walletmodeltransaction.h \
-  qt/walletview.h \
+  qt/circuit/prunnable.h \
+  qt/circuit/pfborderimage.h \
+  qt/circuit/loadingdialog.h \
   qt/winshutdownmonitor.h \
-  qt/zcrctcontroldialog.h
+  qt/zcrctcontroldialog.h \
+  qt/circuit/pwidget.h \
+  qt/circuit/guitransactionsutils.h \
+  qt/circuit/snackbar.h \
+  qt/circuit/navmenuwidget.h \
+  qt/circuit/lockunlock.h \
+  qt/circuit/receivedialog.h \
+  qt/circuit/furlistrow.h \
+  qt/circuit/furabstractlistitemdelegate.h \
+  qt/circuit/txviewholder.h \
+  qt/circuit/qtutils.h \
+  qt/circuit/expandablebutton.h \
+  qt/circuit/walletpassworddialog.h \
+  qt/circuit/topbar.h \
+  qt/circuit/txrow.h \
+  qt/circuit/addressholder.h \
+  qt/circuit/addressfilterproxymodel.h \
+  qt/circuit/dashboardwidget.h \
+  qt/circuit/coincontrolcrctwidget.h \
+  qt/circuit/addresslabelrow.h \
+  qt/circuit/contactdropdownrow.h \
+  qt/circuit/mninfodialog.h \
+  qt/circuit/optionbutton.h \
+  qt/circuit/coldstakingmodel.h \
+  qt/circuit/mnmodel.h \
+  qt/circuit/masternodewizarddialog.h \
+  qt/circuit/mnrow.h \
+  qt/circuit/masternodeswidget.h \
+  qt/circuit/myaddressrow.h \
+  qt/circuit/csrow.h \
+  qt/circuit/contactsdropdown.h \
+  qt/circuit/sendchangeaddressdialog.h \
+  qt/circuit/sendconfirmdialog.h \
+  qt/circuit/sendcustomfeedialog.h \
+  qt/circuit/sendchangeaddressdialog.h \
+  qt/circuit/sendmultirow.h \
+  qt/circuit/send.h \
+  qt/circuit/addnewaddressdialog.h \
+  qt/circuit/addnewcontactdialog.h \
+  qt/circuit/requestdialog.h \
+  qt/circuit/receivewidget.h \
+  qt/circuit/tooltipmenu.h \
+  qt/circuit/addresseswidget.h \
+  qt/circuit/defaultdialog.h \
+  qt/circuit/denomgenerationdialog.h \
+  qt/circuit/privacywidget.h \
+  qt/circuit/coldstakingwidget.h \
+  qt/circuit/settings/settingsbackupwallet.h \
+  qt/circuit/settings/settingsbittoolwidget.h \
+  qt/circuit/settings/settingsconsolewidget.h \
+  qt/circuit/settings/settingsdisplayoptionswidget.h \
+  qt/circuit/settings/settingsfaqwidget.h \
+  qt/circuit/settings/settingsinformationwidget.h \
+  qt/circuit/settings/settingsmainoptionswidget.h \
+  qt/circuit/settings/settingsmultisenddialog.h \
+  qt/circuit/settings/settingsmultisendwidget.h \
+  qt/circuit/settings/settingssignmessagewidgets.h \
+  qt/circuit/settings/settingswalletoptionswidget.h \
+  qt/circuit/settings/settingswalletrepairwidget.h \
+  qt/circuit/settings/settingswidget.h \
+  qt/circuit/welcomecontentwidget.h \
+  qt/circuit/splash.h
 
 RES_ICONS = \
   qt/res/icons/add.png \
@@ -264,6 +394,10 @@ RES_ICONS = \
   qt/res/icons/tx_input.png \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
+  qt/res/icons/ic-transaction-received.svg \
+  qt/res/icons/ic-transaction-mint.svg \
+  qt/res/icons/ic-transaction-sent.svg \
+  qt/res/icons/ic-transaction-staked.svg \
   qt/res/icons/unit_circuit.png \
   qt/res/icons/unit_mcircuit.png \
   qt/res/icons/unit_ucircuit.png \
@@ -272,20 +406,224 @@ RES_ICONS = \
   qt/res/icons/unit_tucircuit.png \
   qt/res/icons/yesvote.png \
   qt/res/icons/novote.png \
-  qt/res/icons/abstainvote.png
+  qt/res/icons/abstainvote.png \
+  qt/circuit/res/img/bg-dashboard-banner.png \
+  qt/circuit/res/img/bg-multi-number-dark.svg \
+  qt/circuit/res/img/ic-check-locked.svg \
+  qt/circuit/res/img/ic-nav-address.svg \
+  qt/circuit/res/img/ic-update.svg \
+  qt/circuit/res/img/bg-multi-number.svg \
+  qt/circuit/res/img/ic-check-mint-off.svg \
+  qt/circuit/res/img/ic-nav-cold-staking.svg \
+  qt/circuit/res/img/ic-nav-cold-staking-active.svg \
+  qt/circuit/res/img/ic-nav-dashboard-active.svg \
+  qt/circuit/res/img/ic-wallet-status-locked.svg \
+  qt/circuit/res/img/bg-splash.svg \
+  qt/circuit/res/img/bg-splash.png \
+  qt/circuit/res/img/ic-check-mint.svg \
+  qt/circuit/res/img/ic-nav-dashboard-hover.svg \
+  qt/circuit/res/img/ic-wallet-status-staking.svg \
+  qt/circuit/res/img/ic-check-peers-off.svg \
+  qt/circuit/res/img/ic-nav-dashboard.svg \
+  qt/circuit/res/img/ic-wallet-status-unlocked.svg \
+  qt/circuit/res/img/ic-check-peers.svg \
+  qt/circuit/res/img/ic-nav-master-active.svg \
+  qt/circuit/res/img/ic-watch-password-white.svg \
+  qt/circuit/res/img/bg-welcome-container.jpg \
+  qt/circuit/res/img/bg-welcome-container.png \
+  qt/circuit/res/img/bg-welcome-container.svg \
+  qt/circuit/res/img/bg-welcome-container@2x.png \
+  qt/circuit/res/img/bg-welcome-container@3x.png \
+  qt/circuit/res/img/ic-check-staking-off.svg \
+  qt/circuit/res/img/ic-nav-master-hover.svg \
+  qt/circuit/res/img/ic-watch-password.svg \
+  qt/circuit/res/img/bg-welcome.jpg \
+  qt/circuit/res/img/bg-welcome.svg \
+  qt/circuit/res/img/bg-welcome@2x.jpg \
+  qt/circuit/res/img/bg-welcome@3x.jpg \
+  qt/circuit/res/img/bg-welcome.png \
+  qt/circuit/res/img/ic-check-staking.svg \
+  qt/circuit/res/img/ic-nav-master.svg \
+  qt/circuit/res/img/img-dashboard-banner.jpg \
+  qt/circuit/res/img/btn-radio-active.svg \
+  qt/circuit/res/img/ic-check-sync-off.svg \
+  qt/circuit/res/img/ic-nav-privacy-active.svg \
+  qt/circuit/res/img/img-empty-contacts.svg \
+  qt/circuit/res/img/btn-radio-off.svg \
+  qt/circuit/res/img/ic-check-sync.png \
+  qt/circuit/res/img/ic-nav-privacy-hover.svg \
+  qt/circuit/res/img/img-empty-dark-contacts.svg \
+  qt/circuit/res/img/ic-contact-arrow-down.svg \
+  qt/circuit/res/img/ic-contact-arrow-down-white.svg \
+  qt/circuit/res/img/ic-check-sync.svg \
+  qt/circuit/res/img/ic-check-faq.svg \
+  qt/circuit/res/img/ic-nav-privacy.svg \
+  qt/circuit/res/img/img-empty-dark-error.svg \
+  qt/circuit/res/img/ic-add-label.svg \
+  qt/circuit/res/img/ic-pending.svg \
+  qt/circuit/res/img/ic-check-theme-dark.svg \
+  qt/circuit/res/img/ic-nav-receive-active.svg \
+  qt/circuit/res/img/img-empty-dark-masternode.svg \
+  qt/circuit/res/img/ic-add-liliac.svg \
+  qt/circuit/res/img/ic-check-theme-light.svg \
+  qt/circuit/res/img/ic-nav-receive-hover.svg \
+  qt/circuit/res/img/img-empty-dark-multisend.svg \
+  qt/circuit/res/img/ic-add-purple.svg \
+  qt/circuit/res/img/ic-check-white.svg \
+  qt/circuit/res/img/ic-nav-receive.svg \
+  qt/circuit/res/img/img-empty-dark-peers.svg \
+  qt/circuit/res/img/ic-add.svg \
+  qt/circuit/res/img/ic-check.svg \
+  qt/circuit/res/img/ic-nav-send-active.svg \
+  qt/circuit/res/img/img-empty-dark-staking-off.svg \
+  qt/circuit/res/img/img-empty-dark-staking-on.svg \
+  qt/circuit/res/img/ic-address-book-grey.svg \
+  qt/circuit/res/img/ic-chevron-left.svg \
+  qt/circuit/res/img/ic-nav-send-hover.svg \
+  qt/circuit/res/img/img-empty-dark-transactions.svg \
+  qt/circuit/res/img/ic-address-book-white.svg \
+  qt/circuit/res/img/ic-chevron-right.svg \
+  qt/circuit/res/img/ic-nav-send.svg \
+  qt/circuit/res/img/img-empty-error.svg \
+  qt/circuit/res/img/ic-address-book.svg \
+  qt/circuit/res/img/ic-clear-liliac.svg \
+  qt/circuit/res/img/ic-nav-settings-active.svg \
+  qt/circuit/res/img/img-empty-masternode.svg \
+  qt/circuit/res/img/ic-address-send-white.svg \
+  qt/circuit/res/img/ic-clear-purple.svg \
+  qt/circuit/res/img/ic-nav-settings-hover.svg \
+  qt/circuit/res/img/img-empty-multisend.svg \
+  qt/circuit/res/img/ic-address-send.svg \
+  qt/circuit/res/img/ic-close-white.svg \
+  qt/circuit/res/img/ic-nav-settings.svg \
+  qt/circuit/res/img/img-empty-peers.svg \
+  qt/circuit/res/img/img-empty-privacy.svg \
+  qt/circuit/res/img/img-empty-privacy-dark.svg \
+  qt/circuit/res/img/ic-arrow-drop-down-white.svg \
+  qt/circuit/res/img/ic-close.svg \
+  qt/circuit/res/img/ic-radio-liliac-on.svg \
+  qt/circuit/res/img/img-empty-staking-off.svg \
+  qt/circuit/res/img/ic-arrow-drop-down.svg \
+  qt/circuit/res/img/ic-coin-crct.svg \
+  qt/circuit/res/img/ic-receive-off.svg \
+  qt/circuit/res/img/img-empty-staking-on.svg \
+  qt/circuit/res/img/ic-arrow-drop-up-white.svg \
+  qt/circuit/res/img/ic-coin-zcrct.png \
+  qt/circuit/res/img/ic-receive-on.svg \
+  qt/circuit/res/img/img-empty-transactions.svg \
+  qt/circuit/res/img/ic-arrow-drop-up.svg \
+  qt/circuit/res/img/ic-coin-zcrct.svg \
+  qt/circuit/res/img/ic-received.svg \
+  qt/circuit/res/img/img-logo-circuit.png \
+  qt/circuit/res/img/ic-arrow-drop-white-down.svg \
+  qt/circuit/res/img/ic-combo-box.svg \
+  qt/circuit/res/img/ic-send.svg \
+  qt/circuit/res/img/img-logo-circuit@2x.png \
+  qt/circuit/res/img/ic-arrow-purple-down.svg \
+  qt/circuit/res/img/ic-connect.svg \
+  qt/circuit/res/img/ic-submenu-lock.svg \
+  qt/circuit/res/img/img-logo-circuit@3x.png \
+  qt/circuit/res/img/img-logo-circuit.svg \
+  qt/circuit/res/img/ic-arrow-right-white.svg \
+  qt/circuit/res/img/ic-arrow-left-white.svg \
+  qt/circuit/res/img/ic-arrow-left.svg \
+  qt/circuit/res/img/ic-copy-liliac.svg \
+  qt/circuit/res/img/ic-submenu-staking.svg \
+  qt/circuit/res/img/img-nav-logo-circuit.png \
+  qt/circuit/res/img/ic-arrow-right.svg \
+  qt/circuit/res/img/ic-copy.svg \
+  qt/circuit/res/img/ic-copy-big.svg \
+  qt/circuit/res/img/ic-copy-big-white.svg \
+  qt/circuit/res/img/ic-submenu-unlock.svg \
+  qt/circuit/res/img/img-nav-logo.png \
+  qt/circuit/res/img/ic-arrow-white-left.svg \
+  qt/circuit/res/img/ic-exit.svg \
+  qt/circuit/res/img/ic-switch-liliac-on.svg \
+  qt/circuit/res/img/img-nav-logo.svg \
+  qt/circuit/res/img/ic-arrow-white-right.svg \
+  qt/circuit/res/img/ic-expand.svg \
+  qt/circuit/res/img/ic-switch-off.svg \
+  qt/circuit/res/img/img-qr-test-big.png \
+  qt/circuit/res/img/ic-check-active.svg \
+  qt/circuit/res/img/ic-folder.svg \
+  qt/circuit/res/img/ic-switch-on.svg \
+  qt/circuit/res/img/img-qr-test.png \
+  qt/circuit/res/img/ic-check-box.svg \
+  qt/circuit/res/img/ic-check-box-dark-active.svg \
+  qt/circuit/res/img/ic-check-box-indeterminate.svg \
+  qt/circuit/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/circuit/res/img/ic-label-liliac.svg \
+  qt/circuit/res/img/ic-transaction-warning.svg \
+  qt/circuit/res/img/ic-transaction-mint.svg \
+  qt/circuit/res/img/ic-transaction-mint-inactive.svg \
+  qt/circuit/res/img/ic-check-cold-staking.svg \
+  qt/circuit/res/img/ic-check-cold-staking-off.svg \
+  qt/circuit/res/img/ic-check-cold-staking-enabled.svg \
+  qt/circuit/res/img/dark/ic-transaction-cs-contract.svg \
+  qt/circuit/res/img/dark/ic-transaction-cs-contract-inactive.svg \
+  qt/circuit/res/img/img-qr.svg \
+  qt/circuit/res/img/ic-check-connect-off.svg \
+  qt/circuit/res/img/ic-label.svg \
+  qt/circuit/res/img/ic-transaction-received.svg \
+  qt/circuit/res/img/dark/ic-transaction-received.svg \
+  qt/circuit/res/img/dark/ic-transaction-warning.svg \
+  qt/circuit/res/img/dark/ic-transaction-mint.svg \
+  qt/circuit/res/img/dark/ic-transaction-mint-inactive.svg \
+  qt/circuit/res/img/ic-transaction-received-inactive.svg \
+  qt/circuit/res/img/dark/ic-transaction-received-inactive.svg \
+  qt/circuit/res/img/img-welcome-step1.png \
+  qt/circuit/res/img/ic-check-connect.svg \
+  qt/circuit/res/img/ic-menu-hover.svg \
+  qt/circuit/res/img/ic-transaction-sent.svg \
+  qt/circuit/res/img/ic-transaction-sent-inactive.svg \
+  qt/circuit/res/img/dark/ic-transaction-sent.svg \
+  qt/circuit/res/img/dark/ic-transaction-sent-inactive.svg \
+  qt/circuit/res/img/img-welcome-step2.png \
+  qt/circuit/res/img/ic-check-dark.svg \
+  qt/circuit/res/img/ic-mint.svg \
+  qt/circuit/res/img/ic-transaction-staked.svg \
+  qt/circuit/res/img/ic-transaction-staked-inactive.svg \
+  qt/circuit/res/img/dark/ic-transaction-staked.svg \
+  qt/circuit/res/img/dark/ic-transaction-staked-inactive.svg \
+  qt/circuit/res/img/img-welcome-step3.png \
+  qt/circuit/res/img/ic-check-liliac-on.svg \
+  qt/circuit/res/img/ic-nav-address-active.svg \
+  qt/circuit/res/img/ic-unlock-staking.svg \
+  qt/circuit/res/img/img-welcome-step4.png \
+  qt/circuit/res/img/ic-check-locked-off.svg \
+  qt/circuit/res/img/ic-nav-address-hover.svg \
+  qt/circuit/res/img/ic-update-liliac.svg \
+  qt/circuit/res/img/ic-arrow-drop-down-purple.svg \
+  qt/circuit/res/img/ic-arrow-drop-up-purple.svg \
+  qt/circuit/res/img/ic-check-liliac-indeterminate.svg \
+  qt/circuit/res/img/ic-check-box-liliac-indeterminate.svg \
+  qt/circuit/res/img/ic-transaction-stake-delegated.svg \
+  qt/circuit/res/img/ic-transaction-stake-delegated-inactive.svg \
+  qt/circuit/res/img/ic-transaction-stake-hot.svg \
+  qt/circuit/res/img/ic-transaction-stake-hot-inactive.svg \
+  qt/circuit/res/img/dark/ic-transaction-stake-hot.svg \
+  qt/circuit/res/img/dark/ic-transaction-stake-hot-inactive.svg \
+  qt/circuit/res/img/dark/ic-transaction-stake-delegated.svg \
+  qt/circuit/res/img/dark/ic-transaction-stake-delegated-inactive.svg \
+  qt/circuit/res/img/ic-transaction-cs-contract.svg \
+  qt/circuit/res/img/ic-transaction-cs-contract-inactive.svg \
+  qt/circuit/res/img/ic-check-box-indeterminate.svg \
+  qt/circuit/res/img/ani-loading-dark.gif \
+  qt/circuit/res/img/ani-loading.gif
+
+
 
 BITCOIN_QT_BASE_CPP = \
   qt/bantablemodel.cpp \
   qt/bitcoinaddressvalidator.cpp \
   qt/bitcoinamountfield.cpp \
-  qt/bitcoingui.cpp \
+  qt/circuit/circuitgui.cpp \
   qt/bitcoinunits.cpp \
   qt/blockexplorer.cpp \
   qt/clientmodel.cpp \
   qt/csvmodelwriter.cpp \
   qt/guiutil.cpp \
   qt/intro.cpp \
-  qt/masternodelist.cpp \
   qt/networkstyle.cpp \
   qt/notificator.cpp \
   qt/optionsdialog.cpp \
@@ -305,38 +643,85 @@ BITCOIN_QT_WALLET_CPP = \
   qt/addressbookpage.cpp \
   qt/addresstablemodel.cpp \
   qt/askpassphrasedialog.cpp \
-  qt/bip38tooldialog.cpp \
   qt/blockexplorer.cpp \
   qt/coincontroldialog.cpp \
   qt/coincontroltreewidget.cpp \
   qt/editaddressdialog.cpp \
   qt/governancepage.cpp \
-  qt/masternodelist.cpp \
-  qt/multisenddialog.cpp \
-  qt/multisigdialog.cpp\
   qt/openuridialog.cpp \
-  qt/overviewpage.cpp \
   qt/paymentrequestplus.cpp \
   qt/paymentserver.cpp \
-  qt/receivecoinsdialog.cpp \
-  qt/privacydialog.cpp \
   qt/proposalframe.cpp \
-  qt/receiverequestdialog.cpp \
   qt/recentrequeststablemodel.cpp \
-  qt/sendcoinsdialog.cpp \
-  qt/sendcoinsentry.cpp \
-  qt/signverifymessagedialog.cpp \
   qt/transactiondesc.cpp \
-  qt/transactiondescdialog.cpp \
   qt/transactionfilterproxy.cpp \
   qt/transactionrecord.cpp \
   qt/transactiontablemodel.cpp \
-  qt/transactionview.cpp \
-  qt/walletframe.cpp \
   qt/walletmodel.cpp \
   qt/walletmodeltransaction.cpp \
-  qt/walletview.cpp \
-  qt/zcrctcontroldialog.cpp
+  qt/circuit/loadingdialog.cpp \
+  qt/zcrctcontroldialog.cpp \
+  qt/circuit/pwidget.cpp \
+  qt/circuit/guitransactionsutils.cpp \
+  qt/circuit/snackbar.cpp \
+  qt/circuit/navmenuwidget.cpp \
+  qt/circuit/lockunlock.cpp \
+  qt/circuit/receivedialog.cpp \
+  qt/circuit/furabstractlistitemdelegate.cpp \
+  qt/circuit/txviewholder.cpp \
+  qt/circuit/qtutils.cpp \
+  qt/circuit/expandablebutton.cpp \
+  qt/circuit/walletpassworddialog.cpp \
+  qt/circuit/topbar.cpp \
+  qt/circuit/txrow.cpp \
+  qt/circuit/addressholder.cpp \
+  qt/circuit/addressfilterproxymodel.cpp \
+  qt/circuit/dashboardwidget.cpp \
+  qt/circuit/coincontrolcrctwidget.cpp \
+  qt/circuit/addresslabelrow.cpp \
+  qt/circuit/contactdropdownrow.cpp \
+  qt/circuit/contactsdropdown.cpp \
+  qt/circuit/optionbutton.cpp \
+  qt/circuit/mninfodialog.cpp \
+  qt/circuit/coldstakingmodel.cpp \
+  qt/circuit/mnmodel.cpp \
+  qt/circuit/masternodewizarddialog.cpp \
+  qt/circuit/mnrow.cpp \
+  qt/circuit/masternodeswidget.cpp \
+  qt/circuit/myaddressrow.cpp \
+  qt/circuit/csrow.cpp \
+  qt/circuit/sendchangeaddressdialog.cpp \
+  qt/circuit/sendconfirmdialog.cpp \
+  qt/circuit/sendcustomfeedialog.cpp \
+  qt/circuit/sendchangeaddressdialog.cpp \
+  qt/circuit/sendmultirow.cpp \
+  qt/circuit/send.cpp \
+  qt/circuit/addnewaddressdialog.cpp \
+  qt/circuit/addnewcontactdialog.cpp \
+  qt/circuit/requestdialog.cpp \
+  qt/circuit/receivewidget.cpp \
+  qt/circuit/tooltipmenu.cpp \
+  qt/circuit/addresseswidget.cpp \
+  qt/circuit/defaultdialog.cpp \
+  qt/circuit/denomgenerationdialog.cpp \
+  qt/circuit/privacywidget.cpp \
+  qt/circuit/coldstakingwidget.cpp \
+  qt/circuit/settings/settingsbackupwallet.cpp \
+  qt/circuit/settings/settingsbittoolwidget.cpp \
+  qt/circuit/settings/settingsconsolewidget.cpp \
+  qt/circuit/settings/settingsdisplayoptionswidget.cpp \
+  qt/circuit/settings/settingsfaqwidget.cpp \
+  qt/circuit/settings/settingsinformationwidget.cpp \
+  qt/circuit/settings/settingsmainoptionswidget.cpp \
+  qt/circuit/settings/settingsmultisenddialog.cpp \
+  qt/circuit/settings/settingsmultisendwidget.cpp \
+  qt/circuit/settings/settingssignmessagewidgets.cpp \
+  qt/circuit/settings/settingswalletoptionswidget.cpp \
+  qt/circuit/settings/settingswalletrepairwidget.cpp \
+  qt/circuit/settings/settingswidget.cpp \
+  qt/circuit/welcomecontentwidget.cpp \
+  qt/circuit/splash.cpp
+
 
 BITCOIN_QT_CPP = $(BITCOIN_QT_BASE_CPP)
 if TARGET_WINDOWS
@@ -362,7 +747,9 @@ RES_IMAGES = \
   qt/res/images/qtreeview_selected.png
 
 RES_CSS = \
-  qt/res/css/default.css
+  qt/res/css/default.css \
+  qt/circuit/res/css/style_dark.css \
+  qt/circuit/res/css/style_light.css
 
 RES_MOVIES = $(wildcard $(srcdir)/qt/res/movies/spinner-*.png)
 
@@ -372,7 +759,7 @@ BITCOIN_QT_INCLUDES = -I$(builddir)/qt -I$(srcdir)/qt -I$(srcdir)/qt/forms \
   -I$(builddir)/qt/forms
 
 qt_libbitcoinqt_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
-  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
+  $(QT_INCLUDES) $(QT_DBUS_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
 qt_libbitcoinqt_a_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 qt_libbitcoinqt_a_OBJCXXFLAGS = $(AM_OBJCXXFLAGS) $(QT_PIE_FLAGS)
 
@@ -397,7 +784,7 @@ $(QT_MOC_CPP): $(PROTOBUF_H)
 
 # circuit-qt binary #
 qt_circuit_qt_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(BITCOIN_QT_INCLUDES) \
-  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS)
+  $(QT_INCLUDES) $(PROTOBUF_CFLAGS) $(QR_CFLAGS) $(SVG_CFLAGS) $(CHARTS_CFLAGS)
 qt_circuit_qt_CXXFLAGS = $(AM_CXXFLAGS) $(QT_PIE_FLAGS)
 
 qt_circuit_qt_SOURCES = qt/circuit.cpp
@@ -415,7 +802,7 @@ if ENABLE_ZMQ
 qt_circuit_qt_LDADD += $(LIBBITCOIN_ZMQ) $(ZMQ_LIBS)
 endif
 qt_circuit_qt_LDADD += $(LIBBITCOIN_CLI) $(LIBBITCOIN_COMMON) $(LIBBITCOIN_UTIL) $(LIBBITCOIN_CRYPTO) $(LIBUNIVALUE) $(LIBBITCOIN_ZEROCOIN) $(LIBLEVELDB) $(LIBLEVELDB_SSE42) $(LIBMEMENV) \
-  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
+  $(BOOST_LIBS) $(QT_LIBS) $(QT_DBUS_LIBS) $(QR_LIBS) $(PROTOBUF_LIBS) $(SVG_LIBS) $(CHARTS_LIBS) $(BDB_LIBS) $(SSL_LIBS) $(CRYPTO_LIBS) $(MINIUPNPC_LIBS) $(LIBSECP256K1) \
   $(EVENT_PTHREADS_LIBS) $(EVENT_LIBS)
 qt_circuit_qt_LDFLAGS = $(RELDFLAGS) $(AM_LDFLAGS) $(QT_LDFLAGS) $(LIBTOOL_APP_LDFLAGS)
 qt_circuit_qt_LIBTOOLFLAGS = $(AM_LIBTOOLFLAGS) --tag CXX

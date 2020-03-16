@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2017-2019 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -80,7 +80,7 @@ libzerocoin::Accumulator AccumulatorMap::GetAccumulator(libzerocoin::CoinDenomin
 CBigNum AccumulatorMap::GetValue(libzerocoin::CoinDenomination denom)
 {
     if (denom == libzerocoin::CoinDenomination::ZQ_ERROR)
-        return CBigNum(0);
+        return BN_ZERO;
     return mapAccumulators.at(denom)->getValue();
 }
 

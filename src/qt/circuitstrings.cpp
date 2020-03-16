@@ -36,7 +36,7 @@ QT_TRANSLATE_NOOP("circuit-core", ""
 "running."),
 QT_TRANSLATE_NOOP("circuit-core", ""
 "Change automatic finalized budget voting behavior. mode=auto: Vote for only "
-"exact finalized budget match to my generated budget. (std::string, default: auto)"),
+"exact finalized budget match to my generated budget. (string, default: auto)"),
 QT_TRANSLATE_NOOP("circuit-core", ""
 "Continuously rate-limit free transactions to <n>*1000 bytes per minute "
 "(default:%u)"),
@@ -62,6 +62,8 @@ QT_TRANSLATE_NOOP("circuit-core", ""
 QT_TRANSLATE_NOOP("circuit-core", ""
 "Enable automatic wallet backups triggered after each zCRCT minting (0-1, "
 "default: %u)"),
+QT_TRANSLATE_NOOP("circuit-core", ""
+"Enable cold staking functionality (0-1, default: %u). Disabled if staking=0"),
 QT_TRANSLATE_NOOP("circuit-core", ""
 "Enable or disable staking functionality for CRCT inputs (0-1, default: %u)"),
 QT_TRANSLATE_NOOP("circuit-core", ""
@@ -226,6 +228,10 @@ QT_TRANSLATE_NOOP("circuit-core", ""
 "Warning: -paytxfee is set very high! This is the transaction fee you will "
 "pay if you send a transaction."),
 QT_TRANSLATE_NOOP("circuit-core", ""
+"Warning: Peers are being disconnected due time differences. Please check "
+"that your computer's date and time are correct! If your clock is wrong CIRCUIT "
+"Core will not work properly."),
+QT_TRANSLATE_NOOP("circuit-core", ""
 "Warning: Please check that your computer's date and time are correct! If "
 "your clock is wrong CIRCUIT Core will not work properly."),
 QT_TRANSLATE_NOOP("circuit-core", ""
@@ -273,7 +279,6 @@ QT_TRANSLATE_NOOP("circuit-core", "Cannot downgrade wallet"),
 QT_TRANSLATE_NOOP("circuit-core", "Cannot resolve -bind address: '%s'"),
 QT_TRANSLATE_NOOP("circuit-core", "Cannot resolve -externalip address: '%s'"),
 QT_TRANSLATE_NOOP("circuit-core", "Cannot resolve -whitebind address: '%s'"),
-QT_TRANSLATE_NOOP("circuit-core", "Cannot write default address"),
 QT_TRANSLATE_NOOP("circuit-core", "CoinSpend: Accumulator witness does not verify"),
 QT_TRANSLATE_NOOP("circuit-core", "CoinSpend: failed check"),
 QT_TRANSLATE_NOOP("circuit-core", "Connect only to the specified node(s)"),
@@ -314,7 +319,6 @@ QT_TRANSLATE_NOOP("circuit-core", "Error loading wallet.dat: Wallet corrupted"),
 QT_TRANSLATE_NOOP("circuit-core", "Error loading wallet.dat: Wallet requires newer version of CIRCUIT Core"),
 QT_TRANSLATE_NOOP("circuit-core", "Error opening block database"),
 QT_TRANSLATE_NOOP("circuit-core", "Error reading from database, shutting down."),
-QT_TRANSLATE_NOOP("circuit-core", "Error recovering public key."),
 QT_TRANSLATE_NOOP("circuit-core", "Error writing zerocoinDB to disk"),
 QT_TRANSLATE_NOOP("circuit-core", "Error"),
 QT_TRANSLATE_NOOP("circuit-core", "Error: A fatal internal error occured, see debug.log for details"),
@@ -357,7 +361,6 @@ QT_TRANSLATE_NOOP("circuit-core", "Invalid amount"),
 QT_TRANSLATE_NOOP("circuit-core", "Invalid masternodeprivkey. Please see documenation."),
 QT_TRANSLATE_NOOP("circuit-core", "Invalid netmask specified in -whitelist: '%s'"),
 QT_TRANSLATE_NOOP("circuit-core", "Invalid port detected in masternode.conf"),
-QT_TRANSLATE_NOOP("circuit-core", "Invalid private key."),
 QT_TRANSLATE_NOOP("circuit-core", "Keep at most <n> unconnectable transactions in memory (default: %u)"),
 QT_TRANSLATE_NOOP("circuit-core", "Limit size of signature cache to <n> entries (default: %u)"),
 QT_TRANSLATE_NOOP("circuit-core", "Line: %d"),
@@ -379,7 +382,7 @@ QT_TRANSLATE_NOOP("circuit-core", "Masternode options:"),
 QT_TRANSLATE_NOOP("circuit-core", "Maximum per-connection receive buffer, <n>*1000 bytes (default: %u)"),
 QT_TRANSLATE_NOOP("circuit-core", "Maximum per-connection send buffer, <n>*1000 bytes (default: %u)"),
 QT_TRANSLATE_NOOP("circuit-core", "Mint did not make it into blockchain"),
-QT_TRANSLATE_NOOP("circuit-core", "Need address because change is not exact"),
+QT_TRANSLATE_NOOP("circuit-core", "Need destination or change address because change is not exact"),
 QT_TRANSLATE_NOOP("circuit-core", "Need to specify a port with -whitebind: '%s'"),
 QT_TRANSLATE_NOOP("circuit-core", "Node relay options:"),
 QT_TRANSLATE_NOOP("circuit-core", "Not enough file descriptors available."),
@@ -428,7 +431,6 @@ QT_TRANSLATE_NOOP("circuit-core", "Set the number of threads to service RPC call
 QT_TRANSLATE_NOOP("circuit-core", "Sets the DB_PRIVATE flag in the wallet db environment (default: %u)"),
 QT_TRANSLATE_NOOP("circuit-core", "Show all debugging options (usage: --help -help-debug)"),
 QT_TRANSLATE_NOOP("circuit-core", "Shrink debug.log file on client startup (default: 1 when no -debug)"),
-QT_TRANSLATE_NOOP("circuit-core", "Signing failed."),
 QT_TRANSLATE_NOOP("circuit-core", "Signing timed out."),
 QT_TRANSLATE_NOOP("circuit-core", "Signing transaction failed"),
 QT_TRANSLATE_NOOP("circuit-core", "Specify configuration file (default: %s)"),
@@ -471,6 +473,7 @@ QT_TRANSLATE_NOOP("circuit-core", "Trying to spend an already spent serial #, tr
 QT_TRANSLATE_NOOP("circuit-core", "Unable to bind to %s on this computer (bind returned error %s)"),
 QT_TRANSLATE_NOOP("circuit-core", "Unable to find transaction containing mint %s"),
 QT_TRANSLATE_NOOP("circuit-core", "Unable to find transaction containing mint, txHash: %s"),
+QT_TRANSLATE_NOOP("circuit-core", "Unable to generate initial key"),
 QT_TRANSLATE_NOOP("circuit-core", "Unable to sign spork message, wrong key?"),
 QT_TRANSLATE_NOOP("circuit-core", "Unable to start HTTP server. See debug log for details."),
 QT_TRANSLATE_NOOP("circuit-core", "Unknown network specified in -onlynet: '%s'"),

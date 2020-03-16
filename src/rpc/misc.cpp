@@ -1,7 +1,7 @@
 // Copyright (c) 2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,6 +27,8 @@
 
 #include <univalue.h>
 
+extern std::vector<CSporkDef> sporkDefs;
+
 
 /**
  * @note Do not add or change anything in the information returned by this
@@ -50,19 +52,20 @@ UniValue getinfo(const UniValue& params, bool fHelp)
 
             "\nResult:\n"
             "{\n"
-            "  \"version\": xxxxx,           (numeric) the server version\n"
-            "  \"protocolversion\": xxxxx,   (numeric) the protocol version\n"
-            "  \"walletversion\": xxxxx,     (numeric) the wallet version\n"
-            "  \"balance\": xxxxxxx,         (numeric) the total circuit balance of the wallet (excluding zerocoins)\n"
-//            "  \"zerocoinbalance\": xxxxxxx, (numeric) the total zerocoin balance of the wallet\n"
-            "  \"blocks\": xxxxxx,           (numeric) the current number of blocks processed in the server\n"
-            "  \"timeoffset\": xxxxx,        (numeric) the time offset\n"
-            "  \"connections\": xxxxx,       (numeric) the number of connections\n"
-            "  \"proxy\": \"host:port\",     (string, optional) the proxy used by the server\n"
-            "  \"difficulty\": xxxxxx,       (numeric) the current difficulty\n"
-            "  \"testnet\": true|false,      (boolean) if the server is using testnet or not\n"
-            "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
-/*            "  \"zCRCTsupply\" :\n"
+            "  \"version\": xxxxx,             (numeric) the server version\n"
+            "  \"protocolversion\": xxxxx,     (numeric) the protocol version\n"
+            "  \"walletversion\": xxxxx,       (numeric) the wallet version\n"
+            "  \"balance\": xxxxxxx,           (numeric) the total circuit balance of the wallet (excluding zerocoins)\n"
+            "  \"zerocoinbalance\": xxxxxxx,   (numeric) the total zerocoin balance of the wallet\n"
+            "  \"staking status\": true|false, (boolean) if the wallet is staking or not\n"
+            "  \"blocks\": xxxxxx,             (numeric) the current number of blocks processed in the server\n"
+            "  \"timeoffset\": xxxxx,          (numeric) the time offset\n"
+            "  \"connections\": xxxxx,         (numeric) the number of connections\n"
+            "  \"proxy\": \"host:port\",       (string, optional) the proxy used by the server\n"
+            "  \"difficulty\": xxxxxx,         (numeric) the current difficulty\n"
+            "  \"testnet\": true|false,        (boolean) if the server is using testnet or not\n"
+            "  \"moneysupply\" : \"supply\"    (numeric) The money supply when this block was added to the blockchain\n"
+            "  \"zCRCTsupply\" :\n"
             "  {\n"
             "     \"1\" : n,            (numeric) supply of 1 zCRCT denomination\n"
             "     \"5\" : n,            (numeric) supply of 5 zCRCT denomination\n"
@@ -74,14 +77,12 @@ UniValue getinfo(const UniValue& params, bool fHelp)
             "     \"5000\" : n,         (numeric) supply of 5000 zCRCT denomination\n"
             "     \"total\" : n,        (numeric) The total supply of all zCRCT denominations\n"
             "  }\n"
-*/
-            "  \"keypoololdest\": xxxxxx,    (numeric) the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool\n"
-            "  \"keypoolsize\": xxxx,        (numeric) how many new keys are pre-generated\n"
-            "  \"unlocked_until\": ttt,      (numeric) the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked\n"
-            "  \"paytxfee\": x.xxxx,         (numeric) the transaction fee set in circuit/kb\n"
-            "  \"relayfee\": x.xxxx,         (numeric) minimum relay fee for non-free transactions in circuit/kb\n"
-            "  \"staking status\": true|false,  (boolean) if the wallet is staking or not\n"
-            "  \"errors\": \"...\"           (string) any error messages\n"
+            "  \"keypoololdest\": xxxxxx,      (numeric) the timestamp (seconds since GMT epoch) of the oldest pre-generated key in the key pool\n"
+            "  \"keypoolsize\": xxxx,          (numeric) how many new keys are pre-generated\n"
+            "  \"unlocked_until\": ttt,        (numeric) the timestamp in seconds since epoch (midnight Jan 1 1970 GMT) that the wallet is unlocked for transfers, or 0 if the wallet is locked\n"
+            "  \"paytxfee\": x.xxxx,           (numeric) the transaction fee set in circuit/kb\n"
+            "  \"relayfee\": x.xxxx,           (numeric) minimum relay fee for non-free transactions in circuit/kb\n"
+            "  \"errors\": \"...\"             (string) any error messages\n"
             "}\n"
 
             "\nExamples:\n" +
@@ -125,7 +126,10 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     if (pwalletMain) {
         obj.push_back(Pair("walletversion", pwalletMain->GetVersion()));
         obj.push_back(Pair("balance", ValueFromAmount(pwalletMain->GetBalance())));
-        //obj.push_back(Pair("zerocoinbalance", ValueFromAmount(pwalletMain->GetZerocoinBalance(true))));
+        obj.push_back(Pair("zerocoinbalance", ValueFromAmount(pwalletMain->GetZerocoinBalance(true))));
+        obj.push_back(Pair("staking status", (pwalletMain->pStakerStatus->IsActive() ?
+                                                "Staking Active" :
+                                                "Staking Not Active")));
     }
 #endif
     obj.push_back(Pair("blocks", (int)chainActive.Height()));
@@ -143,11 +147,11 @@ UniValue getinfo(const UniValue& params, bool fHelp)
 
     obj.push_back(Pair("moneysupply",ValueFromAmount(chainActive.Tip()->nMoneySupply)));
     UniValue zcrctObj(UniValue::VOBJ);
-//    for (auto denom : libzerocoin::zerocoinDenomList) {
-//        zcrctObj.push_back(Pair(to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom*COIN))));
-//    }
-//    zcrctObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
-//    obj.push_back(Pair("zCRCTsupply", zcrctObj));
+    for (auto denom : libzerocoin::zerocoinDenomList) {
+        zcrctObj.push_back(Pair(std::to_string(denom), ValueFromAmount(chainActive.Tip()->mapZerocoinSupply.at(denom) * (denom*COIN))));
+    }
+    zcrctObj.push_back(Pair("total", ValueFromAmount(chainActive.Tip()->GetZerocoinSupply())));
+    obj.push_back(Pair("zCRCTsupply", zcrctObj));
 
 #ifdef ENABLE_WALLET
     if (pwalletMain) {
@@ -159,12 +163,6 @@ UniValue getinfo(const UniValue& params, bool fHelp)
     obj.push_back(Pair("paytxfee", ValueFromAmount(payTxFee.GetFeePerK())));
 #endif
     obj.push_back(Pair("relayfee", ValueFromAmount(::minRelayTxFee.GetFeePerK())));
-    bool nStaking = false;
-    if (mapHashedBlocks.count(chainActive.Tip()->nHeight))
-        nStaking = true;
-    else if (mapHashedBlocks.count(chainActive.Tip()->nHeight - 1) && nLastCoinStakeSearchInterval)
-        nStaking = true;
-    obj.push_back(Pair("staking status", (nStaking ? "Staking Active" : "Staking Not Active")));
     obj.push_back(Pair("errors", GetWarnings("statusbar")));
     return obj;
 }
@@ -255,7 +253,7 @@ public:
         UniValue obj(UniValue::VOBJ);
         CPubKey vchPubKey;
         obj.push_back(Pair("isscript", false));
-        if (mine == ISMINE_SPENDABLE) {
+        if (bool(mine & ISMINE_ALL)) {
             pwalletMain->GetPubKey(keyID, vchPubKey);
             obj.push_back(Pair("pubkey", HexStr(vchPubKey)));
             obj.push_back(Pair("iscompressed", vchPubKey.IsCompressed()));
@@ -292,22 +290,21 @@ UniValue spork(const UniValue& params, bool fHelp)
 {
     if (params.size() == 1 && params[0].get_str() == "show") {
         UniValue ret(UniValue::VOBJ);
-        for (int nSporkID = SPORK_START; nSporkID <= SPORK_END; nSporkID++) {
-            if (sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
-                ret.push_back(Pair(sporkManager.GetSporkNameByID(nSporkID), GetSporkValue(nSporkID)));
+        for (const auto& sporkDef : sporkDefs) {
+            ret.push_back(Pair(sporkDef.name, sporkManager.GetSporkValue(sporkDef.sporkId)));
         }
         return ret;
     } else if (params.size() == 1 && params[0].get_str() == "active") {
         UniValue ret(UniValue::VOBJ);
-        for (int nSporkID = SPORK_START; nSporkID <= SPORK_END; nSporkID++) {
-            if (sporkManager.GetSporkNameByID(nSporkID) != "Unknown")
-                ret.push_back(Pair(sporkManager.GetSporkNameByID(nSporkID), IsSporkActive(nSporkID)));
+        for (const auto& sporkDef : sporkDefs) {
+            ret.push_back(Pair(sporkDef.name, sporkManager.IsSporkActive(sporkDef.sporkId)));
         }
         return ret;
     } else if (params.size() == 2) {
-        int nSporkID = sporkManager.GetSporkIDByName(params[0].get_str());
-        if (nSporkID == -1) {
-            return "Invalid spork name";
+        // advanced mode, update spork values
+        SporkId nSporkID = sporkManager.GetSporkIDByName(params[0].get_str());
+        if (nSporkID == SPORK_INVALID) {
+            throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid spork name");
         }
 
         // SPORK VALUE
@@ -362,15 +359,16 @@ UniValue validateaddress(const UniValue& params, bool fHelp)
             "\nResult:\n"
             "{\n"
             "  \"isvalid\" : true|false,         (boolean) If the address is valid or not. If not, this is the only property returned.\n"
-            "  \"address\" : \"circuitaddress\", (string) The circuit address validated\n"
+            "  \"address\" : \"circuitaddress\",    (string) The circuit address validated\n"
             "  \"scriptPubKey\" : \"hex\",       (string) The hex encoded scriptPubKey generated by the address\n"
             "  \"ismine\" : true|false,          (boolean) If the address is yours or not\n"
-            "  \"iswatchonly\" : true|false,   (boolean) If the address is watchonly\n"
+            "  \"isstaking\" : true|false,       (boolean) If the address is a staking address for CIRCUIT cold staking\n"
+            "  \"iswatchonly\" : true|false,     (boolean) If the address is watchonly\n"
             "  \"isscript\" : true|false,        (boolean) If the key is a script\n"
             "  \"hex\" : \"hex\",                (string, optional) The redeemscript for the P2SH address\n"
             "  \"pubkey\" : \"publickeyhex\",    (string) The hex value of the raw public key\n"
             "  \"iscompressed\" : true|false,    (boolean) If the address is compressed\n"
-            "  \"account\" : \"account\"         (string) The account associated with the address, \"\" is the default account\n"
+            "  \"account\" : \"account\"         (string) DEPRECATED. The account associated with the address, \"\" is the default account\n"
             "}\n"
 
             "\nExamples:\n" +
@@ -396,7 +394,8 @@ UniValue validateaddress(const UniValue& params, bool fHelp)
 
 #ifdef ENABLE_WALLET
         isminetype mine = pwalletMain ? IsMine(*pwalletMain, dest) : ISMINE_NO;
-        ret.push_back(Pair("ismine", bool(mine & ISMINE_SPENDABLE)));
+        ret.push_back(Pair("ismine", bool(mine & (ISMINE_SPENDABLE_ALL | ISMINE_COLD))));
+        ret.push_back(Pair("isstaking", address.IsStakingAddress()));
         ret.push_back(Pair("iswatchonly", bool(mine & ISMINE_WATCH_ONLY)));
         UniValue detail = boost::apply_visitor(DescribeAddressVisitor(mine), dest);
         ret.pushKVs(detail);
@@ -595,41 +594,44 @@ UniValue getstakingstatus(const UniValue& params, bool fHelp)
 
             "\nResult:\n"
             "{\n"
-            "  \"validtime\": true|false,          (boolean) if the chain tip is within staking phases\n"
+            "  \"staking_status\": true|false,     (boolean) if the wallet is staking or not\n"
+            "  \"staking_enabled\": true|false,    (boolean) if staking is enabled/disabled in circuit.conf\n"
+            "  \"tiptime\": n,                     (integer) chain tip blocktime\n"
             "  \"haveconnections\": true|false,    (boolean) if network connections are present\n"
+            "  \"mnsync\": true|false,             (boolean) if masternode data is synced\n"
             "  \"walletunlocked\": true|false,     (boolean) if the wallet is unlocked\n"
             "  \"mintablecoins\": true|false,      (boolean) if the wallet has mintable coins\n"
             "  \"enoughcoins\": true|false,        (boolean) if available coins are greater than reserve balance\n"
-            "  \"mnsync\": true|false,             (boolean) if masternode data is synced\n"
-            "  \"staking status\": true|false,     (boolean) if the wallet is staking or not\n"
+            "  \"hashLastStakeAttempt\": xxx       (hex string) hash of last block on top of which the miner attempted to stake\n"
+            "  \"heightLastStakeAttempt\": n       (integer) height of last block on top of which the miner attempted to stake\n"
+            "  \"timeLastStakeAttempt\": n         (integer) time of last attempted stake\n"
             "}\n"
 
             "\nExamples:\n" +
             HelpExampleCli("getstakingstatus", "") + HelpExampleRpc("getstakingstatus", ""));
 
-#ifdef ENABLE_WALLET
-    LOCK2(cs_main, pwalletMain ? &pwalletMain->cs_wallet : NULL);
-#else
-    LOCK(cs_main);
-#endif
 
-    UniValue obj(UniValue::VOBJ);
-    obj.push_back(Pair("validtime", chainActive.Tip()->nTime > 1471482000));
-    obj.push_back(Pair("haveconnections", !vNodes.empty()));
-    if (pwalletMain) {
+    if (!pwalletMain)
+        throw JSONRPCError(RPC_IN_WARMUP, "Try again after active chain is loaded");
+    {
+        LOCK2(cs_main, &pwalletMain->cs_wallet);
+        UniValue obj(UniValue::VOBJ);
+        obj.push_back(Pair("staking_status", pwalletMain->pStakerStatus->IsActive()));
+        obj.push_back(Pair("staking_enabled", GetBoolArg("-staking", true)));
+        obj.push_back(Pair("tiptime", (int)chainActive.Tip()->nTime));
+        obj.push_back(Pair("haveconnections", !vNodes.empty()));
+        obj.push_back(Pair("mnsync", masternodeSync.IsSynced()));
         obj.push_back(Pair("walletunlocked", !pwalletMain->IsLocked()));
         obj.push_back(Pair("mintablecoins", pwalletMain->MintableCoins()));
-        obj.push_back(Pair("enoughcoins", nReserveBalance <= pwalletMain->GetBalance()));
+        obj.push_back(Pair("enoughcoins", nReserveBalance <= pwalletMain->GetStakingBalance(GetBoolArg("-coldstaking", true))));
+        uint256 lastHash = pwalletMain->pStakerStatus->GetLastHash();
+        obj.push_back(Pair("hashLastStakeAttempt", lastHash.GetHex()));
+        obj.push_back(Pair("heightLastStakeAttempt", (mapBlockIndex.count(lastHash) > 0 ?
+                                                        mapBlockIndex.at(lastHash)->nHeight : -1)) );
+        obj.push_back(Pair("timeLastStakeAttempt", pwalletMain->pStakerStatus->GetLastTime()));
+        return obj;
     }
-    obj.push_back(Pair("mnsync", masternodeSync.IsSynced()));
 
-    bool nStaking = false;
-    if (mapHashedBlocks.count(chainActive.Tip()->nHeight))
-        nStaking = true;
-    else if (mapHashedBlocks.count(chainActive.Tip()->nHeight - 1) && nLastCoinStakeSearchInterval)
-        nStaking = true;
-    obj.push_back(Pair("staking status", nStaking));
 
-    return obj;
 }
 #endif // ENABLE_WALLET

@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2019 The PIVX developers
+// Copyright (c) 2018-2020 The PIVX developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -105,29 +105,6 @@ bool CzCRCTTracker::GetMetaFromStakeHash(const uint256& hashStake, CMintMeta& me
             meta = it.second;
             return true;
         }
-    }
-
-    return false;
-}
-
-CoinWitnessData* CzCRCTTracker::GetSpendCache(const uint256& hashStake)
-{
-    AssertLockHeld(cs_spendcache);
-    if (!mapStakeCache.count(hashStake)) {
-        std::unique_ptr<CoinWitnessData> uptr(new CoinWitnessData());
-        mapStakeCache.insert(std::make_pair(hashStake, std::move(uptr)));
-        return mapStakeCache.at(hashStake).get();
-    }
-
-    return mapStakeCache.at(hashStake).get();
-}
-
-bool CzCRCTTracker::ClearSpendCache()
-{
-    AssertLockHeld(cs_spendcache);
-    if (!mapStakeCache.empty()) {
-        mapStakeCache.clear();
-        return true;
     }
 
     return false;

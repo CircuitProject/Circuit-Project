@@ -208,7 +208,7 @@ UniValue getchecksumblock(const UniValue& params, bool fHelp)
             "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
             "  \"nextblockhash\" : \"hash\"       (string) The hash of the next block\n"
             "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
- /*           "  \"zCRCTsupply\" :\n"
+            "  \"zCRCTsupply\" :\n"
             "  {\n"
             "     \"1\" : n,            (numeric) supply of 1 zCRCT denomination\n"
             "     \"5\" : n,            (numeric) supply of 5 zCRCT denomination\n"
@@ -219,7 +219,7 @@ UniValue getchecksumblock(const UniValue& params, bool fHelp)
             "     \"1000\" : n,         (numeric) supply of 1000 zCRCT denomination\n"
             "     \"5000\" : n,         (numeric) supply of 5000 zCRCT denomination\n"
             "     \"total\" : n,        (numeric) The total supply of all zCRCT denominations\n"
-            "  }\n" */
+            "  }\n"
             "}\n"
 
             "\nResult (for verbose=false):\n"
@@ -599,7 +599,7 @@ UniValue getblock(const UniValue& params, bool fHelp)
             "  \"previousblockhash\" : \"hash\",  (string) The hash of the previous block\n"
             "  \"nextblockhash\" : \"hash\"       (string) The hash of the next block\n"
             "  \"moneysupply\" : \"supply\"       (numeric) The money supply when this block was added to the blockchain\n"
-/*            "  \"zCRCTsupply\" :\n"
+            "  \"zCRCTsupply\" :\n"
             "  {\n"
             "     \"1\" : n,            (numeric) supply of 1 zCRCT denomination\n"
             "     \"5\" : n,            (numeric) supply of 5 zCRCT denomination\n"
@@ -610,7 +610,7 @@ UniValue getblock(const UniValue& params, bool fHelp)
             "     \"1000\" : n,         (numeric) supply of 1000 zCRCT denomination\n"
             "     \"5000\" : n,         (numeric) supply of 5000 zCRCT denomination\n"
             "     \"total\" : n,        (numeric) The total supply of all zCRCT denominations\n"
-            "  },\n"*/
+            "  },\n"
             "  \"CoinStake\" :\n"
             "    \"BlockFromHash\" : \"hash\",      (string) Block hash of the coin stake input\n"
             "    \"BlockFromHeight\" : n,           (numeric) Block Height of the coin stake input\n"
@@ -769,7 +769,7 @@ UniValue gettxout(const UniValue& params, bool fHelp)
             "     \"reqSigs\" : n,          (numeric) Number of required signatures\n"
             "     \"type\" : \"pubkeyhash\", (string) The type, eg pubkeyhash\n"
             "     \"addresses\" : [          (array of string) array of circuit addresses\n"
-            "     \"circuitaddress\"   	 	(string) circuit address\n"
+            "     \"circuitaddress\"            (string) circuit address\n"
             "        ,...\n"
             "     ]\n"
             "  },\n"
@@ -860,19 +860,19 @@ UniValue verifychain(const UniValue& params, bool fHelp)
 /** Implementation of IsSuperMajority with better feedback */
 static UniValue SoftForkMajorityDesc(int minVersion, CBlockIndex* pindex, int nRequired)
 {
-    //int nFound = 0;
-    //CBlockIndex* pstart = pindex;
-    //for (int i = 0; i < Params().ToCheckBlockUpgradeMajority() && pstart != NULL; i++)
-    //{
-    //    if (pstart->nVersion >= minVersion)
-    //        ++nFound;
-    //    pstart = pstart->pprev;
-    //}
+    int nFound = 0;
+    CBlockIndex* pstart = pindex;
+    for (int i = 0; i < Params().ToCheckBlockUpgradeMajority() && pstart != NULL; i++)
+    {
+        if (pstart->nVersion >= minVersion)
+            ++nFound;
+        pstart = pstart->pprev;
+    }
     UniValue rv(UniValue::VOBJ);
-    //rv.push_back(Pair("status", nFound >= nRequired));
-    //rv.push_back(Pair("found", nFound));
-    //rv.push_back(Pair("required", nRequired));
-    //rv.push_back(Pair("window", Params().ToCheckBlockUpgradeMajority()));
+    rv.push_back(Pair("status", nFound >= nRequired));
+    rv.push_back(Pair("found", nFound));
+    rv.push_back(Pair("required", nRequired));
+    rv.push_back(Pair("window", Params().ToCheckBlockUpgradeMajority()));
     return rv;
 }
 static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndex* pindex)
@@ -880,8 +880,8 @@ static UniValue SoftForkDesc(const std::string &name, int version, CBlockIndex* 
     UniValue rv(UniValue::VOBJ);
     rv.push_back(Pair("id", name));
     rv.push_back(Pair("version", version));
-    //rv.push_back(Pair("enforce", SoftForkMajorityDesc(version, pindex, Params().EnforceBlockUpgradeMajority())));
-    //rv.push_back(Pair("reject", SoftForkMajorityDesc(version, pindex, Params().RejectBlockOutdatedMajority())));
+    rv.push_back(Pair("enforce", SoftForkMajorityDesc(version, pindex, Params().EnforceBlockUpgradeMajority())));
+    rv.push_back(Pair("reject", SoftForkMajorityDesc(version, pindex, Params().RejectBlockOutdatedMajority())));
     return rv;
 }
 
@@ -1206,7 +1206,7 @@ UniValue findserial(const UniValue& params, bool fHelp)
     CBigNum bnSerial = 0;
     bnSerial.SetHex(strSerial);
     if (!bnSerial)
-	throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid serial");
+    throw JSONRPCError(RPC_INVALID_ADDRESS_OR_KEY, "Invalid serial");
 
     uint256 txid = 0;
     bool fSuccess = zerocoinDB->ReadCoinSpend(bnSerial, txid);

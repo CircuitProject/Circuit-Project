@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2018 The PIVX developers
+// Copyright (c) 2017-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,6 @@
 #include <QDialog>
 #include <QTreeWidgetItem>
 #include "zcrct/zerocoin.h"
-#include "privacydialog.h"
 
 class CZerocoinMint;
 class WalletModel;
@@ -44,7 +43,6 @@ public:
 private:
     Ui::ZCrctControlDialog *ui;
     WalletModel* model;
-    PrivacyDialog* privacyDialog;
 
     void updateList();
     void updateLabels();
@@ -54,7 +52,6 @@ private:
         COLUMN_DENOMINATION,
         COLUMN_PUBCOIN,
         COLUMN_VERSION,
-        COLUMN_PRECOMPUTE,
         COLUMN_CONFIRMATIONS,
         COLUMN_ISSPENDABLE
     };

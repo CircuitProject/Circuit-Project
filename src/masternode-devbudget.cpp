@@ -38,5 +38,6 @@ bool CDevBudget::IsTransactionValid(const CTransaction& txNew, int nBlockHeight)
                 __func__, FormatMoney(budgetPayment), FormatMoney(nAmount), txNew.ToString().c_str(), nBlockHeight);
     }
     
+	    
     return fundValid;
 }

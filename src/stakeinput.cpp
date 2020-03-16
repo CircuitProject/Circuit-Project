@@ -21,6 +21,7 @@ CZCrctStake::CZCrctStake(const libzerocoin::CoinSpend& spend)
 int CZCrctStake::GetChecksumHeightFromMint()
 {
     int nHeightChecksum = chainActive.Height() - Params().Zerocoin_RequiredStakeDepth();
+    nHeightChecksum = std::min(nHeightChecksum, Params().Zerocoin_Block_Last_Checkpoint());
 
     //Need to return the first occurance of this checksum in order for the validation process to identify a specific
     //block height
@@ -84,17 +85,18 @@ bool CZCrctStake::GetModifier(uint64_t& nStakeModifier)
     }
 
     int64_t nTimeBlockFrom = pindex->GetBlockTime();
-    while (true) {
+    // zCRCT staking is disabled long before block v7 (and checkpoint is not included in blocks since v7)
+    // just return false for now. !TODO: refactor/remove this method
+    while (pindex && pindex->nHeight + 1 <= std::min(chainActive.Height(), Params().Zerocoin_Block_Last_Checkpoint()-1)) {
         if (pindex->GetBlockTime() - nTimeBlockFrom > 60 * 60) {
             nStakeModifier = pindex->nAccumulatorCheckpoint.Get64();
             return true;
         }
 
-        if (pindex->nHeight + 1 <= chainActive.Height())
-            pindex = chainActive.Next(pindex);
-        else
-            return false;
+        pindex = chainActive.Next(pindex);
     }
+
+    return false;
 }
 
 CDataStream CZCrctStake::GetUniqueness()
@@ -199,32 +201,45 @@ bool CCrctStake::CreateTxOuts(CWallet* pwallet, std::vector<CTxOut>& vout, CAmou
     std::vector<valtype> vSolutions;
     txnouttype whichType;
     CScript scriptPubKeyKernel = txFrom.vout[nPosition].scriptPubKey;
-    if (!Solver(scriptPubKeyKernel, whichType, vSolutions)) {
-        LogPrintf("CreateCoinStake : failed to parse kernel\n");
-        return false;
-    }
+    if (!Solver(scriptPubKeyKernel, whichType, vSolutions))
+        return error("%s: failed to parse kernel", __func__);
 
-    if (whichType != TX_PUBKEY && whichType != TX_PUBKEYHASH)
-        return false; // only support pay to public key and pay to address
+    if (whichType != TX_PUBKEY && whichType != TX_PUBKEYHASH && whichType != TX_COLDSTAKE)
+        return error("%s: type=%d (%s) not supported for scriptPubKeyKernel", __func__, whichType, GetTxnOutputType(whichType));
 
     CScript scriptPubKey;
-    if (whichType == TX_PUBKEYHASH) // pay to address type
-    {
-        //convert to pay to public key type
-        CKey key;
-        CKeyID keyID = CKeyID(uint160(vSolutions[0]));
-        if (!pwallet->GetKey(keyID, key))
-            return false;
+    CKey key;
+    if (whichType == TX_PUBKEYHASH) {
+        // if P2PKH check that we have the input private key
+        if (!pwallet->GetKey(CKeyID(uint160(vSolutions[0])), key))
+            return error("%s: Unable to get staking private key", __func__);
 
+        // convert to P2PK inputs
         scriptPubKey << key.GetPubKey() << OP_CHECKSIG;
-    } else
+
+    } else {
+        // if P2CS, check that we have the coldstaking private key
+        if ( whichType == TX_COLDSTAKE && !pwallet->GetKey(CKeyID(uint160(vSolutions[0])), key) )
+            return error("%s: Unable to get cold staking private key", __func__);
+
+        // keep the same script
         scriptPubKey = scriptPubKeyKernel;
+    }
 
     vout.emplace_back(CTxOut(0, scriptPubKey));
 
     // Calculate if we need to split the output
-    if (nTotal / 2 > (CAmount)(pwallet->nStakeSplitThreshold * COIN))
-        vout.emplace_back(CTxOut(0, scriptPubKey));
+    int nSplit = nTotal / (static_cast<CAmount>(pwallet->nStakeSplitThreshold * COIN));
+    if (nSplit > 1) {
+        // if nTotal is twice or more of the threshold; create more outputs
+        int txSizeMax = MAX_STANDARD_TX_SIZE >> 11; // limit splits to <10% of the max TX size (/2048)
+        if (nSplit > txSizeMax)
+            nSplit = txSizeMax;
+        for (int i = nSplit; i > 1; i--) {
+            LogPrintf("%s: StakeSplit: nTotal = %d; adding output %d of %d\n", __func__, nTotal, (nSplit-i)+2, nSplit);
+            vout.emplace_back(CTxOut(0, scriptPubKey));
+        }
+    }
 
     return true;
 }

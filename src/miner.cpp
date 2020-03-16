@@ -1,13 +1,17 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2014 The Bitcoin developers
 // Copyright (c) 2014-2015 The Dash developers
-// Copyright (c) 2015-2019 The PIVX developers
+// Copyright (c) 2011-2013 The PPCoin developers
+// Copyright (c) 2013-2014 The NovaCoin Developers
+// Copyright (c) 2014-2018 The BlackCoin Developers
+// Copyright (c) 2015-2020 The PIVX developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "miner.h"
 
 #include "amount.h"
+#include "consensus/merkle.h"
 #include "hash.h"
 #include "main.h"
 #include "masternode-sync.h"
@@ -62,7 +66,6 @@ public:
 
 uint64_t nLastBlockTx = 0;
 uint64_t nLastBlockSize = 0;
-int64_t nLastCoinStakeSearchInterval = 0;
 
 // We want to sort transactions by priority and fee rate, so:
 typedef boost::tuple<double, CFeeRate, const CTransaction*> TxPriority;
@@ -89,11 +92,26 @@ public:
 
 void UpdateTime(CBlockHeader* pblock, const CBlockIndex* pindexPrev)
 {
-    pblock->nTime = std::max(pindexPrev->GetMedianTimePast() + 1, GetAdjustedTime());
+    if (Params().IsTimeProtocolV2(pindexPrev->nHeight+1)) {
+        pblock->nTime = GetCurrentTimeSlot();
+    } else {
+        pblock->nTime = std::max(pindexPrev->GetMedianTimePast() + 1, GetAdjustedTime());
+    }
 
     // Updating time can change work required on testnet:
     if (Params().AllowMinDifficultyBlocks())
         pblock->nBits = GetNextWorkRequired(pindexPrev, pblock);
+}
+
+CBlockIndex* GetChainTip()
+{
+    LOCK(cs_main);
+    CBlockIndex* p = chainActive.Tip();
+    if (!p)
+        return nullptr;
+    // Do not pass in the chain active tip, because it can change.
+    // Instead pass the blockindex directly from mapblockindex, which is const
+    return mapBlockIndex.at(p->GetBlockHash());
 }
 
 std::pair<int, std::pair<uint256, uint256> > pCheckpointCache;
@@ -103,29 +121,25 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
 
     // Create new block
     std::unique_ptr<CBlockTemplate> pblocktemplate(new CBlockTemplate());
-    if (!pblocktemplate.get())
-        return NULL;
+    if (!pblocktemplate.get()) return nullptr;
     CBlock* pblock = &pblocktemplate->block; // pointer for convenience
 
     // Tip
-    CBlockIndex* pindexPrev = nullptr;
-    {   // Don't keep cs_main locked
-        LOCK(cs_main);
-        pindexPrev = chainActive.Tip();
-    }
+    CBlockIndex* pindexPrev = GetChainTip();
+    if (!pindexPrev) return nullptr;
 
     const int nHeight = pindexPrev->nHeight + 1;
 
-    // Make sure to create the correct block version after zerocoin is enabled
-    bool fZerocoinActive = nHeight >= Params().Zerocoin_StartHeight();
-    if(Params().IsStakeModifierV2(nHeight)) {
-        pblock->nVersion = 6;       //!> Supports V2 Stake Modifiers.
+    // Make sure to create the correct block version
+    if (nHeight >= Params().Block_V7_StartHeight()) {
+        pblock->nVersion = 7;       //!> Removes accumulator checkpoints
     } else {
-        pblock->nVersion = 5;       //!> Supports CLTV activation
+        pblock->nVersion = 6;       //!> Supports V2 Stake Modifiers.
     }
 
     // -regtest only: allow overriding block.nVersion with
     // -blockversion=N to test forking scenarios
+    bool fZerocoinActive = nHeight >= Params().Zerocoin_StartHeight();
     if (Params().MineBlocksOnDemand()) {
         if (fZerocoinActive)
             pblock->nVersion = 5;
@@ -145,32 +159,20 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
     pblocktemplate->vTxFees.push_back(-1);   // updated at end
     pblocktemplate->vTxSigOps.push_back(-1); // updated at end
 
-    // ppcoin: if coinstake available add coinstake tx
-    static int64_t nLastCoinStakeSearchTime = GetAdjustedTime(); // only initialized at startup
-
     if (fProofOfStake) {
         boost::this_thread::interruption_point();
         pblock->nTime = GetAdjustedTime();
         pblock->nBits = GetNextWorkRequired(pindexPrev, pblock);
         CMutableTransaction txCoinStake;
-        int64_t nSearchTime = pblock->nTime; // search to current time
-        bool fStakeFound = false;
-        if (nSearchTime >= nLastCoinStakeSearchTime) {
-            unsigned int nTxNewTime = 0;
-            if (pwallet->CreateCoinStake(*pwallet, pblock->nBits, nSearchTime - nLastCoinStakeSearchTime, txCoinStake, nTxNewTime)) {
-                pblock->nTime = nTxNewTime;
-                pblock->vtx[0].vout[0].SetEmpty();
-                pblock->vtx.push_back(CTransaction(txCoinStake));
-                fStakeFound = true;
-            }
-            nLastCoinStakeSearchInterval = nSearchTime - nLastCoinStakeSearchTime;
-            nLastCoinStakeSearchTime = nSearchTime;
-        }
-
-        if (!fStakeFound) {
+        int64_t nTxNewTime = 0;
+        if (!pwallet->CreateCoinStake(*pwallet, pindexPrev, pblock->nBits, txCoinStake, nTxNewTime)) {
             LogPrint("staking", "CreateNewBlock(): stake not found\n");
-            return NULL;
+            return nullptr;
         }
+        // Stake found
+        pblock->nTime = nTxNewTime;
+        pblock->vtx[0].vout[0].SetEmpty();
+        pblock->vtx.push_back(CTransaction(txCoinStake));
     }
 
     // Largest block you're willing to create:
@@ -213,7 +215,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
             if (tx.IsCoinBase() || tx.IsCoinStake() || !IsFinalTx(tx, nHeight)){
                 continue;
             }
-            if(GetAdjustedTime() > GetSporkValue(SPORK_16_ZEROCOIN_MAINTENANCE_MODE) && tx.ContainsZerocoins()){
+            if(sporkManager.IsSporkActive(SPORK_16_ZEROCOIN_MAINTENANCE_MODE) && tx.ContainsZerocoins()){
                 continue;
             }
 
@@ -390,7 +392,7 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
                             spend = &spendObj;
                         }
 
-                        bool fUseV1Params = libzerocoin::ExtractVersionFromSerial(spend->getCoinSerialNumber()) < libzerocoin::PrivateCoin::PUBKEY_VERSION;
+                        bool fUseV1Params = spend->getCoinVersion() < libzerocoin::PrivateCoin::PUBKEY_VERSION;
                         if (!spend->HasValidSerial(Params().Zerocoin_Params(fUseV1Params)))
                             fDoubleSerial = true;
                         if (std::count(vBlockSerials.begin(), vBlockSerials.end(), spend->getCoinSerialNumber()))
@@ -474,7 +476,6 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
         LogPrintf("CreateNewBlock(): total size %u\n", nBlockSize);
 
         // Compute final coinbase transaction.
-        //pblock->vtx[0].vin[0].scriptSig = CScript() << nHeight << OP_0;
         pblock->vtx[0].vin[0].scriptSig = CScript() << nHeight << OP_0;
         if (!fProofOfStake) {
             pblock->vtx[0] = txNew;
@@ -489,29 +490,31 @@ CBlockTemplate* CreateNewBlock(const CScript& scriptPubKeyIn, CWallet* pwallet, 
         pblock->nNonce = 0;
 
         //Calculate the accumulator checkpoint only if the previous cached checkpoint need to be updated
-        if (fZerocoinActive) {
-            uint256 nCheckpoint;
-        uint256 hashBlockLastAccumulated = nHeight >= 10 ? chainActive[nHeight - (nHeight % 10) - 10]->GetBlockHash() : chainActive[0]->GetBlockHash();
-            if (nHeight >= pCheckpointCache.first || pCheckpointCache.second.first != hashBlockLastAccumulated) {
-                //For the period before v2 activation, zCRCT will be disabled and previous block's checkpoint is all that will be needed
-                pCheckpointCache.second.second = pindexPrev->nAccumulatorCheckpoint;
-                if (pindexPrev->nHeight + 1 >= Params().Zerocoin_Block_V2_Start()) {
-                    AccumulatorMap mapAccumulators(Params().Zerocoin_Params(false));
-                    if (fZerocoinActive && !CalculateAccumulatorCheckpoint(nHeight, nCheckpoint, mapAccumulators)) {
-                        LogPrintf("%s: failed to get accumulator checkpoint\n", __func__);
-                    } else {
-                        // the next time the accumulator checkpoint should be recalculated ( the next height that is multiple of 10)
-                        pCheckpointCache.first = nHeight + (10 - (nHeight % 10));
+        if (pblock->nVersion < 7) {
+            if (fZerocoinActive) {
+                uint256 nCheckpoint;
+                uint256 hashBlockLastAccumulated = chainActive[nHeight - (nHeight % 10) - 10]->GetBlockHash();
+                if (nHeight >= pCheckpointCache.first || pCheckpointCache.second.first != hashBlockLastAccumulated) {
+                    //For the period before v2 activation, zCRCT will be disabled and previous block's checkpoint is all that will be needed
+                    pCheckpointCache.second.second = pindexPrev->nAccumulatorCheckpoint;
+                    if (pindexPrev->nHeight + 1 >= Params().Zerocoin_Block_V2_Start()) {
+                        AccumulatorMap mapAccumulators(Params().Zerocoin_Params(false));
+                        if (fZerocoinActive && !CalculateAccumulatorCheckpoint(nHeight, nCheckpoint, mapAccumulators)) {
+                            LogPrintf("%s: failed to get accumulator checkpoint\n", __func__);
+                        } else {
+                            // the next time the accumulator checkpoint should be recalculated ( the next height that is multiple of 10)
+                            pCheckpointCache.first = nHeight + (10 - (nHeight % 10));
 
-                        // the block hash of the last block used in the accumulator checkpoint calc. This will handle reorg situations.
-                        pCheckpointCache.second.first = hashBlockLastAccumulated;
-                        pCheckpointCache.second.second = nCheckpoint;
+                            // the block hash of the last block used in the accumulator checkpoint calc. This will handle reorg situations.
+                            pCheckpointCache.second.first = hashBlockLastAccumulated;
+                            pCheckpointCache.second.second = nCheckpoint;
+                        }
                     }
                 }
             }
-        }
 
-        pblock->nAccumulatorCheckpoint = pCheckpointCache.second.second;
+            pblock->nAccumulatorCheckpoint = pCheckpointCache.second.second;
+        }
         pblocktemplate->vTxSigOps[0] = GetLegacySigOpCount(pblock->vtx[0]);
 
         if (fProofOfStake) {
@@ -570,7 +573,7 @@ void IncrementExtraNonce(CBlock* pblock, CBlockIndex* pindexPrev, unsigned int& 
     assert(txCoinbase.vin[0].scriptSig.size() <= 100);
 
     pblock->vtx[0] = txCoinbase;
-    pblock->hashMerkleRoot = pblock->BuildMerkleTree();
+    pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
 }
 
 #ifdef ENABLE_WALLET
@@ -610,8 +613,8 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
     // Found a solution
     {
-        LOCK(cs_main);
-        if (pblock->hashPrevBlock != chainActive.Tip()->GetBlockHash())
+        WaitableLock lock(g_best_block_mutex);
+        if (pblock->hashPrevBlock != g_best_block)
             return error("CIRCUITMiner : generated block is stale");
     }
 
@@ -659,10 +662,17 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
     // Each thread has its own key and counter
     CReserveKey reservekey(pwallet);
     unsigned int nExtraNonce = 0;
-    bool fLastLoopOrphan = false;
+    bool fColdStake = GetBoolArg("-coldstaking", true);
+    CAmount stakingBalance = 0;
+
     while (fGenerateBitcoins || fProofOfStake) {
+        CBlockIndex* pindexPrev = GetChainTip();
+        if (!pindexPrev) {
+            MilliSleep(Params().TargetSpacing() * 1000);       // sleep a block
+            continue;
+        }
         if (fProofOfStake) {
-            if (chainActive.Tip()->nHeight < Params().LAST_POW_BLOCK()) {
+            if (pindexPrev->nHeight < Params().LAST_POW_BLOCK()) {
                 //  The last PoW block hasn't even been mined yet.
                 MilliSleep(Params().TargetSpacing() * 1000);       // sleep a block
                 continue;
@@ -673,32 +683,35 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
             {
                 nMintableLastCheck = GetTime();
                 fMintableCoins = pwallet->MintableCoins();
+                stakingBalance = pwallet->GetStakingBalance(fColdStake);
             }
 
             while (vNodes.empty() || pwallet->IsLocked() || !fMintableCoins ||
-                   (pwallet->GetBalance() > 0 && nReserveBalance >= pwallet->GetBalance()) || !masternodeSync.IsSynced()) {
-                nLastCoinStakeSearchInterval = 0;
+                   (stakingBalance > 0 && nReserveBalance >= stakingBalance) || masternodeSync.NotCompleted()) {
                 MilliSleep(5000);
                 // Do a separate 1 minute check here to ensure fMintableCoins is updated
                 if (!fMintableCoins && (GetTime() - nMintableLastCheck > 1 * 60)) // 1 minute check time
                 {
                     nMintableLastCheck = GetTime();
                     fMintableCoins = pwallet->MintableCoins();
+                    stakingBalance = pwallet->GetStakingBalance(fColdStake);
                 }
             }
 
+            const bool fTimeV2 = Params().IsTimeProtocolV2(pindexPrev->nHeight+1);
             //search our map of hashed blocks, see if bestblock has been hashed yet
-            if (mapHashedBlocks.count(chainActive.Tip()->nHeight) && !fLastLoopOrphan)
+            if (pwallet->pStakerStatus->GetLastHash() == pindexPrev->GetBlockHash())
             {
-                // wait half of the nHashDrift with max wait of 3 minutes
-                if (GetTime() - mapHashedBlocks[chainActive.Tip()->nHeight] < std::max(pwallet->nHashInterval, (unsigned int)1))
+                int64_t lastHashTime = pwallet->pStakerStatus->GetLastTime();
+                if (    (!fTimeV2 && GetTime() < lastHashTime + 22) ||
+                        (fTimeV2 && GetCurrentTimeSlot() <= lastHashTime) )
                 {
-                    MilliSleep(5000);
+                    MilliSleep(2000);
                     continue;
                 }
             }
         } else { // PoW
-            if ((chainActive.Tip()->nHeight - 6) > Params().LAST_POW_BLOCK())
+            if ((pindexPrev->nHeight - 6) > Params().LAST_POW_BLOCK())
             {
                 // Run for a little while longer, just in case there is a rewind on the chain.
                 LogPrintf("%s: Exiting Proof of Work Mining Thread at height: %d\n",
@@ -711,9 +724,6 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
         // Create new block
         //
         unsigned int nTransactionsUpdatedLast = mempool.GetTransactionsUpdated();
-        CBlockIndex* pindexPrev = chainActive.Tip();
-        if (!pindexPrev)
-            continue;
 
         std::unique_ptr<CBlockTemplate> pblocktemplate(
                 fProofOfStake ? CreateNewBlock(CScript(), pwallet, fProofOfStake) : CreateNewBlockWithKey(reservekey, pwallet)
@@ -747,10 +757,10 @@ void BitcoinMiner(CWallet* pwallet, bool fProofOfStake)
                 continue;
             }
 
-            LogPrintf("CPUMiner : proof-of-stake block was signed %s \n", pblock->GetHash().ToString().c_str());
+            LogPrintf("%s : proof-of-stake block was signed %s \n", __func__, pblock->GetHash().ToString().c_str());
             SetThreadPriority(THREAD_PRIORITY_NORMAL);
             if (!ProcessBlockFound(pblock, *pwallet, reservekey)) {
-                fLastLoopOrphan = true;
+                LogPrintf("%s: New block orphaned\n", __func__);
                 continue;
             }
             SetThreadPriority(THREAD_PRIORITY_LOWEST);
@@ -846,7 +856,7 @@ void static ThreadBitcoinMiner(void* parg)
     try {
         BitcoinMiner(pwallet, false);
         boost::this_thread::interruption_point();
-    } catch (std::exception& e) {
+    } catch (const std::exception& e) {
         LogPrintf("CIRCUITMiner exception");
     } catch (...) {
         LogPrintf("CIRCUITMiner exception");
@@ -891,7 +901,7 @@ void ThreadStakeMinter()
     try {
         BitcoinMiner(pwallet, true);
         boost::this_thread::interruption_point();
-    } catch (std::exception& e) {
+    } catch (const std::exception& e) {
         LogPrintf("ThreadStakeMinter() exception \n");
     } catch (...) {
         LogPrintf("ThreadStakeMinter() error \n");

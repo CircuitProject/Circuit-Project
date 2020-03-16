@@ -59,7 +59,7 @@ void CLightWorker::ThreadLightZCRCTSimplified() {
                                 heightStop
                         );
 
-                    } catch (NotEnoughMintsException e) {
+                    } catch (const NotEnoughMintsException& e) {
                         LogPrintStr(std::string("ThreadLightZCRCTSimplified: ") + e.message + "\n");
                         rejectWork(genWit, blockHeight, NOT_ENOUGH_MINTS);
                         continue;
@@ -92,7 +92,7 @@ void CLightWorker::ThreadLightZCRCTSimplified() {
                     rejectWork(genWit, blockHeight, NON_DETERMINED);
                 }
             }
-        } catch (std::exception& e) {
+        } catch (const std::exception& e) {
             //std::cout << "exception in light loop, closing it. " << e.what() << std::endl;
             PrintExceptionContinue(&e, "lightzcrctthread");
             break;
