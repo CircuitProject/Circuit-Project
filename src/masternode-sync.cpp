@@ -26,17 +26,17 @@ CMasternodeSync::CMasternodeSync()
 
 bool CMasternodeSync::IsSynced()
 {
-    return RequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED;
+    return true;//RequestedMasternodeAssets == MASTERNODE_SYNC_FINISHED;
 }
 
 bool CMasternodeSync::IsSporkListSynced()
 {
-    return RequestedMasternodeAssets > MASTERNODE_SYNC_SPORKS;
+    return true; //RequestedMasternodeAssets > MASTERNODE_SYNC_SPORKS;
 }
 
 bool CMasternodeSync::IsMasternodeListSynced()
 {
-    return RequestedMasternodeAssets > MASTERNODE_SYNC_LIST;
+    return true; //RequestedMasternodeAssets > MASTERNODE_SYNC_LIST;
 }
 
 bool CMasternodeSync::NotCompleted()
